@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kontakt — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" active="kontakt" hint-size="100%,0px"></dc-import>
+<main>
+<section data-screen-label="Kontakt hero" style="position:relative;min-height:58svh;display:flex;align-items:flex-end;overflow:hidden;background:#0B0908;color:#EDE3CF;padding:150px clamp(20px,4vw,48px) clamp(48px,6vw,72px)">
+  <img src="slike/kljuc-u-vratima.webp" alt="Stari ključ u bravi drvenih vrata" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.95), rgba(11,9,8,.45) 60%, rgba(11,9,8,.6))"></div>
+  <div style="position:relative;max-width:1360px;margin:0 auto;width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
+    <div>
+      <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="CONTACT · BELGRADE">KONTAKT · BEOGRAD</div>
+      <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86" data-en="Find the door.">Pronađite vrata.</h1></div>
+    </div>
+    <span style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid {{ openColor }};color:{{ openColor }};font-family:'Special Elite',monospace;font-size:15px"><span style="width:9px;height:9px;border-radius:50%;background:{{ openColor }}"></span>{{ openLabel }}</span>
+  </div>
+</section>
+<section data-screen-label="Kontakt sadržaj" style="background:#14110F;color:#EDE3CF;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,72px);align-items:flex-start">
+    <div style="flex:1 1 320px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:18px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="DIRECT LINE">DIREKTNA VEZA</span>
+        <a href="tel:+381601234567" onClick="{{ tel }}" style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:#EDE3CF" style-hover="color:#D4AE6A">+381 60 123 4567</a>
+        <a href="https://wa.me/381601234567" target="_blank" rel="noopener" onClick="{{ wa }}" style="color:#D4AE6A">WhatsApp →</a>
+        <a href="mailto:ekipa@zakljucano.rs" style="color:#EDE3CF">ekipa@zakljucano.rs</a>
+        <span style="color:#B9AE99" data-en="Street and number, 11000 Belgrade">Ulica i broj, 11000 Beograd</span>
+      </div>
+      <div>
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="OPENING HOURS">RADNO VREME</span>
+        <ul style="list-style:none;margin:12px 0 0;padding:0">
+          <sc-for list="{{ hours }}" as="h" hint-placeholder-count="7"><li style="display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid rgba(184,137,62,.18);color:{{ h.color }};font-weight:{{ h.weight }}"><span style="text-transform:capitalize">{{ h.day }}</span><span style="font-family:'Special Elite',monospace">{{ h.time }}</span></li></sc-for>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;color:#B9AE99;font-size:15px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="GETTING HERE">KAKO DO NAS</span>
+        <span data-en="Public parking 100 m away. Buses and trams stop a 3-minute walk from the entrance.">Javni parking na 100 m. Autobusi i tramvaji staju na 3 minuta hoda od ulaza.</span>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Beograd" target="_blank" rel="noopener" onClick="{{ maps }}" style="color:#D4AE6A" data-en="Open in Google Maps →">Otvori u Google Mapama →</a>
+      </div>
+    </div>
+    <form onSubmit="{{ submit }}" novalidate="" style="flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:14px;background:#EDE3CF;color:#14110F;padding:clamp(22px,3vw,36px);box-shadow:0 24px 50px rgba(0,0,0,.4)">
+      <h2 style="margin:0 0 6px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:44px;line-height:.95" data-en="Write to us.">Pišite nam.</h2>
+      <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500" data-en="Topic">Tema</span>
+        <select value="{{ topic }}" onChange="{{ onTopic }}" style="height:54px;padding:0 12px;border:1px solid rgba(20,17,15,.3);border-radius:2px;background:#FBF6EA;color:#14110F"><sc-for list="{{ topics }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select></label>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px">
+        <sc-for list="{{ fields }}" as="f" hint-placeholder-count="3">
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500">{{ f.label }}</span>
+            <input type="{{ f.type }}" value="{{ f.value }}" onChange="{{ f.change }}" onBlur="{{ f.blur }}" autocomplete="{{ f.ac }}" aria-invalid="{{ f.inv }}" style="height:54px;padding:0 14px;border:1px solid {{ f.border }};border-radius:2px;background:#FBF6EA;color:#14110F;font-size:16px;outline:none" style-focus="border-color:#B8893E;box-shadow:0 0 0 3px rgba(184,137,62,.25)">
+            <sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ f.err }}</span></sc-if>
+          </label>
+        </sc-for>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500" data-en="Message">Poruka</span>
+        <textarea value="{{ msg }}" onChange="{{ onMsg }}" onBlur="{{ blurMsg }}" rows="5" aria-invalid="{{ msgInv }}" style="padding:12px 14px;border:1px solid {{ msgBorder }};border-radius:2px;background:#FBF6EA;color:#14110F;font-size:16px;resize:vertical;outline:none"></textarea>
+        <sc-if value="{{ msgErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ msgErr }}</span></sc-if></label>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><div role="status" style="padding:14px;border:1px solid #5E9E7E;background:rgba(124,196,160,.15)">{{ sentText }}</div></sc-if>
+      <button type="submit" disabled="{{ busy }}" style="min-height:58px;border:none;border-radius:2px;background:#14110F;color:#EDE3CF;font-weight:600;font-size:16px;cursor:pointer" style-hover="background:#3A332E">{{ submitLabel }}</button>
+    </form>
+  </div>
+</section>
+<section data-screen-label="Mapa" aria-label="Mapa" style="background:#14110F;padding:0 clamp(16px,4vw,48px) clamp(80px,10vw,120px)">
+  <div style="max-width:1240px;margin:0 auto;height:clamp(320px,45vw,480px);border:1px solid rgba(184,137,62,.3);overflow:hidden;background:#1A1613">
+    <iframe title="Mapa — ZAKLJUČANO, Beograd" src="https://www.google.com/maps?q=Beograd&amp;z=14&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="width:100%;height:100%;border:0;display:block"></iframe>
+  </div>
+</section>
+</main>
+<dc-import name="Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TX = {
+  sr: { open: 'Sada otvoreno · do 24:00', closed: 'Sada zatvoreno · otvaramo u 12:00', topics: [['opste', 'Opšte pitanje'], ['rez', 'Rezervacija'], ['vaucer', 'Vaučer'], ['firma', 'Timbilding / firma'], ['rodj', 'Rođendan']], f: { name: 'Ime', email: 'Email', phone: 'Telefon (opciono)' }, e: { name: 'Upišite ime.', email: 'Email nije ispravan.', phone: 'Telefon nije ispravan.', msg: 'Poruka je prekratka — napišite bar nekoliko reči.' }, send: 'Pošalji poruku', busy: 'Šaljemo…', sent: 'Poruka je poslata. Odgovaramo u roku od sat vremena dok radimo.' },
+  en: { open: 'Open now · until midnight', closed: 'Closed now · opens at 12:00', topics: [['opste', 'General question'], ['rez', 'Booking'], ['vaucer', 'Voucher'], ['firma', 'Team building / company'], ['rodj', 'Birthday']], f: { name: 'Name', email: 'Email', phone: 'Phone (optional)' }, e: { name: 'Enter your name.', email: 'Email looks wrong.', phone: 'Phone looks wrong.', msg: 'Message is too short — write a few words.' }, send: 'Send message', busy: 'Sending…', sent: 'Message sent. We reply within an hour during opening hours.' }
+};
+const ORDER = [1, 2, 3, 4, 5, 6, 0];
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', topic: 'opste', name: '', email: '', phone: '', msg: '', touched: {}, busy: false, sent: false, now: Date.now() };
+  componentDidMount() { const go = () => { if (!window.ZK) return setTimeout(go, 40); this.setState({ z: true, lang: ZK.lang() }); ZK.motion(); }; go(); this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l); this.tk = setInterval(() => this.setState({ now: Date.now() }), 60000); }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); clearInterval(this.tk); }
+  errs() { const s = this.state, e = TX[s.lang].e; return { name: s.name.trim().length < 2 ? e.name : '', email: ZK.validEmail(s.email) ? '' : e.email, phone: s.phone && !ZK.validPhone(s.phone) ? e.phone : '', msg: s.msg.trim().length < 10 ? e.msg : '' }; }
+  async submit(ev) {
+    ev.preventDefault(); const er = this.errs(); if (Object.values(er).some(Boolean)) return this.setState({ touched: { name: 1, email: 1, phone: 1, msg: 1 } });
+    const s = this.state, t = TX[s.lang]; this.setState({ busy: true });
+    const data = { Tema: (t.topics.find(x => x[0] === s.topic) || [])[1], Ime: s.name, Email: s.email, Telefon: s.phone, Poruka: s.msg };
+    await ZK.send('Kontakt — ' + data.Tema, data); ZK.openWA(ZK.waText('Poruka sa sajta', data)); ZK.track('form_submit', { form: 'kontakt', topic: s.topic });
+    this.setState({ busy: false, sent: true, msg: '' });
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, t = TX[L], Z = window.ZK; if (!Z) return { t };
+    const now = new Date(s.now), open = Z.isOpen(now), er = this.errs();
+    const F = [['name', 'text', 'name'], ['email', 'email', 'email'], ['phone', 'tel', 'tel']];
+    const full = L === 'en' ? ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] : ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'];
+    return {
+      t, openLabel: open ? t.open : t.closed, openColor: open ? '#7CC4A0' : '#E06A5C',
+      hours: ORDER.map(d => { const [a, b] = Z.HOURS[d], today = d === now.getDay(); return { day: full[d], time: `${a}:00–${b === 24 ? '24:00' : b + ':00'}`, color: today ? '#D4AE6A' : '#EDE3CF', weight: today ? 600 : 400 }; }),
+      topics: t.topics.map(([v, l]) => ({ v, l })), topic: s.topic, onTopic: e => this.setState({ topic: e.target.value }),
+      fields: F.map(([k, type, ac]) => { const e = s.touched[k] && er[k] ? er[k] : ''; return { label: t.f[k], type, ac, value: s[k], err: e, inv: e ? 'true' : 'false', border: e ? '#B03024' : 'rgba(20,17,15,.3)', change: ev => this.setState({ [k]: ev.target.value, sent: false }), blur: () => this.setState({ touched: { ...s.touched, [k]: 1 } }) }; }),
+      msg: s.msg, onMsg: e => this.setState({ msg: e.target.value, sent: false }), blurMsg: () => this.setState({ touched: { ...s.touched, msg: 1 } }),
+      msgErr: s.touched.msg && er.msg ? er.msg : '', msgInv: s.touched.msg && er.msg ? 'true' : 'false', msgBorder: s.touched.msg && er.msg ? '#B03024' : 'rgba(20,17,15,.3)',
+      submit: e => this.submit(e), busy: s.busy, sent: s.sent, sentText: t.sent, submitLabel: s.busy ? t.busy : t.send,
+      tel: () => Z.track('phone_click', { source: 'kontakt' }), wa: () => Z.track('whatsapp_click', { source: 'kontakt' }), maps: () => Z.track('directions_click', { source: 'kontakt' })
+    };
+  }
+}
+</script>
+</body>
+</html>

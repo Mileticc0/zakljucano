@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rang-lista — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" active="rang-lista" hint-size="100%,0px"></dc-import>
+<main>
+<section data-screen-label="Rang hero" style="position:relative;min-height:62svh;display:flex;align-items:flex-end;overflow:hidden;background:#0B0908;color:#EDE3CF;padding:150px clamp(20px,4vw,48px) clamp(48px,6vw,72px)">
+  <img src="slike/dosije-lupa.webp" alt="Mesingana lupa na drvenom stolu" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.95), rgba(11,9,8,.4) 60%, rgba(11,9,8,.6))"></div>
+  <div style="position:relative;max-width:1360px;margin:0 auto;width:100%">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="OFFICIAL RECORD">ZVANIČNI ZAPISNIK</div>
+    <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86" data-en="Fastest teams.">Najbrži timovi.</h1></div>
+    <p style="margin:16px 0 0;max-width:520px;font-size:18px;color:#D9CFBB" data-en="Every hint after the third adds two minutes. The clock doesn’t lie.">Svaki nagoveštaj posle trećeg dodaje dva minuta. Sat ne laže.</p>
+  </div>
+</section>
+<section data-screen-label="Rang tabela" style="background:#14110F;color:#EDE3CF;padding:clamp(48px,6vw,80px) clamp(16px,4vw,48px) clamp(80px,10vw,130px)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;flex-wrap:wrap;gap:8px" role="group" aria-label="Filter po sobi">
+        <sc-for list="{{ roomF }}" as="o" hint-placeholder-count="5"><button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.pressed }}" style="min-height:44px;padding:0 16px;border:1px solid {{ o.border }};border-radius:2px;background:{{ o.bg }};color:{{ o.fg }};font-size:15px;cursor:pointer;display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:{{ o.dot }}"></span>{{ o.label }}</button></sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px" role="group" aria-label="Filter po mesecu">
+        <sc-for list="{{ monthF }}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.pressed }}" style="min-height:44px;padding:0 16px;border:1px solid {{ o.border }};border-radius:2px;background:{{ o.bg }};color:{{ o.fg }};font-size:15px;cursor:pointer;text-transform:capitalize">{{ o.label }}</button></sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:16px;margin-top:40px">
+      <sc-for list="{{ podium }}" as="p" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:24px;background:#1A1613;border:1px solid rgba(184,137,62,.3);animation:fadeUp 400ms cubic-bezier(0.23,1,0.32,1) both">
+          <span style="width:64px;height:64px;border-radius:50%;background:{{ p.medal }};box-shadow:inset 0 2px 0 rgba(255,240,200,.5), inset 0 -4px 8px rgba(60,38,10,.4), 0 6px 16px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:32px;color:#2A1D08">{{ p.rank }}</span>
+          <span style="font-family:'Special Elite',monospace;font-size:44px;line-height:1;color:#D4AE6A">{{ p.time }}</span>
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1">{{ p.team }}</span>
+          <span style="font-size:14px;color:#B9AE99">{{ p.meta }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}"><p style="margin:40px 0 0;color:#B9AE99">{{ t.empty }}</p></sc-if>
+    <ol start="4" style="list-style:none;margin:32px 0 0;padding:0;border-top:1px solid rgba(184,137,62,.25)">
+      <sc-for list="{{ rest }}" as="r" hint-placeholder-count="8">
+        <li style="display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid rgba(184,137,62,.18)">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#8F8577">{{ r.rank }}</span>
+          <span style="display:flex;flex-direction:column;min-width:0"><span style="font-size:17px;font-weight:500">{{ r.team }}</span><span style="font-size:13px;color:#B9AE99">{{ r.meta }}</span></span>
+          <span style="font-family:'Special Elite',monospace;font-size:26px;color:#EDE3CF">{{ r.time }}</span>
+        </li>
+      </sc-for>
+    </ol>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;margin-top:56px;padding:28px;background:#EDE3CF;color:#14110F">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,48px);line-height:.95" data-en="Think you can beat them?">Mislite da ih možete prestići?</span>
+      <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;min-height:54px;padding:0 28px;background:#14110F;color:#EDE3CF;font-weight:600;border-radius:2px" data-en="Book a slot">Rezerviši termin</a>
+    </div>
+  </div>
+</section>
+</main>
+<dc-import name="Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', room: 'all', mo: 0 };
+  componentDidMount() { const go = () => { if (!window.ZK) return setTimeout(go, 40); this.setState({ z: true, lang: ZK.lang() }); ZK.motion(); }; go(); this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l); }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); }
+  renderVals() {
+    const s = this.state, L = s.lang, Z = window.ZK, en = L === 'en', t = { empty: en ? 'No escapes recorded for this filter yet.' : 'Za ovaj filter još nema zabeleženih izlazaka.' };
+    if (!Z) return { t };
+    const pill = on => ({ bg: on ? '#B8893E' : 'transparent', fg: on ? '#14110F' : '#EDE3CF', border: on ? '#B8893E' : 'rgba(237,227,207,.3)', pressed: on ? 'true' : 'false' });
+    const now = new Date(), mDate = k => new Date(now.getFullYear(), now.getMonth() - k, 1), ym = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    const key = ym(mDate(s.mo)), sec = x => { const [m, ss] = x.split(':').map(Number); return m * 60 + ss; };
+    const list = Z.LEADERBOARD.filter(p => p.date.startsWith(key) && (s.room === 'all' || p.room === s.room)).sort((a, b) => sec(a.time) - sec(b.time));
+    const meta = p => `${Z.room(p.room)[L].name} · ${Z.fmtDate(p.date, L)} · ${p.hints} ${en ? 'hints' : 'nagoveštaja'}`;
+    return {
+      t, empty: list.length === 0,
+      roomF: [{ id: 'all', label: en ? 'All rooms' : 'Sve sobe', dot: '#EDE3CF' }, ...Z.ROOMS.map(r => ({ id: r.id, label: r[L].name, dot: r.light }))].map(o => ({ ...o, ...pill(s.room === o.id), pick: () => { this.setState({ room: o.id }); Z.track('leaderboard_filter', { room: o.id }); } })),
+      monthF: [0, 1, 2].map(k => { const d = mDate(k); return { label: `${Z.MONTHS[L][d.getMonth()]} ${d.getFullYear()}`, ...pill(s.mo === k), pick: () => { this.setState({ mo: k }); Z.track('leaderboard_filter', { month: ym(d) }); } }; }),
+      podium: list.slice(0, 3).map((p, i) => ({ rank: i + 1, medal: Z.MEDALS[i], time: p.time, team: p.team, meta: meta(p) })),
+      rest: list.slice(3, 20).map((p, i) => ({ rank: i + 4, time: p.time, team: p.team, meta: meta(p) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

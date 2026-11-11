@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<footer style="background:#0F0D0B;border-top:1px solid rgba(184,137,62,.25);padding:72px clamp(20px,4vw,48px) 32px;color:#EDE3CF">
+  <div style="max-width:1360px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:300px">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:.06em;line-height:1">ZAKLJUČANO</span>
+        <span style="font-size:15px;color:#B9AE99" data-en="Escape room in Belgrade. Four rooms, 60 minutes, one way out.">Escape room u Beogradu. Četiri sobe, 60 minuta, jedan izlaz.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="ROOMS">SOBE</span>
+        <a href="soba-podrum.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Dr. Vuk’s Basement">Podrum doktora Vuka</a>
+        <a href="soba-sef.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="National Bank Vault">Sef Narodne banke</a>
+        <a href="soba-kabina.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Cabin 7 – Orient Express">Kabina 7 – Orijent ekspres</a>
+        <a href="soba-laboratorija.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Laboratory 0">Laboratorija 0</a>
+        <a href="sobe.dc.html" style="color:#B8893E" style-hover="color:#D4AE6A" data-en="All rooms →">Sve sobe →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="MORE">VIŠE</span>
+        <a href="rezervacija.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Booking">Rezervacija</a>
+        <a href="potvrda.dc.html#upravljanje" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Manage booking">Upravljanje rezervacijom</a>
+        <a href="timbilding.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Team building">Timbilding</a>
+        <a href="rodjendani.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Birthdays">Rođendani</a>
+        <a href="vauceri.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Gift vouchers">Poklon vaučeri</a>
+        <a href="rang-lista.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Leaderboard">Rang-lista</a>
+        <a href="faq.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A">FAQ</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="CONTACT">KONTAKT</span>
+        <a href="tel:+381601234567" onClick="{{ tel }}" style="color:#EDE3CF" style-hover="color:#D4AE6A">+381 60 123 4567</a>
+        <a href="https://wa.me/381601234567" target="_blank" rel="noopener" onClick="{{ wa }}" style="color:#EDE3CF" style-hover="color:#D4AE6A">WhatsApp</a>
+        <a href="mailto:ekipa@zakljucano.rs" style="color:#EDE3CF" style-hover="color:#D4AE6A">ekipa@zakljucano.rs</a>
+        <span style="color:#B9AE99" data-en="Street and number, Belgrade">Ulica i broj, Beograd</span>
+        <span style="color:#B9AE99" data-en="Every day 12:00–24:00">Svaki dan 12:00–24:00</span>
+        <a href="kontakt.dc.html" style="color:#B8893E" style-hover="color:#D4AE6A" data-en="How to find us →">Kako do nas →</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;margin-top:56px;padding-top:24px;border-top:1px solid rgba(237,227,207,.1);font-size:13px;color:#8F8577">
+      <span>© 2026 ZAKLJUČANO · Beograd</span>
+      <a href="index.dc.html" onClick="{{ relock }}" style="display:inline-flex;align-items:center;min-height:44px;color:#B9AE99;font-family:'Special Elite',monospace" style-hover="color:#D4AE6A" data-en="Lock the site again">Zaključaj sajt ponovo</a>
+    </div>
+  </div>
+  <sc-if value="{{ showSticky }}" hint-placeholder-val="{{ false }}"><div style="height:80px"></div></sc-if>
+</footer>
+<sc-if value="{{ showSticky }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(20,17,15,.95);border-top:1px solid rgba(184,137,62,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#EDE3CF">
+    <span style="display:flex;flex-direction:column;line-height:1.1"><span style="font-size:12px;color:#B9AE99" data-en="from">od</span><span style="font-family:'Bebas Neue',sans-serif;font-size:26px">1.700 RSD<span style="font-size:16px;color:#B9AE99">/os</span></span></span>
+    <a href="{{ stickyHref }}" data-btn="1" style="display:inline-flex;align-items:center;min-height:50px;padding:0 26px;background:#B8893E;color:#14110F;font-weight:600;border-radius:2px" data-en="Book">Rezerviši</a>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;sticky&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;stickyHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;rezervacija.dc.html&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { m: typeof innerWidth !== 'undefined' && innerWidth < 760 };
+  componentDidMount() { this.r = () => { const m = innerWidth < 760; if (m !== this.state.m) this.setState({ m }); }; addEventListener('resize', this.r); }
+  componentWillUnmount() { removeEventListener('resize', this.r); }
+  renderVals() {
+    const t = (n, p) => window.ZK && window.ZK.track(n, p);
+    return {
+      showSticky: this.state.m && this.props.sticky !== false,
+      stickyHref: this.props.stickyHref || 'rezervacija.dc.html',
+      tel: () => t('phone_click', { source: 'footer' }), wa: () => t('whatsapp_click', { source: 'footer' }),
+      relock: () => { try { localStorage.removeItem('zk_unlocked'); } catch (e) {} }
+    };
+  }
+}
+</script>
+</body>
+</html>

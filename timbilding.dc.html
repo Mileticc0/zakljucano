@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Timbilding — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" active="timbilding" hint-size="100%,0px"></dc-import>
+<main>
+<section data-screen-label="Timbilding hero" style="position:relative;min-height:78svh;display:flex;align-items:flex-end;overflow:hidden;background:#0B0908;color:#EDE3CF;padding:150px clamp(20px,4vw,48px) clamp(48px,7vw,88px)">
+  <img src="slike/timbilding.webp" alt="Kolege slave u kancelariji posle uspešnog timbildinga" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.96), rgba(11,9,8,.55) 55%, rgba(11,9,8,.7))"></div>
+  <div style="position:relative;max-width:1360px;margin:0 auto;width:100%">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="FOR COMPANIES · 6 TO 60 PEOPLE">ZA FIRME · OD 6 DO 60 LJUDI</div>
+    <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86;max-width:1100px" data-en="Four rooms. One clock. Your whole team.">Četiri sobe. Jedan sat. Ceo tim.</h1></div>
+    <p style="margin:16px 0 0;max-width:560px;font-size:18px;color:#D9CFBB" data-en="All four rooms at once, teams competing against the clock and each other, and a winners’ board at the end. We send the offer within 24 hours.">Sve četiri sobe istovremeno, timovi koji se takmiče protiv sata i jedni protiv drugih, i tabla pobednika na kraju. Ponudu šaljemo za 24 sata.</p>
+  </div>
+</section>
+
+<section data-screen-label="Šta dobijate" style="background:#14110F;color:#EDE3CF;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(24px,3vw,40px)">
+    <div style="background:#EDE3CF;color:#14110F;padding:30px 26px;transform:rotate(-1.5deg);box-shadow:0 20px 40px rgba(0,0,0,.45)"><div style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#C0392B">01</div><h2 style="margin:6px 0 10px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:34px;line-height:.95" data-en="Four rooms, one clock">Četiri sobe, jedan sat</h2><p style="margin:0;color:#3A332E" data-en="Up to 24 people play at the same time. Bigger groups play in rounds with a lounge break in between.">Do 24 osobe igraju u isto vreme. Veće grupe igraju u rundama, uz pauzu u salonu između.</p></div>
+    <div style="background:#EDE3CF;color:#14110F;padding:30px 26px;transform:rotate(1.2deg);box-shadow:0 20px 40px rgba(0,0,0,.45)"><div style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#C0392B">02</div><h2 style="margin:6px 0 10px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:34px;line-height:.95" data-en="A debrief that sticks">Analiza koja ostaje</h2><p style="margin:0;color:#3A332E" data-en="Game masters note how each team communicated and decided. You get a short report the next day.">Game masteri beleže kako je svaki tim komunicirao i odlučivao. Sutradan dobijate kratak izveštaj.</p></div>
+    <div style="background:#EDE3CF;color:#14110F;padding:30px 26px;transform:rotate(-.8deg);box-shadow:0 20px 40px rgba(0,0,0,.45)"><div style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#C0392B">03</div><h2 style="margin:6px 0 10px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:34px;line-height:.95" data-en="Invoice to your company">Faktura na firmu</h2><p style="margin:0;color:#3A332E" data-en="Bank transfer payment. Catering and drinks on request.">Plaćanje virmanski. Ketering i piće po dogovoru.</p></div>
+  </div>
+</section>
+
+<section id="ponuda" data-screen-label="Forma za ponudu" style="background:#EDE3CF;color:#14110F;padding:clamp(72px,9vw,120px) clamp(16px,4vw,48px)">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#8A6328" data-en="REQUEST AN OFFER">ZAHTEV ZA PONUDU</div>
+    <h2 style="margin:10px 0 36px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9" data-en="Tell us about your team.">Recite nam nešto o timu.</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:flex-start">
+      <form onSubmit="{{ submit }}" novalidate="" style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:18px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px">
+          <sc-for list="{{ fields }}" as="f" hint-placeholder-count="5">
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500">{{ f.label }}</span>
+              <input type="{{ f.type }}" value="{{ f.value }}" onChange="{{ f.change }}" onBlur="{{ f.blur }}" autocomplete="{{ f.ac }}" inputmode="{{ f.im }}" min="{{ f.min }}" aria-invalid="{{ f.inv }}" style="height:54px;padding:0 14px;border:1px solid {{ f.border }};border-radius:2px;background:#FBF6EA;color:#14110F;font-size:16px;outline:none" style-focus="border-color:#B8893E;box-shadow:0 0 0 3px rgba(184,137,62,.25)">
+              <sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ f.err }}</span></sc-if>
+            </label>
+          </sc-for>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:10px">
+          <span style="display:flex;justify-content:space-between;font-size:14px;font-weight:500"><span data-en="Number of people">Broj ljudi</span><span style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1">{{ people }}</span></span>
+          <input type="range" min="6" max="60" step="1" value="{{ people }}" onChange="{{ onPeople }}" style="width:100%;height:44px;accent-color:#B8893E">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500" data-en="Budget">Budžet</span>
+          <select value="{{ budget }}" onChange="{{ onBudget }}" style="height:54px;padding:0 12px;border:1px solid rgba(20,17,15,.3);border-radius:2px;background:#FBF6EA;color:#14110F"><sc-for list="{{ budgets }}" as="b" hint-placeholder-count="4"><option value="{{ b.v }}">{{ b.l }}</option></sc-for></select></label>
+        <label style="display:flex;align-items:center;gap:14px;min-height:60px;padding:0 16px;border:1px solid rgba(20,17,15,.3);border-radius:2px;cursor:pointer;background:{{ cateringBg }}">
+          <input type="checkbox" checked="{{ catering }}" onChange="{{ onCatering }}" style="width:22px;height:22px;accent-color:#B8893E">
+          <span style="flex:1" data-en="We need catering and drinks">Treba nam ketering i piće</span><span style="font-family:'Special Elite',monospace;font-size:14px;color:#5A4F45">+1.200 RSD/os</span>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500" data-en="Anything else? (optional)">Još nešto? (opciono)</span><textarea value="{{ note }}" onChange="{{ onNote }}" rows="3" style="padding:12px 14px;border:1px solid rgba(20,17,15,.3);border-radius:2px;background:#FBF6EA;color:#14110F;font-size:16px;resize:vertical;outline:none"></textarea></label>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><div role="status" style="padding:16px;border:1px solid #5E9E7E;background:rgba(124,196,160,.15);font-size:15px">{{ t.sent }}</div></sc-if>
+        <button type="submit" disabled="{{ busy }}" style="min-height:58px;border:none;border-radius:2px;background:#14110F;color:#EDE3CF;font-weight:600;font-size:16px;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#3A332E">{{ submitLabel }}</button>
+        <p style="margin:0;font-size:13px;color:#5A4F45" data-en="The request is sent to us and a WhatsApp message with all the details opens too.">Zahtev stiže nama, a otvara se i WhatsApp poruka sa svim podacima.</p>
+      </form>
+      <aside aria-label="Okvirna ponuda" style="flex:1 1 320px;max-width:440px;position:sticky;top:100px;background:#14110F;color:#EDE3CF;padding:28px;box-shadow:0 30px 60px rgba(20,17,15,.35);display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em;color:#B8893E" data-en="ESTIMATED OFFER · LIVE">OKVIRNA PONUDA · UŽIVO</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.9;color:#D4AE6A">{{ totalLine }}</span>
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="4">
+          <div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed rgba(237,227,207,.15);padding-bottom:10px;font-size:15px"><span style="color:#B9AE99">{{ l.k }}</span><span style="text-align:right">{{ l.v }}</span></div>
+        </sc-for>
+        <sc-if value="{{ overBudget }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:#E06A5C">{{ t.over }}</span></sc-if>
+        <span style="font-size:13px;color:#8F8577" data-en="Estimate excl. VAT. The final offer depends on date and extras.">Okvirno, bez PDV-a. Konačna ponuda zavisi od datuma i dodataka.</span>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+<dc-import name="Footer" stickyHref="#ponuda" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TX = {
+  sr: { f: { company: 'Naziv firme', pib: 'PIB (opciono)', contact: 'Kontakt osoba', phone: 'Telefon', email: 'Email', date: 'Željeni datum' }, e: { company: 'Upišite naziv firme.', pib: 'PIB ima 9 cifara.', contact: 'Upišite ime kontakt osobe.', phone: 'Telefon nije ispravan — npr. 060 123 4567.', email: 'Email nije ispravan.', date: 'Izaberite datum od sutra pa nadalje.' }, budgets: [['', 'Izaberite okvir'], ['50000', 'do 50.000 RSD'], ['100000', '50.000–100.000 RSD'], ['200000', '100.000–200.000 RSD'], ['999999', 'preko 200.000 RSD']], teams: 'Timova', rooms: 'Soba istovremeno', rounds: 'Rundi', pp: 'Igra po osobi', cat: 'Ketering', send: 'Pošalji zahtev za ponudu', busy: 'Šaljemo…', sent: 'Zahtev je poslat. Javljamo se sa ponudom u roku od 24 sata.', over: 'Okvirna cena je iznad izabranog budžeta — javićemo predlog koji se uklapa.', no: 'ne' },
+  en: { f: { company: 'Company name', pib: 'Tax ID (optional)', contact: 'Contact person', phone: 'Phone', email: 'Email', date: 'Preferred date' }, e: { company: 'Enter the company name.', pib: 'Tax ID has 9 digits.', contact: 'Enter a contact name.', phone: 'Phone looks wrong — e.g. +381 60 123 4567.', email: 'Email looks wrong.', date: 'Pick a date from tomorrow on.' }, budgets: [['', 'Choose a range'], ['50000', 'up to 50,000 RSD'], ['100000', '50,000–100,000 RSD'], ['200000', '100,000–200,000 RSD'], ['999999', 'over 200,000 RSD']], teams: 'Teams', rooms: 'Rooms at once', rounds: 'Rounds', pp: 'Game per person', cat: 'Catering', send: 'Send offer request', busy: 'Sending…', sent: 'Request sent. We’ll reply with an offer within 24 hours.', over: 'The estimate is above your budget — we’ll suggest an option that fits.', no: 'no' }
+};
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', company: '', pib: '', contact: '', phone: '', email: '', date: '', people: 16, budget: '', catering: false, note: '', touched: {}, busy: false, sent: false };
+  componentDidMount() { const go = () => { if (!window.ZK) return setTimeout(go, 40); this.setState({ z: true, lang: ZK.lang() }); ZK.motion(); }; go(); this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l); }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); }
+  calc() { const n = this.state.people, pp = n <= 12 ? 1900 : n <= 24 ? 1800 : 1700, teams = Math.ceil(n / 6), rooms = Math.min(4, teams), rounds = Math.ceil(teams / 4), cat = this.state.catering ? n * 1200 : 0; return { n, pp, teams, rooms, rounds, cat, total: n * pp + cat }; }
+  errs() { const s = this.state, e = TX[s.lang].e, tm = new Date(); tm.setDate(tm.getDate() + 1); const tk = ZK.dateKey(tm);
+    return { company: s.company.trim().length < 2 ? e.company : '', pib: s.pib && !/^\d{9}$/.test(s.pib.trim()) ? e.pib : '', contact: s.contact.trim().length < 3 ? e.contact : '', phone: ZK.validPhone(s.phone) ? '' : e.phone, email: ZK.validEmail(s.email) ? '' : e.email, date: !s.date || s.date < tk ? e.date : '' }; }
+  async submit(ev) {
+    ev.preventDefault(); const er = this.errs(); if (Object.values(er).some(Boolean)) return this.setState({ touched: { company: 1, pib: 1, contact: 1, phone: 1, email: 1, date: 1 } });
+    const s = this.state, c = this.calc(); this.setState({ busy: true });
+    const data = { Firma: s.company, PIB: s.pib, Kontakt: s.contact, Telefon: s.phone, Email: s.email, Datum: s.date, 'Broj ljudi': s.people, Budžet: s.budget, Ketering: s.catering ? 'da' : 'ne', 'Okvirna ponuda': ZK.fmt(c.total) + ' RSD', Napomena: s.note };
+    await ZK.send('Timbilding — zahtev za ponudu: ' + s.company, data); ZK.openWA(ZK.waText('Timbilding — zahtev za ponudu', data));
+    ZK.track('form_submit', { form: 'timbilding', people: s.people, value: c.total }); this.setState({ busy: false, sent: true });
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, t = TX[L], Z = window.ZK; if (!Z) return { t, people: s.people };
+    const c = this.calc(), er = this.errs();
+    const F = [['company', 'text', 'organization', 'text'], ['pib', 'text', 'off', 'numeric'], ['contact', 'text', 'name', 'text'], ['phone', 'tel', 'tel', 'tel'], ['email', 'email', 'email', 'email'], ['date', 'date', 'off', 'text']];
+    const tm = new Date(); tm.setDate(tm.getDate() + 1);
+    return {
+      t, fields: F.map(([k, type, ac, im]) => { const e = s.touched[k] && er[k] ? er[k] : ''; return { label: t.f[k], type, ac, im, min: k === 'date' ? Z.dateKey(tm) : '', value: s[k], err: e, inv: e ? 'true' : 'false', border: e ? '#B03024' : 'rgba(20,17,15,.3)', change: ev => this.setState({ [k]: ev.target.value, sent: false }), blur: () => this.setState({ touched: { ...s.touched, [k]: 1 } }) }; }),
+      people: s.people, onPeople: e => this.setState({ people: +e.target.value }),
+      budgets: t.budgets.map(([v, l]) => ({ v, l })), budget: s.budget, onBudget: e => this.setState({ budget: e.target.value }),
+      catering: s.catering, onCatering: () => this.setState({ catering: !s.catering }), cateringBg: s.catering ? 'rgba(184,137,62,.14)' : 'transparent',
+      note: s.note, onNote: e => this.setState({ note: e.target.value }),
+      totalLine: `${Z.fmt(c.total)} RSD`, lines: [{ k: t.teams, v: `${c.teams} × ≤6` }, { k: t.rooms, v: String(c.rooms) }, { k: t.rounds, v: String(c.rounds) }, { k: t.pp, v: `${Z.fmt(c.pp)} RSD` }, { k: t.cat, v: c.cat ? `${Z.fmt(c.cat)} RSD` : t.no }],
+      overBudget: !!s.budget && c.total > +s.budget, submit: e => this.submit(e), busy: s.busy, sent: s.sent, submitLabel: s.busy ? t.busy : t.send
+    };
+  }
+}
+</script>
+</body>
+</html>

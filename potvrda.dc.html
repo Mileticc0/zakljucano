@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Potvrda — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" hint-size="100%,0px"></dc-import>
+<main style="background:radial-gradient(ellipse 60% 40% at 50% 10%, rgba(184,137,62,.14), transparent 70%), #14110F;color:#EDE3CF;padding:clamp(110px,12vw,150px) clamp(16px,4vw,48px) clamp(80px,10vw,120px)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
+      <div aria-hidden="true" style="position:relative;display:flex;flex-direction:column;align-items:center;margin-top:10px">
+        <div style="width:92px;height:72px;margin-bottom:-24px;border:13px solid #A29C92;border-bottom:none;border-radius:46px 46px 0 0;transform:{{ shackleT }};transition:transform 520ms cubic-bezier(0.34,1.56,0.64,1)"></div>
+        <div style="position:relative;z-index:1;width:132px;height:100px;border-radius:14px;background:linear-gradient(165deg,#DDBA78 0%,#B8893E 42%,#8A6328 100%);box-shadow:inset 0 2px 0 rgba(255,240,200,.5), inset 0 -6px 14px rgba(60,38,10,.45), 0 20px 40px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center">
+          <span style="position:relative;width:18px;height:30px"><span style="position:absolute;top:0;left:1px;width:16px;height:16px;border-radius:50%;background:#3A2808"></span><span style="position:absolute;top:12px;left:6px;width:6px;height:16px;background:#3A2808"></span></span>
+        </div>
+        <sc-if value="{{ stamped }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:56px;left:50%;margin-left:-140px;width:280px;text-align:center;padding:6px 14px;border:4px solid #C0392B;color:#C0392B;background:rgba(20,17,15,.35);font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.1em;line-height:1;animation:stampIn 600ms cubic-bezier(0.23,1,0.32,1) both">MISIJA POTVRĐENA</div>
+        </sc-if>
+      </div>
+      <div style="overflow:hidden;padding:30px 0 12px;margin:20px 0 -12px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,112px);line-height:.88">{{ title }}</h1></div>
+      <p style="margin:0;max-width:560px;font-size:18px;color:#D9CFBB;text-wrap:pretty">{{ lead }}</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,48px);align-items:flex-start;justify-content:center;margin-top:56px">
+      <article aria-label="Ulaznica" style="flex:1 1 520px;max-width:640px;display:flex;flex-wrap:wrap;background:#EDE3CF;color:#14110F;box-shadow:0 30px 60px rgba(0,0,0,.5)">
+        <div style="flex:1 1 300px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:14px;border-right:2px dashed rgba(20,17,15,.3)">
+          <div style="display:flex;justify-content:space-between;gap:12px;font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em;color:#5A4F45"><span>ZAKLJUČANO · {{ t.ticket }}</span><span style="color:#C0392B">{{ statusLabel }}</span></div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:.92">{{ roomName }}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 16px">
+            <sc-for list="{{ tRows }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Special Elite',monospace;font-size:11px;letter-spacing:.12em;color:#5A4F45">{{ r.k }}</span><span style="font-size:17px;font-weight:600">{{ r.v }}</span></div>
+            </sc-for>
+          </div>
+          <div style="font-size:13px;color:#5A4F45;border-top:1px solid rgba(20,17,15,.15);padding-top:10px">{{ t.arrive }}</div>
+        </div>
+        <div style="flex:0 0 200px;margin:0 auto;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+          <svg role="img" aria-label="QR kod ulaznice" viewBox="{{ qrBox }}" style="width:150px;height:150px;background:#FBF6EA;padding:6px" shape-rendering="crispEdges"><path d="{{ qrPath }}" fill="#14110F"></path></svg>
+          <span style="font-family:'Special Elite',monospace;font-size:18px;letter-spacing:.12em">{{ bid }}</span>
+        </div>
+      </article>
+      <div style="flex:1 1 260px;max-width:360px;display:flex;flex-direction:column;gap:10px">
+        <button type="button" onClick="{{ download }}" style="min-height:54px;border:none;border-radius:2px;background:#B8893E;color:#14110F;font-weight:600;font-size:16px;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#CFA35A">{{ t.dl }}</button>
+        <a href="{{ gcal }}" target="_blank" rel="noopener" onClick="{{ gcalClick }}" data-btn="1" style="display:flex;align-items:center;justify-content:center;min-height:54px;border:1px solid rgba(237,227,207,.35);border-radius:2px;color:#EDE3CF" style-hover="border-color:#EDE3CF;color:#EDE3CF">{{ t.cal }}</a>
+        <a href="{{ waHref }}" target="_blank" rel="noopener" onClick="{{ waClick }}" data-btn="1" style="display:flex;align-items:center;justify-content:center;min-height:54px;border:1px solid rgba(237,227,207,.35);border-radius:2px;color:#EDE3CF" style-hover="border-color:#EDE3CF;color:#EDE3CF">{{ t.wa }}</a>
+        <a href="{{ maps }}" target="_blank" rel="noopener" onClick="{{ mapsClick }}" data-btn="1" style="display:flex;align-items:center;justify-content:center;min-height:54px;border:1px solid rgba(237,227,207,.35);border-radius:2px;color:#EDE3CF" style-hover="border-color:#EDE3CF;color:#EDE3CF">{{ t.maps }}</a>
+        <sc-if value="{{ isDemo }}" hint-placeholder-val="{{ false }}"><p style="margin:8px 0 0;font-size:13px;color:#8F8577">{{ t.demo }}</p></sc-if>
+      </div>
+    </div>
+
+    <section id="upravljanje" aria-labelledby="up-h" style="margin-top:clamp(80px,10vw,130px);padding-top:clamp(48px,6vw,72px);border-top:1px solid rgba(184,137,62,.25)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,72px);align-items:flex-start">
+        <div style="flex:1 1 340px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E" data-en="MANAGE BOOKING">UPRAVLJANJE REZERVACIJOM</div>
+          <h2 id="up-h" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(44px,5vw,72px);line-height:.9" data-en="Change of plans?">Promena plana?</h2>
+          <p style="margin:0;color:#B9AE99;max-width:420px" data-en="Enter your booking number and email. You can change the slot or cancel free of charge up to 24 hours before.">Unesite broj rezervacije i email. Termin možete promeniti ili otkazati besplatno do 24 sata pre početka.</p>
+          <p style="margin:0;font-family:'Special Elite',monospace;font-size:13px;color:#8F8577">Demo: ZK-482913 · test@zakljucano.rs</p>
+        </div>
+        <div style="flex:1 1 420px;display:flex;flex-direction:column;gap:14px">
+          <form onSubmit="{{ find }}" novalidate="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:10px;align-items:end">
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;color:#D9CFBB" data-en="Booking number">Broj rezervacije</span><input value="{{ mId }}" onChange="{{ onMId }}" placeholder="ZK-000000" style="height:54px;padding:0 14px;border:1px solid rgba(237,227,207,.25);border-radius:2px;background:#1A1613;color:#EDE3CF;font-family:'Special Elite',monospace;font-size:17px;text-transform:uppercase;outline:none" style-focus="border-color:#B8893E"></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;color:#D9CFBB">Email</span><input type="email" value="{{ mEmail }}" onChange="{{ onMEmail }}" autocomplete="email" style="height:54px;padding:0 14px;border:1px solid rgba(237,227,207,.25);border-radius:2px;background:#1A1613;color:#EDE3CF;font-size:16px;outline:none" style-focus="border-color:#B8893E"></label>
+            <button type="submit" style="min-height:54px;padding:0 22px;border:none;border-radius:2px;background:#EDE3CF;color:#14110F;font-weight:600;cursor:pointer">{{ t.find }}</button>
+          </form>
+          <sc-if value="{{ mErr }}" hint-placeholder-val="{{ false }}"><div role="alert" style="font-size:14px;color:#E06A5C">{{ mErr }}</div></sc-if>
+          <sc-if value="{{ found }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#1A1613;border:1px solid rgba(184,137,62,.3);padding:20px;display:flex;flex-direction:column;gap:14px;animation:fadeUp 300ms cubic-bezier(0.23,1,0.32,1) both">
+              <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><span style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1">{{ fRoom }}</span><span style="font-family:'Special Elite',monospace;font-size:14px;color:{{ fStatusColor }}">{{ fStatus }}</span></div>
+              <div style="font-size:16px;color:#D9CFBB">{{ fWhen }}</div>
+              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-wrap:wrap;gap:10px">
+                  <button type="button" onClick="{{ startChange }}" style="min-height:48px;padding:0 18px;border:1px solid #B8893E;border-radius:2px;background:none;color:#D4AE6A;cursor:pointer">{{ t.change }}</button>
+                  <button type="button" onClick="{{ cancel }}" style="min-height:48px;padding:0 18px;border:1px solid rgba(192,57,43,.6);border-radius:2px;background:none;color:#E06A5C;cursor:pointer">{{ t.cancel }}</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ lateMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#B9AE99">{{ t.late }}</p></sc-if>
+              <sc-if value="{{ changing }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px"><sc-for list="{{ cDays }}" as="d" hint-placeholder-count="7"><button type="button" onClick="{{ d.pick }}" style="flex:none;min-width:70px;min-height:56px;border:1px solid {{ d.border }};border-radius:2px;background:{{ d.bg }};color:{{ d.fg }};cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-size:11px;text-transform:uppercase">{{ d.dow }}</span><span style="font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1">{{ d.num }}</span></button></sc-for></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px"><sc-for list="{{ cTimes }}" as="s" hint-placeholder-count="8"><button type="button" onClick="{{ s.pick }}" disabled="{{ s.dis }}" style="min-height:48px;border:1px solid {{ s.border }};border-radius:2px;background:none;color:{{ s.fg }};font-family:'Bebas Neue',sans-serif;font-size:22px;text-decoration:{{ s.deco }};text-decoration-color:#C0392B;cursor:pointer">{{ s.time }}</button></sc-for></div>
+              </sc-if>
+              <sc-if value="{{ mOk }}" hint-placeholder-val="{{ false }}"><div role="status" style="font-size:15px;color:#7CC4A0">{{ mOk }}</div></sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+<dc-import name="Footer" sticky="{{ false }}" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TX = {
+  sr: { title: 'Vidimo se u mraku.', lead: e => `Ulaznica je ispod, a potvrda stiže na ${e}. Pokažite QR kod na ulazu.`, ticket: 'ULAZNICA', paidFull: 'PLAĆENO', paidDep: 'DEPOZIT PLAĆEN', date: 'DATUM', time: 'VREME', players: 'IGRAČI', team: 'TIM', arrive: 'Dođite 15 minuta ranije. Kasnjenje skraćuje vreme igre.', dl: 'Preuzmi kartu', cal: 'Dodaj u Google kalendar', wa: 'Pošalji timu na WhatsApp', maps: 'Kako do nas', demo: 'Prikazana je demo rezervacija — napravite pravu kroz rezervaciju.', find: 'Pronađi', notFound: 'Nismo pronašli rezervaciju sa tim brojem i emailom.', change: 'Promeni termin', cancel: 'Otkaži rezervaciju', late: 'Do termina je manje od 24 sata — promene i otkazivanje samo telefonom: +381 60 123 4567.', active: 'AKTIVNA', cancelled: 'OTKAZANA', changed: (w) => `Termin je promenjen: ${w}. Nova potvrda je poslata na email.`, cancelOk: 'Rezervacija je otkazana. Depozit vraćamo u roku od 5 radnih dana.', confirmCancel: 'Sigurno želite da otkažete rezervaciju?' },
+  en: { title: 'See you in the dark.', lead: e => `Your ticket is below and a confirmation is on its way to ${e}. Show the QR code at the door.`, ticket: 'TICKET', paidFull: 'PAID', paidDep: 'DEPOSIT PAID', date: 'DATE', time: 'TIME', players: 'PLAYERS', team: 'TEAM', arrive: 'Arrive 15 minutes early. Being late shortens your game.', dl: 'Download ticket', cal: 'Add to Google Calendar', wa: 'Send to team on WhatsApp', maps: 'How to get here', demo: 'This is a demo booking — make a real one through the booking page.', find: 'Find', notFound: 'We couldn’t find a booking with that number and email.', change: 'Change slot', cancel: 'Cancel booking', late: 'Less than 24 hours to go — changes and cancellations by phone only: +381 60 123 4567.', active: 'ACTIVE', cancelled: 'CANCELLED', changed: (w) => `Slot changed: ${w}. A new confirmation was sent by email.`, cancelOk: 'Booking cancelled. The deposit is refunded within 5 business days.', confirmCancel: 'Are you sure you want to cancel?' }
+};
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', b: null, demo: false, locked: false, stamped: false, q: 0, mId: '', mEmail: '', mErr: '', f: null, changing: false, cDay: 0, mOk: '' };
+  componentDidMount() {
+    const go = () => {
+      if (!window.ZK) return setTimeout(go, 40);
+      let b = ZK.ls.json('zk_last', null), demo = false;
+      if (!b) { demo = true; const d = new Date(); d.setDate(d.getDate() + 3); b = { id: 'ZK-482913', room: 'sef', date: ZK.dateKey(d), time: '19:30', players: 4, team: 'Demo tim', name: 'Demo korisnik', email: 'test@zakljucano.rs', total: 7600, paid: 7600, mode: 'full' }; }
+      this.setState({ z: true, lang: ZK.lang(), b, demo, mId: b.id, mEmail: b.email });
+      const red = ZK.reduced();
+      setTimeout(() => { this.setState({ locked: true }); ZK.click(0.35, 900); }, red ? 0 : 450);
+      setTimeout(() => { this.setState({ stamped: true }); ZK.click(0.3, 400); }, red ? 0 : 1000);
+      ZK.track('confirmation_view', { id: b.id, demo }); ZK.motion();
+    };
+    go();
+    const wq = (n = 0) => { if (window.qrcode) this.setState({ q: 1 }); else if (n < 80) setTimeout(() => wq(n + 1), 80); }; wq();
+    this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l);
+  }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); }
+  startDate(b) { const d = ZK.parseKey(b.date); const [h, m] = b.time.split(':').map(Number); d.setHours(h, m, 0, 0); return d; }
+  download() {
+    const Z = ZK, b = this.state.b, L = this.state.lang, t = TX[L], r = Z.room(b.room), m = Z.qrMatrix(b.id + '|' + b.email);
+    const c = document.createElement('canvas'), W = 1200, H = 520; c.width = W; c.height = H; const x = c.getContext('2d');
+    x.fillStyle = '#EDE3CF'; x.fillRect(0, 0, W, H); x.fillStyle = '#14110F'; x.fillRect(0, 0, W, 14);
+    x.setLineDash([10, 10]); x.strokeStyle = 'rgba(20,17,15,.35)'; x.lineWidth = 3; x.beginPath(); x.moveTo(820, 40); x.lineTo(820, H - 40); x.stroke(); x.setLineDash([]);
+    x.fillStyle = '#5A4F45'; x.font = '22px "Special Elite", monospace'; x.fillText('ZAKLJUČANO · ' + t.ticket, 50, 70);
+    x.fillStyle = '#C0392B'; x.fillText(b.mode === 'deposit' ? t.paidDep : t.paidFull, 560, 70);
+    x.fillStyle = '#14110F'; x.font = '76px "Bebas Neue", sans-serif'; x.fillText(r[L].name.toUpperCase(), 50, 160);
+    const rows = [[t.date, Z.fmtDate(b.date, L)], [t.time, b.time], [t.players, String(b.players)], [t.team, b.team || '—']];
+    rows.forEach(([k, v], i) => { const cx = 50 + (i % 2) * 380, cy = 240 + Math.floor(i / 2) * 100; x.fillStyle = '#5A4F45'; x.font = '18px "Special Elite", monospace'; x.fillText(k, cx, cy); x.fillStyle = '#14110F'; x.font = '600 32px "IBM Plex Sans", sans-serif'; x.fillText(v, cx, cy + 40); });
+    x.fillStyle = '#5A4F45'; x.font = '20px "IBM Plex Sans", sans-serif'; x.fillText(t.arrive, 50, 470);
+    if (m) { const n = m.length, s = Math.floor(300 / n), ox = 860 + (300 - s * n) / 2, oy = 80; x.fillStyle = '#FBF6EA'; x.fillRect(850, 70, 320, 320); x.fillStyle = '#14110F'; m.forEach((row, ri) => row.forEach((on, ci) => { if (on) x.fillRect(ox + ci * s, oy + ri * s, s, s); })); }
+    x.font = '30px "Special Elite", monospace'; x.fillStyle = '#14110F'; x.textAlign = 'center'; x.fillText(b.id, 1010, 440);
+    const a = document.createElement('a'); a.download = `ulaznica-${b.id}.png`; a.href = c.toDataURL('image/png'); a.click();
+    Z.track('ticket_download', { id: b.id });
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, t = TX[L], Z = window.ZK, b = s.b;
+    if (!Z || !b) return { t, title: t.title, qrBox: '0 0 1 1', qrPath: '', lead: '', statusLabel: '', roomName: '', bid: '', tRows: [], cDays: [], cTimes: [] };
+    const r = Z.room(b.room), st = this.startDate(b), en = new Date(st.getTime() + 60 * 60000);
+    const g = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}T${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}00`;
+    const m = s.q ? Z.qrMatrix(b.id + '|' + b.email) : null; let qrPath = '', qrBox = '0 0 21 21';
+    if (m) { qrBox = `0 0 ${m.length} ${m.length}`; m.forEach((row, y) => row.forEach((on, x) => { if (on) qrPath += `M${x} ${y}h1v1h-1z`; })); }
+    const when = `${r[L].name} — ${Z.fmtDate(b.date, L)} u ${b.time}`;
+    const waText = (L === 'en' ? `Escape room! ${r.en.name}, ${Z.fmtDate(b.date, 'en')} at ${b.time}. Be there 15 min early. Booking ${b.id}. ${Z.ADDRESS}` : `Escape room! ${r.sr.name}, ${Z.fmtDate(b.date, 'sr')} u ${b.time}. Budite tu 15 min ranije. Rezervacija ${b.id}. ${Z.ADDRESS}`);
+    // upravljanje
+    const f = s.f, fs = f ? this.startDate(f) : null, hoursTo = fs ? (fs - Date.now()) / 36e5 : 0, cancelled = f && f.status === 'cancelled';
+    const days = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() + 1 + i); return d; });
+    const cdk = Z.dateKey(days[s.cDay]);
+    return {
+      t, title: t.title, lead: t.lead(b.email), shackleT: s.locked ? 'translateY(0)' : 'translateY(-26px)', stamped: s.stamped,
+      statusLabel: b.mode === 'deposit' ? t.paidDep : t.paidFull, roomName: r[L].name, bid: b.id, isDemo: s.demo,
+      tRows: [{ k: t.date, v: Z.fmtDate(b.date, L) }, { k: t.time, v: b.time }, { k: t.players, v: String(b.players) }, { k: t.team, v: b.team || '—' }],
+      qrBox, qrPath, download: () => this.download(),
+      gcal: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('ZAKLJUČANO — ' + r[L].name)}&dates=${g(st)}/${g(en)}&details=${encodeURIComponent((L === 'en' ? 'Booking ' : 'Rezervacija ') + b.id)}&location=${encodeURIComponent(Z.ADDRESS)}&ctz=Europe/Belgrade`,
+      gcalClick: () => Z.track('add_to_calendar', { id: b.id }), waHref: `https://wa.me/?text=${encodeURIComponent(waText)}`, waClick: () => Z.track('whatsapp_click', { source: 'ticket_share' }),
+      maps: Z.MAPS, mapsClick: () => Z.track('directions_click', { source: 'ticket' }),
+      mId: s.mId, mEmail: s.mEmail, onMId: e => this.setState({ mId: e.target.value }), onMEmail: e => this.setState({ mEmail: e.target.value }),
+      find: e => { e.preventDefault(); const x = Z.findBooking(s.mId, s.mEmail) || (b && b.id === s.mId.trim().toUpperCase() && b.email.toLowerCase() === s.mEmail.trim().toLowerCase() ? b : null); this.setState({ f: x, mErr: x ? '' : t.notFound, mOk: '', changing: false }); Z.track('manage_lookup', { found: !!x }); },
+      mErr: s.mErr, found: !!f, fRoom: f ? Z.room(f.room)[L].name : '', fWhen: f ? `${Z.fmtDate(f.date, L)} · ${f.time} · ${f.players} ${L === 'en' ? 'players' : 'igrača'}` : '',
+      fStatus: cancelled ? t.cancelled : t.active, fStatusColor: cancelled ? '#E06A5C' : '#7CC4A0',
+      canEdit: !!f && !cancelled && hoursTo >= 24, lateMsg: !!f && !cancelled && hoursTo < 24,
+      startChange: () => this.setState({ changing: !s.changing, mOk: '' }),
+      cancel: () => { if (!window.confirm(t.confirmCancel)) return; const nf = { ...f, status: 'cancelled' }; Z.saveBooking(nf); this.setState({ f: nf, mOk: t.cancelOk, changing: false }); Z.track('booking_cancelled', { id: f.id }); Z.send(`Otkazana rezervacija ${f.id}`, { rezervacija: f.id, email: f.email }); },
+      changing: s.changing && !!f, mOk: s.mOk,
+      cDays: days.map((d, i) => { const on = i === s.cDay; return { dow: Z.DAYS[L][d.getDay()], num: d.getDate(), bg: on ? '#B8893E' : 'transparent', fg: on ? '#14110F' : '#EDE3CF', border: on ? '#B8893E' : 'rgba(237,227,207,.2)', pick: () => this.setState({ cDay: i }) }; }),
+      cTimes: f ? Z.slotsFor(f.room, cdk).map(x => ({ time: x.time, dis: !x.free, border: x.free ? 'rgba(184,137,62,.5)' : 'rgba(237,227,207,.08)', fg: x.free ? '#EDE3CF' : '#5A4F45', deco: x.free ? 'none' : 'line-through',
+        pick: () => { if (!x.free) return; const nf = { ...f, date: cdk, time: x.time }; Z.saveBooking(nf); if (b.id === nf.id) { Z.ls.put('zk_last', nf); this.setState({ b: nf }); } this.setState({ f: nf, changing: false, mOk: t.changed(`${Z.fmtDate(cdk, L)} · ${x.time}`) }); Z.track('booking_rescheduled', { id: f.id }); Z.send(`Promena termina ${f.id}`, { rezervacija: f.id, novi_datum: cdk, novo_vreme: x.time }); } })) : []
+    };
+  }
+}
+</script>
+</body>
+</html>

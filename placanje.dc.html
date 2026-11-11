@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plaćanje — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" hint-size="100%,0px"></dc-import>
+<main style="background:#14110F;color:#EDE3CF;min-height:100svh;padding:clamp(110px,12vw,150px) clamp(16px,4vw,48px) clamp(80px,10vw,120px)">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px">
+      <span style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E" data-en="STEP 5 · PAYMENT">KORAK 5 · PLAĆANJE</span>
+      <span style="padding:4px 10px;border:1px dashed #E06A5C;color:#E06A5C;font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.1em" data-en="TEST MODE — NOTHING IS CHARGED">TEST REŽIM — NIŠTA SE NE NAPLAĆUJE</span>
+    </div>
+    <div style="overflow:hidden;padding:30px 0 12px;margin:-20px 0 -12px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,112px);line-height:.88">{{ title }}</h1></div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:flex-start;margin-top:40px">
+      <div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:28px">
+        <sc-if value="{{ isBooking }}" hint-placeholder-val="{{ true }}">
+          <div role="radiogroup" aria-label="Način plaćanja" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:12px">
+            <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
+              <button type="button" role="radio" aria-checked="{{ m.checked }}" onClick="{{ m.pick }}" style="display:flex;gap:14px;align-items:flex-start;padding:18px;border:2px solid {{ m.border }};border-radius:2px;background:{{ m.bg }};text-align:left;cursor:pointer">
+                <span aria-hidden="true" style="flex:none;width:22px;height:22px;margin-top:2px;border-radius:50%;border:2px solid {{ m.border }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:50%;background:{{ m.dot }}"></span></span>
+                <span style="display:flex;flex-direction:column;gap:4px"><span style="font-weight:600;font-size:16px">{{ m.label }}</span><span style="font-size:14px;color:#B9AE99">{{ m.sub }}</span><span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AE6A;margin-top:4px">{{ m.amount }}</span></span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- OVDE IDE STRIPE CHECKOUT / PAYMENT LINK -->
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px">
+          <button type="button" onClick="{{ applePay }}" disabled="{{ busy }}" style="min-height:54px;border:none;border-radius:6px;background:#000;color:#fff;font-size:17px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px"> Pay</button>
+          <button type="button" onClick="{{ googlePay }}" disabled="{{ busy }}" style="min-height:54px;border:1px solid #5F6368;border-radius:6px;background:#fff;color:#3C4043;font-size:17px;font-weight:600;cursor:pointer">G Pay</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;color:#8F8577;font-size:13px"><span style="flex:1;height:1px;background:rgba(237,227,207,.15)"></span><span data-en="or pay by card">ili platite karticom</span><span style="flex:1;height:1px;background:rgba(237,227,207,.15)"></span></div>
+
+        <form onSubmit="{{ pay }}" novalidate="" style="display:flex;flex-direction:column;gap:14px;background:#EDE3CF;color:#14110F;padding:clamp(20px,3vw,32px);box-shadow:0 24px 50px rgba(0,0,0,.4)">
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:14px;font-weight:500" data-en="Card number">Broj kartice</span>
+            <span style="position:relative;display:block">
+              <input value="{{ num }}" onChange="{{ onNum }}" onBlur="{{ blurNum }}" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" aria-invalid="{{ numInv }}" style="width:100%;height:54px;padding:0 90px 0 16px;border:1px solid {{ numBorder }};border-radius:4px;background:#FBF6EA;color:#14110F;font-size:18px;letter-spacing:.06em;outline:none" style-focus="border-color:#B8893E;box-shadow:0 0 0 3px rgba(184,137,62,.25)">
+              <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);padding:4px 8px;border-radius:3px;background:{{ brandBg }};color:#FBF6EA;font-size:12px;font-weight:600;letter-spacing:.06em;opacity:{{ brandOp }};transition:opacity 200ms cubic-bezier(0.23,1,0.32,1)">{{ brand }}</span>
+            </span>
+            <sc-if value="{{ numErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ numErr }}</span></sc-if>
+          </label>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+            <label style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:14px;font-weight:500" data-en="Expiry (MM/YY)">Važi do (MM/GG)</span>
+              <input value="{{ exp }}" onChange="{{ onExp }}" onBlur="{{ blurExp }}" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/GG" aria-invalid="{{ expInv }}" style="width:100%;min-width:0;height:54px;padding:0 16px;border:1px solid {{ expBorder }};border-radius:4px;background:#FBF6EA;color:#14110F;font-size:18px;outline:none" style-focus="border-color:#B8893E;box-shadow:0 0 0 3px rgba(184,137,62,.25)">
+              <sc-if value="{{ expErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ expErr }}</span></sc-if>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:14px;font-weight:500">CVC</span>
+              <input value="{{ cvc }}" onChange="{{ onCvc }}" onBlur="{{ blurCvc }}" inputmode="numeric" autocomplete="cc-csc" placeholder="123" aria-invalid="{{ cvcInv }}" style="width:100%;min-width:0;height:54px;padding:0 16px;border:1px solid {{ cvcBorder }};border-radius:4px;background:#FBF6EA;color:#14110F;font-size:18px;outline:none" style-focus="border-color:#B8893E;box-shadow:0 0 0 3px rgba(184,137,62,.25)">
+              <sc-if value="{{ cvcErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ cvcErr }}</span></sc-if>
+            </label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:14px;font-weight:500" data-en="Name on card">Ime na kartici</span>
+            <input value="{{ holder }}" onChange="{{ onHolder }}" onBlur="{{ blurHolder }}" autocomplete="cc-name" aria-invalid="{{ holderInv }}" style="height:54px;padding:0 16px;border:1px solid {{ holderBorder }};border-radius:4px;background:#FBF6EA;color:#14110F;font-size:18px;outline:none;text-transform:uppercase" style-focus="border-color:#B8893E;box-shadow:0 0 0 3px rgba(184,137,62,.25)">
+            <sc-if value="{{ holderErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ holderErr }}</span></sc-if>
+          </label>
+          <sc-if value="{{ payErr }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" style="padding:14px 16px;background:rgba(192,57,43,.12);border:1px solid #C0392B;color:#8E2A1F;font-size:15px;animation:fadeUp 300ms cubic-bezier(0.23,1,0.32,1) both">{{ payErr }}</div>
+          </sc-if>
+          <button type="submit" disabled="{{ busy }}" style="min-height:58px;margin-top:6px;border:none;border-radius:2px;background:#14110F;color:#EDE3CF;font-weight:600;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)">
+            <sc-if value="{{ busy }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width:18px;height:18px;border:2px solid rgba(237,227,207,.3);border-top-color:#EDE3CF;border-radius:50%;animation:spin 700ms linear infinite"></span></sc-if>
+            <span>{{ payLabel }}</span>
+          </button>
+          <div style="font-family:'Special Elite',monospace;font-size:13px;line-height:1.6;color:#5A4F45;border-top:1px dashed rgba(20,17,15,.25);padding-top:12px">
+            <div data-en="Test cards:">Test kartice:</div>
+            <div>4242 4242 4242 4242 → <span data-en="success">uspeh</span></div>
+            <div>4000 0000 0000 0002 → <span data-en="declined">odbijena</span></div>
+          </div>
+        </form>
+      </div>
+
+      <aside aria-label="Pregled" style="flex:1 1 300px;max-width:420px;position:sticky;top:96px;background:#1A1613;border:1px solid rgba(184,137,62,.3)">
+        <sc-if value="{{ hasImg }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="{{ sumAlt }}" style="width:100%;height:160px;background-image:{{ sumBg }};background-size:cover;background-position:center"></div></sc-if>
+        <div style="padding:22px;display:flex;flex-direction:column;gap:12px;font-size:15px">
+          <span style="font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em;color:#B8893E">{{ sumKicker }}</span>
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed rgba(237,227,207,.15);padding-bottom:10px"><span style="color:#B9AE99">{{ r.k }}</span><span style="text-align:right">{{ r.v }}</span></div>
+          </sc-for>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.06em">{{ dueLabel }}</span><span style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:#D4AE6A">{{ dueLine }}</span></div>
+          <sc-if value="{{ holding }}" hint-placeholder-val="{{ false }}">
+            <div role="timer" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:{{ timerBg }}"><span style="font-size:13px">{{ holdText }}</span><span style="font-family:'Special Elite',monospace;font-size:26px">{{ timerLine }}</span></div>
+          </sc-if>
+          <sc-if value="{{ expired }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" style="padding:12px 14px;border:1px solid #C0392B;font-size:14px">{{ expiredText }} <a href="rezervacija.dc.html" style="color:#D4AE6A">→</a></div>
+          </sc-if>
+          <a href="{{ backHref }}" style="font-size:14px;color:#B8893E;margin-top:4px">{{ backLabel }}</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+<dc-import name="Footer" sticky="{{ false }}" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TX = {
+  sr: { titleB: 'Zapečatite misiju.', titleV: 'Platite vaučer.', full: 'Plati sada karticom', fullSub: 'Ceo iznos, odmah potvrđeno', dep: 'Rezerviši depozitom 20%', depSub: 'Ostatak plaćate na licu mesta', pay: a => `Plati ${a}`, busy: 'Obrađujemo…', room: 'Soba', slot: 'Termin', players: 'Igrači', disc: 'Popust', total: 'Ukupno', due: 'ZA UPLATU', hold: 'Termin čuvamo još', expired: 'Zadržavanje termina je isteklo.', back: '← Izmeni rezervaciju', backV: '← Izmeni vaučer', kickB: 'NALOG ZA MISIJU', kickV: 'POKLON VAUČER', vFor: 'Za', vAmt: 'Iznos', e: { num: 'Broj kartice nije potpun ili nije ispravan.', exp: 'Unesite važeći datum (MM/GG) u budućnosti.', cvc: 'CVC ima 3 cifre (Amex 4).', holder: 'Unesite ime kao na kartici.', declined: 'Kartica je odbijena – pokušajte drugu ili platite depozitom.', declinedV: 'Kartica je odbijena – pokušajte drugu karticu.', test: 'U test režimu koristite karticu 4242 4242 4242 4242.', exp2: 'Termin više nije zadržan — vratite se na izbor termina.' } },
+  en: { titleB: 'Seal the mission.', titleV: 'Pay for the voucher.', full: 'Pay now by card', fullSub: 'Full amount, confirmed instantly', dep: 'Book with a 20% deposit', depSub: 'Pay the rest on site', pay: a => `Pay ${a}`, busy: 'Processing…', room: 'Room', slot: 'Slot', players: 'Players', disc: 'Discount', total: 'Total', due: 'DUE NOW', hold: 'Slot held for', expired: 'Your slot hold has expired.', back: '← Edit booking', backV: '← Edit voucher', kickB: 'MISSION ORDER', kickV: 'GIFT VOUCHER', vFor: 'For', vAmt: 'Amount', e: { num: 'Card number is incomplete or invalid.', exp: 'Enter a valid future date (MM/YY).', cvc: 'CVC has 3 digits (Amex 4).', holder: 'Enter the name as on the card.', declined: 'Card declined – try another card or pay a deposit.', declinedV: 'Card declined – try another card.', test: 'In test mode use card 4242 4242 4242 4242.', exp2: 'Your slot is no longer held — go back and pick a slot.' } }
+};
+const digits = s => (s || '').replace(/\D/g, '');
+const brandOf = d => /^3[47]/.test(d) ? 'AMEX' : /^4/.test(d) ? 'VISA' : /^(5[1-5]|2[2-7])/.test(d) ? 'MASTERCARD' : /^9891/.test(d) ? 'DINACARD' : '';
+const luhn = d => { let s = 0, alt = false; for (let i = d.length - 1; i >= 0; i--) { let n = +d[i]; if (alt) { n *= 2; if (n > 9) n -= 9; } s += n; alt = !alt; } return d.length >= 13 && s % 10 === 0; };
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', co: null, mode: 'full', num: '', exp: '', cvc: '', holder: '', touched: {}, busy: false, payErr: '', now: Date.now() };
+  componentDidMount() {
+    const go = () => {
+      if (!window.ZK) return setTimeout(go, 40);
+      let co = ZK.ls.json('zk_checkout', null);
+      if (!co) { const d = new Date(); d.setDate(d.getDate() + 2); co = { type: 'booking', demo: true, booking: { id: ZK.newId(), room: 'kabina', date: ZK.dateKey(d), time: '19:30', players: 4, addons: [], team: 'Demo tim', name: 'Demo korisnik', phone: '060 123 4567', email: 'demo@zakljucano.rs', subtotal: 7600, discount: 0, total: 7600, holdUntil: Date.now() + 600000 } }; }
+      this.setState({ z: true, lang: ZK.lang(), co, holder: co.type === 'booking' ? co.booking.name : (co.voucher.from || '') });
+      ZK.track('payment_view', { type: co.type });
+    };
+    go();
+    this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l);
+    this.tick = setInterval(() => this.setState({ now: Date.now() }), 1000);
+  }
+  componentWillUnmount() { clearInterval(this.tick); removeEventListener('zk-lang', this.l); }
+  errs() {
+    const s = this.state, e = TX[s.lang].e, d = digits(s.num), am = brandOf(d) === 'AMEX';
+    const [mm, yy] = s.exp.split('/'); const m = +mm, y = 2000 + +yy, nd = new Date(); const expOk = m >= 1 && m <= 12 && yy && yy.length === 2 && (y > nd.getFullYear() || (y === nd.getFullYear() && m >= nd.getMonth() + 1));
+    return { num: luhn(d) ? '' : e.num, exp: expOk ? '' : e.exp, cvc: digits(s.cvc).length === (am ? 4 : 3) ? '' : e.cvc, holder: s.holder.trim().length >= 3 ? '' : e.holder };
+  }
+  amount() { const co = this.state.co; if (!co) return 0; if (co.type === 'voucher') return co.voucher.amount; const t = co.booking.total; return this.state.mode === 'deposit' ? Math.round(t * ZK.DEPOSIT) : t; }
+  holdLeft() { const co = this.state.co; return co && co.type === 'booking' && co.booking.holdUntil ? co.booking.holdUntil - this.state.now : null; }
+  finish(method) {
+    const co = this.state.co, amt = this.amount();
+    ZK.track('payment_success', { type: co.type, method, value: amt, mode: this.state.mode });
+    if (co.type === 'booking') {
+      const b = { ...co.booking, paid: amt, mode: this.state.mode, method, status: 'confirmed', paidAt: Date.now() };
+      ZK.saveBooking(b); ZK.ls.put('zk_last', b); ZK.ls.del('zk_draft'); ZK.ls.del('zk_checkout'); if (b.code === 'TRAG10') ZK.ls.del('zk_promo');
+      ZK.send(`Plaćena rezervacija ${b.id}`, { rezervacija: b.id, uplaceno: amt + ' RSD', nacin: this.state.mode === 'deposit' ? 'depozit 20%' : 'puna uplata', email: b.email });
+      location.href = 'potvrda.dc.html';
+    } else {
+      const v = { ...co.voucher, code: 'ZK-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase(), paidAt: Date.now() };
+      const all = ZK.ls.json('zk_vouchers', {}); all[v.code] = v.amount; ZK.ls.put('zk_vouchers', all); ZK.ls.put('zk_lastVoucher', v); ZK.ls.del('zk_checkout');
+      ZK.track('voucher_purchased', { value: v.amount, kind: v.kind });
+      ZK.send(`Kupljen vaučer ${v.code}`, { kod: v.code, iznos: v.amount + ' RSD', primalac: v.to, od: v.from, email: v.email, poruka: v.msg });
+      location.href = 'vauceri.dc.html?kupljen=1';
+    }
+  }
+  wallet(method) {
+    if (this.state.busy) return; const hl = this.holdLeft(); if (hl !== null && hl <= 0) return this.setState({ payErr: TX[this.state.lang].e.exp2 });
+    ZK.track('payment_started', { method }); this.setState({ busy: true, payErr: '' }); setTimeout(() => this.finish(method), 1200);
+  }
+  pay(ev) {
+    ev && ev.preventDefault(); const s = this.state, t = TX[s.lang], er = this.errs();
+    if (s.busy) return;
+    if (er.num || er.exp || er.cvc || er.holder) return this.setState({ touched: { num: 1, exp: 1, cvc: 1, holder: 1 } });
+    const hl = this.holdLeft(); if (hl !== null && hl <= 0) return this.setState({ payErr: t.e.exp2 });
+    const d = digits(s.num); ZK.track('payment_started', { method: 'card', brand: brandOf(d) });
+    this.setState({ busy: true, payErr: '' });
+    setTimeout(() => {
+      if (d === '4242424242424242') return this.finish('card');
+      const msg = d === '4000000000000002' ? (s.co.type === 'voucher' ? t.e.declinedV : t.e.declined) : t.e.test;
+      ZK.track('payment_declined', { reason: d === '4000000000000002' ? 'card_declined' : 'test_mode' });
+      this.setState({ busy: false, payErr: msg });
+    }, 1400);
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, t = TX[L], Z = window.ZK;
+    if (!Z || !s.co) return { t, title: '', isBooking: true, modes: [], rows: [], brand: 'CARD', brandOp: 0.35, payLabel: '…', sumKicker: '', dueLabel: t.due, dueLine: '', backLabel: '', backHref: '#', hasImg: false };
+    const co = s.co, isB = co.type === 'booking', er = this.errs(), tch = s.touched, d = digits(s.num), br = brandOf(d);
+    const fe = k => (tch[k] && er[k]) ? er[k] : '', bd = k => fe(k) ? '#B03024' : (tch[k] ? '#5E9E7E' : 'rgba(20,17,15,.25)');
+    const amt = this.amount(), hl = this.holdLeft(), left = hl !== null ? Math.max(0, hl) : 0;
+    let rows = [], sumImg = '', sumAlt = '';
+    if (isB) { const b = co.booking, r = Z.room(b.room); sumImg = Z.IMG + r.img; sumAlt = r[L].alt;
+      rows = [{ k: t.room, v: r[L].name }, { k: t.slot, v: `${Z.fmtDate(b.date, L)} · ${b.time}` }, { k: t.players, v: String(b.players) }];
+      if (b.discount) rows.push({ k: t.disc, v: `− ${Z.fmt(b.discount)} RSD` }); rows.push({ k: t.total, v: `${Z.fmt(b.total)} RSD` });
+    } else { const v = co.voucher; sumImg = Z.IMG + 'kljuc-u-vratima.webp'; sumAlt = 'Stari ključ u bravi vrata'; rows = [{ k: t.vFor, v: v.to || '—' }, { k: t.vAmt, v: `${Z.fmt(v.amount)} RSD` }, { k: 'Email', v: v.email }]; }
+    const fmtNum = v => { const x = digits(v).slice(0, 19), am = brandOf(x) === 'AMEX'; if (am) return [x.slice(0, 4), x.slice(4, 10), x.slice(10, 15)].filter(Boolean).join(' '); return x.replace(/(\d{4})(?=\d)/g, '$1 '); };
+    return {
+      t, title: isB ? t.titleB : t.titleV, isBooking: isB,
+      modes: isB ? [['full', t.full, t.fullSub, co.booking.total], ['deposit', t.dep, t.depSub, Math.round(co.booking.total * Z.DEPOSIT)]].map(([k, label, sub, a]) => { const on = s.mode === k; return { label, sub, amount: `${Z.fmt(a)} RSD`, checked: on ? 'true' : 'false', border: on ? '#B8893E' : 'rgba(237,227,207,.2)', bg: on ? 'rgba(184,137,62,.1)' : 'transparent', dot: on ? '#B8893E' : 'transparent', pick: () => this.setState({ mode: k, payErr: '' }) }; }) : [],
+      num: s.num, onNum: e => this.setState({ num: fmtNum(e.target.value), payErr: '' }), blurNum: () => this.setState({ touched: { ...tch, num: 1 } }), numErr: fe('num'), numInv: fe('num') ? 'true' : 'false', numBorder: bd('num'),
+      brand: br || 'CARD', brandOp: br ? 1 : 0.35, brandBg: br === 'VISA' ? '#1A1F71' : br === 'MASTERCARD' ? '#3A332E' : br === 'AMEX' ? '#2E77BC' : br === 'DINACARD' ? '#0B4EA2' : '#8F8577',
+      exp: s.exp, onExp: e => { let v = digits(e.target.value).slice(0, 4); if (v.length === 1 && +v > 1) v = '0' + v; this.setState({ exp: v.length > 2 ? v.slice(0, 2) + '/' + v.slice(2) : v }); }, blurExp: () => this.setState({ touched: { ...tch, exp: 1 } }), expErr: fe('exp'), expInv: fe('exp') ? 'true' : 'false', expBorder: bd('exp'),
+      cvc: s.cvc, onCvc: e => this.setState({ cvc: digits(e.target.value).slice(0, 4) }), blurCvc: () => this.setState({ touched: { ...tch, cvc: 1 } }), cvcErr: fe('cvc'), cvcInv: fe('cvc') ? 'true' : 'false', cvcBorder: bd('cvc'),
+      holder: s.holder, onHolder: e => this.setState({ holder: e.target.value }), blurHolder: () => this.setState({ touched: { ...tch, holder: 1 } }), holderErr: fe('holder'), holderInv: fe('holder') ? 'true' : 'false', holderBorder: bd('holder'),
+      payErr: s.payErr, busy: s.busy, payLabel: s.busy ? t.busy : t.pay(`${Z.fmt(amt)} RSD`), pay: e => this.pay(e),
+      applePay: () => this.wallet('apple_pay'), googlePay: () => this.wallet('google_pay'),
+      hasImg: !!sumImg, sumBg: sumImg ? `url(${sumImg})` : "none", sumImg, sumAlt, sumKicker: isB ? `${t.kickB} · ${co.booking.id}` : t.kickV, rows, dueLabel: t.due, dueLine: `${Z.fmt(amt)} RSD`,
+      holding: hl !== null && left > 0, expired: hl !== null && left <= 0, holdText: t.hold, expiredText: t.expired,
+      timerLine: `${String(Math.floor(left / 60000)).padStart(2, '0')}:${String(Math.floor(left / 1000) % 60).padStart(2, '0')}`, timerBg: left <= 60000 ? '#C0392B' : '#14110F',
+      backHref: isB ? 'rezervacija.dc.html' : 'vauceri.dc.html', backLabel: isB ? t.back : t.backV
+    };
+  }
+}
+</script>
+</body>
+</html>

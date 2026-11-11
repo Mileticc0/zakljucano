@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rezervacija — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" active="rezervacija" hint-size="100%,0px"></dc-import>
+<main style="background:radial-gradient(ellipse 70% 40% at 50% 0%, rgba(184,137,62,.10), transparent 70%), #14110F;color:#EDE3CF;min-height:100svh;padding:clamp(110px,12vw,150px) clamp(16px,4vw,48px) clamp(80px,10vw,120px)">
+  <div style="max-width:1320px;margin:0 auto">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E" data-en="MISSION ORDER · 4 LOCKS">NALOG ZA MISIJU · 4 BRAVE</div>
+    <div style="overflow:hidden;padding:30px 0 12px;margin:-20px 0 -12px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(60px,9vw,128px);line-height:.88" data-en="Book a slot.">Rezervišite termin.</h1></div>
+
+    <ol aria-label="Koraci rezervacije" style="list-style:none;margin:32px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:760px">
+      <sc-for list="{{ locks }}" as="k" hint-placeholder-count="4">
+        <li style="display:flex;flex-direction:column;gap:8px">
+          <button type="button" onClick="{{ k.go }}" disabled="{{ k.disabled }}" aria-current="{{ k.current }}" style="display:flex;align-items:center;gap:10px;min-height:52px;padding:0;border:none;background:none;text-align:left;cursor:{{ k.cursor }};color:{{ k.fg }}">
+            <span aria-hidden="true" style="position:relative;flex:none;width:26px;height:32px">
+              <span style="position:absolute;top:0;left:5px;width:16px;height:16px;border:3px solid {{ k.metal }};border-bottom:none;border-radius:9px 9px 0 0;transform:{{ k.shackle }};transition:transform 420ms cubic-bezier(0.34,1.56,0.64,1)"></span>
+              <span style="position:absolute;bottom:0;left:0;width:26px;height:18px;border-radius:3px;background:{{ k.metal }}"></span>
+            </span>
+            <span style="display:flex;flex-direction:column;line-height:1.15;min-width:0"><span style="font-family:'Special Elite',monospace;font-size:12px;opacity:.8">{{ k.n }}</span><span style="font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.label }}</span></span>
+          </button>
+          <span style="height:3px;background:{{ k.bar }};transition:background-color 300ms cubic-bezier(0.23,1,0.32,1)"></span>
+        </li>
+      </sc-for>
+    </ol>
+
+    <sc-if value="{{ expiredMsg }}" hint-placeholder-val="{{ false }}">
+      <div role="alert" style="margin-top:24px;max-width:760px;padding:16px 20px;border:1px solid #C0392B;background:rgba(192,57,43,.12);color:#EDE3CF;font-size:15px">{{ t.expired }}</div>
+    </sc-if>
+
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:flex-start;margin-top:40px">
+      <div style="flex:1 1 560px;min-width:0">
+
+        <sc-if value="{{ s1 }}" hint-placeholder-val="{{ true }}">
+          <h2 style="margin:0 0 20px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:40px;line-height:1">{{ t.h1 }}</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:16px">
+            <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="4">
+              <button type="button" onClick="{{ r.pick }}" aria-pressed="{{ r.pressed }}" style="position:relative;display:flex;flex-direction:column;gap:10px;padding:12px 12px 16px;border:2px solid {{ r.border }};border-radius:2px;background:#EDE3CF;color:#14110F;text-align:left;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), border-color 200ms cubic-bezier(0.23,1,0.32,1)">
+                <span style="display:block;height:130px;background:#14110F;padding:4px"><img src="{{ r.img }}" alt="{{ r.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></span>
+                <span style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-family:'Special Elite',monospace;font-size:12px;color:#5A4F45">{{ r.kicker }}</span><span style="width:14px;height:14px;border-radius:50%;background:{{ r.light }}"></span></span>
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:.95">{{ r.name }}</span>
+                <span style="font-size:14px;color:#3A332E">{{ r.meta }}</span>
+                <sc-if value="{{ r.on }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:18px;right:18px;padding:2px 10px;border:3px solid #C0392B;color:#C0392B;background:rgba(237,227,207,.9);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.1em;transform:rotate(-8deg)">{{ t.chosen }}</span></sc-if>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0 0 20px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:40px;line-height:1">{{ t.h2 }}</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+            <div style="flex:1 1 300px;max-width:420px;background:#1A1613;border:1px solid rgba(184,137,62,.25);padding:18px">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px">
+                <button type="button" onClick="{{ prevMonth }}" disabled="{{ prevDisabled }}" aria-label="Prethodni mesec" style="width:44px;height:44px;border:1px solid rgba(237,227,207,.2);background:none;cursor:pointer;opacity:{{ prevOp }}">‹</button>
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.04em">{{ monthLabel }}</span>
+                <button type="button" onClick="{{ nextMonth }}" disabled="{{ nextDisabled }}" aria-label="Sledeći mesec" style="width:44px;height:44px;border:1px solid rgba(237,227,207,.2);background:none;cursor:pointer;opacity:{{ nextOp }}">›</button>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center">
+                <sc-for list="{{ dow }}" as="w" hint-placeholder-count="7"><span style="font-size:12px;color:#8F8577;padding:4px 0;text-transform:uppercase">{{ w.l }}</span></sc-for>
+                <sc-for list="{{ cal }}" as="c" hint-placeholder-count="35">
+                  <button type="button" onClick="{{ c.pick }}" disabled="{{ c.disabled }}" aria-pressed="{{ c.pressed }}" aria-label="{{ c.aria }}" style="position:relative;aspect-ratio:1;min-height:40px;border:1px solid {{ c.border }};border-radius:2px;background:{{ c.bg }};color:{{ c.fg }};font-size:15px;cursor:{{ c.cursor }};opacity:{{ c.op }}">{{ c.n }}<span style="position:absolute;left:50%;bottom:5px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:{{ c.dot }}"></span></button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="flex:1 1 240px;min-width:0">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:28px">{{ dateLabel }}</span>
+                <span style="font-family:'Special Elite',monospace;font-size:14px;color:#D4AE6A">{{ freeLine }}</span>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;margin-top:14px">
+                <sc-for list="{{ times }}" as="s" hint-placeholder-count="8">
+                  <button type="button" onClick="{{ s.pick }}" disabled="{{ s.disabled }}" aria-pressed="{{ s.pressed }}" aria-label="{{ s.aria }}" style="min-height:56px;border:1px solid {{ s.border }};border-radius:2px;background:{{ s.bg }};color:{{ s.fg }};font-family:'Bebas Neue',sans-serif;font-size:26px;text-decoration:{{ s.deco }};text-decoration-color:#C0392B;cursor:{{ s.cursor }};transition:transform 120ms cubic-bezier(0.23,1,0.32,1)">{{ s.time }}</button>
+                </sc-for>
+              </div>
+              <p style="margin:16px 0 0;font-size:14px;color:#8F8577">{{ t.crossed }}</p>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0 0 20px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:40px;line-height:1">{{ t.h3 }}</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px">
+            <sc-for list="{{ playerOpts }}" as="p" hint-placeholder-count="5">
+              <button type="button" onClick="{{ p.pick }}" disabled="{{ p.disabled }}" aria-pressed="{{ p.pressed }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:84px;border:1px solid {{ p.border }};border-radius:2px;background:{{ p.bg }};color:{{ p.fg }};cursor:{{ p.cursor }};opacity:{{ p.op }}">
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1">{{ p.n }}</span><span style="font-size:13px">{{ p.price }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="margin-top:28px;font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E">{{ t.addons }}</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+            <sc-for list="{{ addons }}" as="a" hint-placeholder-count="3">
+              <label style="display:flex;align-items:center;gap:14px;min-height:60px;padding:0 18px;border:1px solid {{ a.border }};border-radius:2px;cursor:pointer;background:{{ a.bg }}">
+                <input type="checkbox" checked="{{ a.on }}" onChange="{{ a.toggle }}" style="width:22px;height:22px;accent-color:#B8893E;flex:none">
+                <span style="flex:1">{{ a.label }}</span><span style="font-family:'Special Elite',monospace;font-size:14px;color:#D4AE6A">{{ a.price }}</span>
+              </label>
+            </sc-for>
+          </div>
+          <div style="margin-top:28px;font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E">{{ t.code }}</div>
+          <div style="display:flex;gap:10px;margin-top:12px;max-width:480px">
+            <input aria-label="Kod za popust" value="{{ code }}" onChange="{{ onCode }}" autocomplete="off" placeholder="TRAG10 / ZK-…" style="flex:1;min-width:0;height:54px;padding:0 16px;border:1px solid {{ codeBorder }};border-radius:2px;background:#1A1613;color:#EDE3CF;font-family:'Special Elite',monospace;font-size:18px;letter-spacing:.12em;text-transform:uppercase;outline:none">
+          </div>
+          <sc-if value="{{ codeMsg }}" hint-placeholder-val="{{ false }}"><div role="status" style="margin-top:10px;font-size:14px;color:{{ codeColor }}">{{ codeMsg }}</div></sc-if>
+        </sc-if>
+
+        <sc-if value="{{ s4 }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0 0 20px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:40px;line-height:1">{{ t.h4 }}</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:16px">
+            <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+              <label style="display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:14px;color:#D9CFBB">{{ f.label }}</span>
+                <input type="{{ f.type }}" name="{{ f.key }}" value="{{ f.value }}" onChange="{{ f.change }}" onBlur="{{ f.blur }}" autocomplete="{{ f.ac }}" inputmode="{{ f.im }}" placeholder="{{ f.ph }}" aria-invalid="{{ f.invalid }}" style="height:54px;padding:0 16px;border:1px solid {{ f.border }};border-radius:2px;background:#1A1613;color:#EDE3CF;font-size:16px;outline:none" style-focus="border-color:#B8893E">
+                <sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#E06A5C">{{ f.err }}</span></sc-if>
+              </label>
+            </sc-for>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:6px;margin-top:16px">
+            <span style="font-size:14px;color:#D9CFBB">{{ t.note }}</span>
+            <textarea value="{{ note }}" onChange="{{ onNote }}" rows="3" style="padding:14px 16px;border:1px solid rgba(237,227,207,.2);border-radius:2px;background:#1A1613;color:#EDE3CF;font-size:16px;resize:vertical;outline:none" style-focus="border-color:#B8893E"></textarea>
+          </label>
+          <p style="margin:14px 0 0;font-size:13px;color:#8F8577">{{ t.privacy }}</p>
+        </sc-if>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:36px;padding-top:24px;border-top:1px solid rgba(184,137,62,.2)">
+          <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ back }}" style="min-height:52px;padding:0 20px;border:1px solid rgba(237,227,207,.3);border-radius:2px;background:none;cursor:pointer">← {{ t.back }}</button>
+          </sc-if>
+          <span></span>
+          <button type="button" onClick="{{ next }}" disabled="{{ nextDis }}" style="min-height:56px;padding:0 30px;border:none;border-radius:2px;background:{{ nextBg }};color:#14110F;font-weight:600;font-size:16px;cursor:{{ nextCursor }};transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)">{{ nextLabel }}</button>
+        </div>
+      </div>
+
+      <aside aria-label="Nalog za misiju" style="flex:1 1 320px;max-width:440px;position:sticky;top:96px;background:#EDE3CF;color:#14110F;box-shadow:0 30px 60px rgba(0,0,0,.45)">
+        <div style="position:relative;height:150px;background:#14110F">
+          <sc-if value="{{ hasRoom }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="{{ sumAlt }}" style="width:100%;height:100%;background-image:{{ sumBg }};background-size:cover;background-position:center"></div></sc-if>
+          <div style="position:absolute;left:16px;bottom:-14px;padding:4px 12px;background:#14110F;color:#EDE3CF;font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em">{{ t.order }}</div>
+        </div>
+        <div style="padding:30px 22px 22px;display:flex;flex-direction:column;gap:12px;font-size:15px">
+          <sc-for list="{{ sumRows }}" as="row" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed rgba(20,17,15,.2);padding-bottom:10px"><span style="font-family:'Special Elite',monospace;font-size:13px;color:#5A4F45">{{ row.k }}</span><span style="text-align:right;font-weight:500">{{ row.v }}</span></div>
+          </sc-for>
+          <sc-if value="{{ hasDiscount }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:space-between;gap:16px;color:#C0392B"><span style="font-family:'Special Elite',monospace;font-size:13px">{{ discLabel }}</span><span>− {{ discAmt }}</span></div>
+          </sc-if>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:6px"><span style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.06em">{{ t.total }}</span><span style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1">{{ totalLine }}</span></div>
+          <span style="font-size:13px;color:#5A4F45">{{ depositLine }}</span>
+          <sc-if value="{{ holding }}" hint-placeholder-val="{{ false }}">
+            <div role="timer" aria-live="off" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;padding:12px 14px;background:{{ timerBg }};color:{{ timerFg }}">
+              <span style="font-size:13px;line-height:1.3">{{ t.hold }}</span><span style="font-family:'Special Elite',monospace;font-size:28px">{{ timerLine }}</span>
+            </div>
+          </sc-if>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+<dc-import name="Footer" sticky="{{ false }}" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TX = {
+  sr: { steps: ['Soba', 'Termin', 'Igrači', 'Podaci'], h1: 'Izaberite sobu', h2: 'Datum i termin', h3: 'Igrači i dodaci', h4: 'Vaši podaci', chosen: 'IZABRANO', crossed: 'Precrtani termini su zauzeti.', addons: 'DODACI', code: 'KOD ZA POPUST ILI VAUČER', note: 'Napomena (opciono)', privacy: 'Podatke koristimo samo za ovu rezervaciju.', back: 'Nazad', next: 'Dalje', pay: 'Na plaćanje →', order: 'NALOG ZA MISIJU', total: 'UKUPNO', hold: 'Termin vam čuvamo još', expired: 'Vreme za zadržavanje termina je isteklo i termin je oslobođen. Izaberite ga ponovo — ako je još slobodan, vaš je.', room: 'Soba', slot: 'Termin', players: 'Igrači', addonsK: 'Dodaci', none: '—', perP: '/os', free: 'besplatno', deposit: p => `Depozit 20%: ${p} RSD — ostatak na licu mesta`, left: (n, today) => n === 0 ? 'Nema slobodnih termina' : `još ${n} ${n === 1 ? 'termin' : 'termina'} ${today ? 'danas' : 'ovog dana'}`, booked: 'zauzeto', codeOk: (l, a) => `✓ ${l}: −${a} RSD`,
+    f: { team: 'Ime tima', name: 'Ime i prezime', phone: 'Telefon', email: 'Email' }, e: { name: 'Unesite ime i prezime.', phone: 'Telefon nije ispravan — npr. 060 123 4567 ili +381 60 123 4567.', email: 'Email nije ispravan — proverite @ i domen.' }, teamPh: 'npr. Noćna smena' },
+  en: { steps: ['Room', 'Slot', 'Players', 'Details'], h1: 'Choose a room', h2: 'Date and slot', h3: 'Players and extras', h4: 'Your details', chosen: 'SELECTED', crossed: 'Crossed-out slots are booked.', addons: 'EXTRAS', code: 'DISCOUNT OR VOUCHER CODE', note: 'Note (optional)', privacy: 'We only use your data for this booking.', back: 'Back', next: 'Next', pay: 'To payment →', order: 'MISSION ORDER', total: 'TOTAL', hold: 'We hold your slot for', expired: 'Your slot hold has expired and the slot was released. Pick it again — if it’s still free, it’s yours.', room: 'Room', slot: 'Slot', players: 'Players', addonsK: 'Extras', none: '—', perP: '/pp', free: 'free', deposit: p => `20% deposit: ${p} RSD — rest on site`, left: (n, today) => n === 0 ? 'No free slots' : `${n} slot${n === 1 ? '' : 's'} left ${today ? 'today' : 'that day'}`, booked: 'booked', codeOk: (l, a) => `✓ ${l}: −${a} RSD`,
+    f: { team: 'Team name', name: 'Full name', phone: 'Phone', email: 'Email' }, e: { name: 'Please enter your full name.', phone: 'Phone number looks wrong — e.g. +381 60 123 4567.', email: 'Email looks wrong — check the @ and domain.' }, teamPh: 'e.g. Night shift' }
+};
+const HOLD = 10 * 60 * 1000;
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', step: 1, room: null, date: null, time: null, players: 4, addons: {}, code: '', team: '', name: '', phone: '', email: '', note: '', touched: {}, holdUntil: 0, now: Date.now(), mo: 0, expiredMsg: false };
+  componentDidMount() {
+    const go = () => {
+      if (!window.ZK) return setTimeout(go, 40);
+      const draft = ZK.ls.json('zk_draft', {}), q = new URLSearchParams(location.search), st = { z: true, lang: ZK.lang(), ...draft, touched: {}, expiredMsg: false };
+      if (!st.code && ZK.ls.get('zk_promo')) st.code = ZK.ls.get('zk_promo');
+      if (st.holdUntil && st.holdUntil < Date.now()) { st.time = null; st.holdUntil = 0; if (st.step > 2) st.step = 2; }
+      const qr = q.get('soba');
+      if (qr && ZK.ROOMS.some(r => r.id === qr)) {
+        st.room = qr; st.step = 2; st.time = null; st.holdUntil = 0;
+        const t = new Date(); if (q.get('dan') === 'sutra') t.setDate(t.getDate() + 1);
+        st.date = q.get('datum') || ZK.dateKey(t);
+        const r = ZK.room(qr); st.players = Math.min(Math.max(st.players || 4, r.min), r.max);
+        const tm = q.get('termin'); if (tm && ZK.slotsFor(qr, st.date).some(x => x.time === tm && x.free)) { st.time = tm; st.holdUntil = Date.now() + HOLD; st.step = 3; }
+      }
+      if (st.room && st.date && !ZK.slotsFor(st.room, st.date).some(x => x.free)) { st.time = null; st.holdUntil = 0; for (let i = 0; i < 30; i++) { const d = new Date(); d.setDate(d.getDate() + i); const k = ZK.dateKey(d); if (ZK.slotsFor(st.room, k).some(x => x.free)) { st.date = k; break; } } if (st.step > 2) st.step = 2; }
+      if (st.date) { const d = ZK.parseKey(st.date), n = new Date(); st.mo = (d.getFullYear() - n.getFullYear()) * 12 + d.getMonth() - n.getMonth(); }
+      this.setState(st, () => ZK.track('booking_step', { step: this.state.step, room: this.state.room }));
+      ZK.motion();
+    };
+    go();
+    this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l);
+    this.tick = setInterval(() => {
+      const s = this.state; this.setState({ now: Date.now() });
+      if (s.holdUntil && Date.now() >= s.holdUntil) { this.setState({ time: null, holdUntil: 0, step: Math.min(s.step, 2), expiredMsg: true }); ZK.track('booking_hold_expired', { room: s.room }); }
+    }, 1000);
+  }
+  componentDidUpdate() {
+    if (!window.ZK || !this.state.z) return;
+    const { step, room, date, time, players, addons, code, team, name, phone, email, note, holdUntil } = this.state;
+    ZK.ls.put('zk_draft', { step, room, date, time, players, addons, code, team, name, phone, email, note, holdUntil });
+  }
+  componentWillUnmount() { clearInterval(this.tick); removeEventListener('zk-lang', this.l); }
+  go(step) { this.setState({ step, expiredMsg: false }); ZK.track('booking_step', { step, room: this.state.room }); setTimeout(() => ZK.scrollTop(), 0); }
+  calc() {
+    const s = this.state, ppp = ZK.PRICES[s.players] || 0, base = ppp * s.players;
+    const add = ZK.ADDONS.filter(a => s.addons[a.id]).reduce((x, a) => x + a.price, 0), sub = base + add;
+    const cr = ZK.checkCode(s.code, sub, s.lang), disc = cr && cr.ok ? cr.amount : 0;
+    return { ppp, base, add, sub, cr, disc, total: Math.max(0, sub - disc) };
+  }
+  errs() {
+    const s = this.state, e = TX[s.lang].e;
+    return { name: s.name.trim().length < 3 ? e.name : '', phone: !ZK.validPhone(s.phone) ? e.phone : '', email: !ZK.validEmail(s.email) ? e.email : '' };
+  }
+  async submit() {
+    const er = this.errs(); if (er.name || er.phone || er.email) { this.setState({ touched: { name: 1, phone: 1, email: 1 } }); return; }
+    const s = this.state, c = this.calc(), r = ZK.room(s.room);
+    const b = { id: ZK.newId(), room: s.room, date: s.date, time: s.time, players: s.players, addons: Object.keys(s.addons).filter(k => s.addons[k]), team: s.team.trim(), name: s.name.trim(), phone: s.phone.trim(), email: s.email.trim(), note: s.note.trim(), subtotal: c.sub, discount: c.disc, code: c.cr && c.cr.ok ? c.cr.code : '', total: c.total, holdUntil: s.holdUntil, created: Date.now() };
+    ZK.ls.put('zk_checkout', { type: 'booking', booking: b });
+    ZK.track('booking_step', { step: 'submit', room: s.room, value: c.total });
+    ZK.send(`Nova rezervacija ${b.id} — ${r.sr.name}`, { rezervacija: b.id, soba: r.sr.name, datum: b.date, termin: b.time, igraci: b.players, dodaci: b.addons.join(', '), kod: b.code, ukupno: c.total + ' RSD', tim: b.team, ime: b.name, telefon: b.phone, email: b.email, napomena: b.note, status: 'čeka plaćanje' });
+    location.href = 'placanje.dc.html';
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, t = TX[L], Z = window.ZK;
+    if (!Z) return { t, s1: true };
+    const st = s.step, room = s.room ? Z.room(s.room) : null, c = this.calc();
+    const ok = [!!room, !!(room && s.date && s.time), true, true];
+    const locks = t.steps.map((label, i) => { const n = i + 1, done = n < st, cur = n === st, reach = n <= st || ok.slice(0, i).every(Boolean);
+      return { label, n: `0${n}`, current: cur ? 'step' : 'false', disabled: !reach || cur, cursor: reach && !cur ? 'pointer' : 'default', fg: cur ? '#EDE3CF' : done ? '#D4AE6A' : '#8F8577', metal: done ? '#B8893E' : cur ? '#EDE3CF' : '#5A4F45', shackle: done ? 'translateY(-6px) rotate(-18deg)' : 'none', bar: done ? '#B8893E' : cur ? '#EDE3CF' : 'rgba(237,227,207,.15)', go: () => reach && this.go(n) }; });
+    // kalendar
+    const now = new Date(), base = new Date(now.getFullYear(), now.getMonth() + s.mo, 1), todayK = Z.dateKey(now), maxD = new Date(now.getTime() + 60 * 864e5);
+    const lead = (base.getDay() + 6) % 7, dim = new Date(base.getFullYear(), base.getMonth() + 1, 0).getDate(), cal = [];
+    for (let i = 0; i < lead; i++) cal.push({ n: '', disabled: true, pressed: 'false', aria: '', border: 'transparent', bg: 'transparent', fg: '#EDE3CF', cursor: 'default', op: 0, dot: 'transparent', pick: () => {} });
+    for (let d = 1; d <= dim; d++) {
+      const dt = new Date(base.getFullYear(), base.getMonth(), d), k = Z.dateKey(dt), past = k < todayK, far = dt > maxD, sel = k === s.date;
+      const free = !past && !far && room ? Z.slotsFor(room.id, k).filter(x => x.free).length : 0, dis = past || far || free === 0;
+      cal.push({ n: d, disabled: dis, pressed: sel ? 'true' : 'false', aria: `${Z.fmtDate(k, L)}${dis ? '' : ` — ${free}`}`, border: sel ? '#B8893E' : k === todayK ? 'rgba(184,137,62,.6)' : 'rgba(237,227,207,.1)', bg: sel ? '#B8893E' : 'transparent', fg: sel ? '#14110F' : '#EDE3CF', cursor: dis ? 'default' : 'pointer', op: dis ? 0.3 : 1, dot: !dis && !sel ? '#B8893E' : 'transparent',
+        pick: () => { if (dis) return; this.setState({ date: k, time: s.date === k ? s.time : null, holdUntil: s.date === k ? s.holdUntil : 0 }); } });
+    }
+    const slots = room && s.date ? Z.slotsFor(room.id, s.date) : [], nFree = slots.filter(x => x.free).length;
+    const times = slots.map(x => { const sel = x.time === s.time; return { time: x.time, disabled: !x.free, pressed: sel ? 'true' : 'false', aria: `${x.time}${x.free ? '' : ' — ' + t.booked}`, border: sel ? '#B8893E' : x.free ? 'rgba(184,137,62,.5)' : 'rgba(237,227,207,.08)', bg: sel ? '#B8893E' : 'transparent', fg: sel ? '#14110F' : x.free ? '#EDE3CF' : '#5A4F45', deco: x.free ? 'none' : 'line-through', cursor: x.free ? 'pointer' : 'not-allowed',
+      pick: () => { if (!x.free) return; this.setState({ time: x.time, holdUntil: Date.now() + HOLD, expiredMsg: false }); Z.track('slot_selected', { room: room.id, date: s.date, time: x.time }); } }; });
+    // igrači
+    const playerOpts = [2, 3, 4, 5, 6].map(n => { const dis = room && (n < room.min || n > room.max), on = n === s.players; return { n, price: `${Z.fmt(Z.PRICES[n])} RSD${t.perP}`, disabled: !!dis, pressed: on ? 'true' : 'false', border: on ? '#B8893E' : 'rgba(237,227,207,.2)', bg: on ? '#B8893E' : 'transparent', fg: on ? '#14110F' : '#EDE3CF', cursor: dis ? 'not-allowed' : 'pointer', op: dis ? 0.3 : 1, pick: () => !dis && this.setState({ players: n }) }; });
+    const addons = Z.ADDONS.map(a => { const on = !!s.addons[a.id]; return { label: a[L], price: a.price ? `+${Z.fmt(a.price)} RSD` : t.free, on, border: on ? '#B8893E' : 'rgba(237,227,207,.2)', bg: on ? 'rgba(184,137,62,.1)' : 'transparent', toggle: () => this.setState({ addons: { ...s.addons, [a.id]: !on } }) }; });
+    const cr = c.cr, codeMsg = cr ? (cr.ok ? t.codeOk(cr.label, Z.fmt(cr.amount)) : (s.code.trim().length >= 4 ? cr.msg : '')) : '';
+    // polja
+    const er = this.errs();
+    const F = [['team', 'text', 'organization', 'text', t.teamPh], ['name', 'text', 'name', 'text', ''], ['phone', 'tel', 'tel', 'tel', '060 123 4567'], ['email', 'email', 'email', 'email', 'ime@primer.rs']];
+    const fields = F.map(([key, type, ac, im, ph]) => { const e = s.touched[key] && er[key] ? er[key] : ''; const okv = s.touched[key] && !er[key] && key !== 'team'; return { key, type, ac, im, ph, label: t.f[key] + (key === 'team' ? (L === 'en' ? ' (optional)' : ' (opciono)') : ''), value: s[key], err: e, invalid: e ? 'true' : 'false', border: e ? '#E06A5C' : okv ? '#7CC4A0' : 'rgba(237,227,207,.2)',
+      change: ev => this.setState({ [key]: ev.target.value }), blur: () => this.setState({ touched: { ...s.touched, [key]: 1 } }) }; });
+    // sažetak
+    const left = s.holdUntil ? Math.max(0, s.holdUntil - s.now) : 0, mm = Math.floor(left / 60000), ss = Math.floor(left / 1000) % 60, last = left > 0 && left <= 60000;
+    const ad = Z.ADDONS.filter(a => s.addons[a.id]).map(a => a[L]).join(', ');
+    const nextDis = !ok[st - 1];
+    return {
+      t, locks, s1: st === 1, s2: st === 2, s3: st === 3, s4: st === 4, expiredMsg: s.expiredMsg,
+      rooms: Z.ROOMS.map(r => { const on = s.room === r.id; return { img: Z.IMG + r.img, alt: r[L].alt, name: r[L].name, light: r.light, kicker: `${r.no} · ${r[L].genre.toUpperCase()}`, meta: `${r.min}–${r.max} ${L === 'en' ? 'players' : 'igrača'} · ${r.escape}% ${L === 'en' ? 'escape' : 'izađe'}`, on, pressed: on ? 'true' : 'false', border: on ? '#B8893E' : 'transparent',
+        pick: () => { const p = Math.min(Math.max(s.players, r.min), r.max); this.setState({ room: r.id, players: p, time: s.room === r.id ? s.time : null, holdUntil: s.room === r.id ? s.holdUntil : 0, date: (s.date && Z.slotsFor(r.id, s.date).some(x => x.free)) ? s.date : (() => { for (let i = 0; i < 30; i++) { const d = new Date(); d.setDate(d.getDate() + i); const k = Z.dateKey(d); if (Z.slotsFor(r.id, k).some(x => x.free)) return k; } return Z.dateKey(new Date()); })() }); Z.track('booking_room', { room: r.id }); this.go(2); } }; }),
+      monthLabel: `${Z.MONTHS[L][base.getMonth()]} ${base.getFullYear()}`, dow: (L === 'en' ? ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] : ['po', 'ut', 'sr', 'če', 'pe', 'su', 'ne']).map(l => ({ l })), cal,
+      prevDisabled: s.mo <= 0, prevOp: s.mo <= 0 ? 0.3 : 1, nextDisabled: s.mo >= 2, nextOp: s.mo >= 2 ? 0.3 : 1,
+      prevMonth: () => this.setState({ mo: Math.max(0, s.mo - 1) }), nextMonth: () => this.setState({ mo: Math.min(2, s.mo + 1) }),
+      dateLabel: s.date ? Z.fmtDate(s.date, L) : '', freeLine: s.date ? t.left(nFree, s.date === todayK) : '', times,
+      playerOpts, addons, code: s.code, onCode: e => this.setState({ code: e.target.value }), codeMsg, codeColor: cr && cr.ok ? '#7CC4A0' : '#E06A5C', codeBorder: cr && cr.ok ? '#7CC4A0' : codeMsg ? '#E06A5C' : 'rgba(237,227,207,.2)',
+      fields, note: s.note, onNote: e => this.setState({ note: e.target.value }),
+      canBack: st > 1, back: () => this.go(st - 1), nextDis, nextBg: nextDis ? '#5A4F45' : '#B8893E', nextCursor: nextDis ? 'not-allowed' : 'pointer', nextLabel: st === 4 ? t.pay : `${t.next} →`,
+      next: () => { if (nextDis) return; if (st < 4) this.go(st + 1); else this.submit(); },
+      hasRoom: !!room, sumBg: room ? `url(${Z.IMG + room.img})` : 'none', sumImg: room ? Z.IMG + room.img : '', sumAlt: room ? room[L].alt : '',
+      sumRows: [{ k: t.room, v: room ? room[L].name : t.none }, { k: t.slot, v: s.date && s.time ? `${Z.fmtDate(s.date, L)} · ${s.time}` : t.none }, { k: t.players, v: `${s.players} × ${Z.fmt(c.ppp)} RSD` }, { k: t.addonsK, v: ad || t.none }],
+      hasDiscount: c.disc > 0, discLabel: c.cr && c.cr.ok ? c.cr.label : '', discAmt: `${Z.fmt(c.disc)} RSD`,
+      totalLine: `${Z.fmt(c.total)} RSD`, depositLine: t.deposit(Z.fmt(Math.round(c.total * Z.DEPOSIT))),
+      holding: left > 0, timerLine: `${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`, timerBg: last ? '#C0392B' : '#14110F', timerFg: '#EDE3CF'
+    };
+  }
+}
+</script>
+</body>
+</html>

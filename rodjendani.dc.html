@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rođendani — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" active="rodjendani" hint-size="100%,0px"></dc-import>
+<main>
+<section data-screen-label="Rođendani hero" style="position:relative;min-height:80svh;display:flex;align-items:flex-end;overflow:hidden;background:#0B0908;color:#EDE3CF;padding:150px clamp(20px,4vw,48px) clamp(48px,7vw,88px)">
+  <img src="slike/rodjendan-torta.webp" alt="Deca duvaju svećice na rođendanskoj torti" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.96), rgba(11,9,8,.45) 55%, rgba(11,9,8,.6))"></div>
+  <div style="position:relative;max-width:1360px;margin:0 auto;width:100%">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="BIRTHDAYS · FROM AGE 10">ROĐENDANI · OD 10 GODINA</div>
+    <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86;max-width:1100px" data-en="A birthday behind locked doors.">Rođendan iza zaključanih vrata.</h1></div>
+    <p style="margin:16px 0 0;max-width:540px;font-size:18px;color:#D9CFBB" data-en="60 minutes in the room, then cake and celebration in our lounge. You bring the guests — we bring the mystery.">60 minuta u sobi, pa torta i slavlje u našem salonu. Vi dovodite goste — mi donosimo misteriju.</p>
+  </div>
+</section>
+
+<section data-screen-label="Paketi" style="background:#14110F;color:#EDE3CF;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div style="max-width:1240px;margin:0 auto">
+    <h2 style="margin:0 0 36px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9" data-en="Three packages.">Tri paketa.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(20px,2.5vw,32px)">
+      <sc-for list="{{ packs }}" as="p" hint-placeholder-count="3">
+        <article style="display:flex;flex-direction:column;gap:14px;padding:28px;background:#1A1613;border:1px solid {{ p.border }}">
+          <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E">{{ p.age }}</span>
+          <h3 style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:40px;line-height:.92">{{ p.name }}</h3>
+          <p style="margin:0;color:#B9AE99;text-wrap:pretty">{{ p.text }}</p>
+          <ul style="margin:0;padding:0 0 0 18px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:#D9CFBB"><sc-for list="{{ p.items }}" as="i" hint-placeholder-count="3"><li>{{ i.t }}</li></sc-for></ul>
+          <button type="button" onClick="{{ p.pick }}" style="margin-top:auto;min-height:50px;border:1px solid #B8893E;border-radius:2px;background:{{ p.bg }};color:{{ p.fg }};font-weight:600;cursor:pointer">{{ p.cta }}</button>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Rođendani galerija" style="background:#14110F;padding:0 clamp(20px,4vw,48px)">
+  <div data-clip="1" style="max-width:1240px;margin:0 auto;aspect-ratio:21/9;overflow:hidden;background:#3A332E"><img src="slike/rodjendan-ekipa.webp" alt="Društvo u rođendanskim kapama oko torte sa svećicama" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+</section>
+
+<section id="proslava" data-screen-label="Forma za proslavu" style="background:#EDE3CF;color:#14110F;padding:clamp(72px,9vw,120px) clamp(16px,4vw,48px);margin-top:clamp(72px,9vw,120px)">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#8A6328" data-en="PARTY REQUEST">ZAHTEV ZA PROSLAVU</div>
+    <h2 style="margin:10px 0 36px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9" data-en="Plan the party.">Isplanirajte proslavu.</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:flex-start">
+      <form onSubmit="{{ submit }}" novalidate="" style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:18px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px">
+          <label style="display:flex;flex-direction:column;gap:10px"><span style="display:flex;justify-content:space-between;font-size:14px;font-weight:500"><span data-en="Birthday person’s age">Uzrast slavljenika</span><span style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1">{{ age }}</span></span><input type="range" min="10" max="60" value="{{ age }}" onChange="{{ onAge }}" style="width:100%;height:44px;accent-color:#B8893E"></label>
+          <label style="display:flex;flex-direction:column;gap:10px"><span style="display:flex;justify-content:space-between;font-size:14px;font-weight:500"><span data-en="Number of guests">Broj gostiju</span><span style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1">{{ guests }}</span></span><input type="range" min="2" max="12" value="{{ guests }}" onChange="{{ onGuests }}" style="width:100%;height:44px;accent-color:#B8893E"></label>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:500" data-en="Room">Soba</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:8px">
+            <sc-for list="{{ roomOpts }}" as="r" hint-placeholder-count="4">
+              <button type="button" onClick="{{ r.pick }}" disabled="{{ r.dis }}" aria-pressed="{{ r.pressed }}" style="display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:56px;padding:0 16px;border:1.5px solid {{ r.border }};border-radius:2px;background:{{ r.bg }};color:{{ r.fg }};text-align:left;cursor:{{ r.cursor }};opacity:{{ r.op }}"><span style="font-weight:500">{{ r.name }}</span><span style="font-family:'Special Elite',monospace;font-size:12px">{{ r.age }}</span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div role="radiogroup" aria-label="Torta" style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:500" data-en="Cake">Torta</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><sc-for list="{{ cakeOpts }}" as="c" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{ c.checked }}" onClick="{{ c.pick }}" style="min-height:54px;border:1.5px solid #14110F;border-radius:2px;background:{{ c.bg }};color:{{ c.fg }};font-weight:500;cursor:pointer">{{ c.label }}</button></sc-for></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px">
+          <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500">{{ f.label }}</span>
+              <input type="{{ f.type }}" value="{{ f.value }}" onChange="{{ f.change }}" onBlur="{{ f.blur }}" autocomplete="{{ f.ac }}" min="{{ f.min }}" aria-invalid="{{ f.inv }}" style="height:54px;padding:0 14px;border:1px solid {{ f.border }};border-radius:2px;background:#FBF6EA;color:#14110F;font-size:16px;outline:none" style-focus="border-color:#B8893E;box-shadow:0 0 0 3px rgba(184,137,62,.25)">
+              <sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:13px;color:#B03024">{{ f.err }}</span></sc-if>
+            </label>
+          </sc-for>
+        </div>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><div role="status" style="padding:16px;border:1px solid #5E9E7E;background:rgba(124,196,160,.15)">{{ t.sent }}</div></sc-if>
+        <button type="submit" disabled="{{ busy }}" style="min-height:58px;border:none;border-radius:2px;background:#14110F;color:#EDE3CF;font-weight:600;font-size:16px;cursor:pointer" style-hover="background:#3A332E">{{ submitLabel }}</button>
+      </form>
+      <aside aria-label="Okvirna cena" style="flex:1 1 320px;max-width:440px;position:sticky;top:100px;background:#14110F;color:#EDE3CF;padding:28px;box-shadow:0 30px 60px rgba(20,17,15,.35);display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em;color:#B8893E" data-en="ESTIMATED PRICE · LIVE">OKVIRNA CENA · UŽIVO</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.9;color:#D4AE6A">{{ totalLine }}</span>
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="4"><div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed rgba(237,227,207,.15);padding-bottom:10px;font-size:15px"><span style="color:#B9AE99">{{ l.k }}</span><span style="text-align:right">{{ l.v }}</span></div></sc-for>
+        <span style="font-size:13px;color:#8F8577" data-en="Decorations and 30 minutes in the lounge are included.">Ukrasi i 30 minuta u salonu su uključeni.</span>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+<dc-import name="Footer" stickyHref="#proslava" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TX = {
+  sr: { packs: [{ id: 'mali', age: '10–13 GODINA', name: 'Mali detektivi', text: 'Prva misija za mlade istražitelje — uz game mastera koji pazi da niko ne odustane.', items: ['Sef ili Kabina 7', 'Prilagođene zagonetke', 'Diploma za svakog detektiva'], room: 'sef', a: 11 }, { id: 'tin', age: '14–17 GODINA', name: 'Tajna misija', text: 'Prava težina, pravi sat. Za ekipu koja voli da se takmiči.', items: ['Sve sobe osim Podruma', 'Mesto na rang-listi', 'Fotografija tima'], room: 'lab', a: 15 }, { id: 'odr', age: '18+', name: 'Odrasli', text: 'Bilo koja soba, uključujući horor. Piće u salonu po dogovoru.', items: ['Sve četiri sobe', 'Piće i grickalice po dogovoru', 'Fotografija tima'], room: 'podrum', a: 25 }], pick: 'Izaberi paket', picked: 'Izabrano', cakeY: 'Da, naručujemo tortu', cakeN: 'Ne, donosimo svoju', f: { name: 'Vaše ime', phone: 'Telefon', email: 'Email', date: 'Datum proslave' }, e: { name: 'Upišite ime.', phone: 'Telefon nije ispravan.', email: 'Email nije ispravan.', date: 'Izaberite datum od sutra.' }, game: 'Igra', cake: 'Torta', teams: 'Timova', no: 'ne', send: 'Pošalji zahtev', busy: 'Šaljemo…', sent: 'Zahtev je poslat — potvrđujemo termin telefonom u toku dana.', rooms: n => n > 1 ? `${n} sobe istovremeno` : '1 soba' },
+  en: { packs: [{ id: 'mali', age: 'AGES 10–13', name: 'Little detectives', text: 'A first mission for young investigators — with a game master who makes sure nobody gives up.', items: ['Vault or Cabin 7', 'Adapted puzzles', 'A diploma for every detective'], room: 'sef', a: 11 }, { id: 'tin', age: 'AGES 14–17', name: 'Secret mission', text: 'Real difficulty, real clock. For crews who like to compete.', items: ['All rooms except the Basement', 'A spot on the leaderboard', 'Team photo'], room: 'lab', a: 15 }, { id: 'odr', age: '18+', name: 'Adults', text: 'Any room, including horror. Drinks in the lounge on request.', items: ['All four rooms', 'Drinks and snacks on request', 'Team photo'], room: 'podrum', a: 25 }], pick: 'Choose package', picked: 'Selected', cakeY: 'Yes, order a cake', cakeN: 'No, we bring our own', f: { name: 'Your name', phone: 'Phone', email: 'Email', date: 'Party date' }, e: { name: 'Enter your name.', phone: 'Phone looks wrong.', email: 'Email looks wrong.', date: 'Pick a date from tomorrow.' }, game: 'Game', cake: 'Cake', teams: 'Teams', no: 'no', send: 'Send request', busy: 'Sending…', sent: 'Request sent — we confirm the slot by phone today.', rooms: n => n > 1 ? `${n} rooms at once` : '1 room' }
+};
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', pack: 'tin', age: 15, guests: 6, room: 'kabina', cake: true, name: '', phone: '', email: '', date: '', touched: {}, busy: false, sent: false };
+  componentDidMount() { const go = () => { if (!window.ZK) return setTimeout(go, 40); this.setState({ z: true, lang: ZK.lang() }); ZK.motion(); }; go(); this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l); }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); }
+  fixRoom(age, room) { const r = ZK.room(room); if (r.age <= age) return room; const ok = ZK.ROOMS.filter(x => x.age <= age); return ok.length ? ok[0].id : 'sef'; }
+  calc() { const s = this.state, teams = Math.ceil(s.guests / 6), per = Math.ceil(s.guests / teams), r = ZK.room(s.room), sizeOk = Math.max(r.min, Math.min(r.max, per)), game = ZK.PRICES[Math.max(2, Math.min(6, sizeOk))] * s.guests, cake = s.cake ? 2900 : 0; return { teams, game, cake, total: game + cake }; }
+  errs() { const s = this.state, e = TX[s.lang].e, tm = new Date(); tm.setDate(tm.getDate() + 1); return { name: s.name.trim().length < 2 ? e.name : '', phone: ZK.validPhone(s.phone) ? '' : e.phone, email: ZK.validEmail(s.email) ? '' : e.email, date: !s.date || s.date < ZK.dateKey(tm) ? e.date : '' }; }
+  async submit(ev) {
+    ev.preventDefault(); const er = this.errs(); if (Object.values(er).some(Boolean)) return this.setState({ touched: { name: 1, phone: 1, email: 1, date: 1 } });
+    const s = this.state, c = this.calc(); this.setState({ busy: true });
+    const data = { Paket: s.pack, 'Uzrast slavljenika': s.age, 'Broj gostiju': s.guests, Soba: ZK.room(s.room).sr.name, Torta: s.cake ? 'da' : 'ne', Datum: s.date, Ime: s.name, Telefon: s.phone, Email: s.email, 'Okvirna cena': ZK.fmt(c.total) + ' RSD' };
+    await ZK.send('Rođendan — zahtev: ' + s.name, data); ZK.openWA(ZK.waText('Rođendan — zahtev', data));
+    ZK.track('form_submit', { form: 'rodjendan', guests: s.guests, value: c.total }); this.setState({ busy: false, sent: true });
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, t = TX[L], Z = window.ZK; if (!Z) return { t, age: s.age, guests: s.guests };
+    const c = this.calc(), er = this.errs(), tm = new Date(); tm.setDate(tm.getDate() + 1);
+    const F = [['name', 'text', 'name'], ['phone', 'tel', 'tel'], ['email', 'email', 'email'], ['date', 'date', 'off']];
+    return {
+      t, packs: t.packs.map(p => { const on = s.pack === p.id; return { ...p, items: p.items.map(x => ({ t: x })), border: on ? '#B8893E' : 'rgba(184,137,62,.2)', bg: on ? '#B8893E' : 'transparent', fg: on ? '#14110F' : '#D4AE6A', cta: on ? t.picked : t.pick,
+        pick: () => { this.setState({ pack: p.id, age: p.a, room: this.fixRoom(p.a, p.room) }); Z.track('birthday_package', { pack: p.id }); setTimeout(() => Z.scrollToEl(document.getElementById('proslava')), 50); } }; }),
+      age: s.age, onAge: e => { const a = +e.target.value; this.setState({ age: a, room: this.fixRoom(a, s.room) }); }, guests: s.guests, onGuests: e => this.setState({ guests: +e.target.value }),
+      roomOpts: Z.ROOMS.map(r => { const dis = r.age > s.age, on = s.room === r.id; return { name: r[L].name, age: `${r.age}+`, dis, pressed: on ? 'true' : 'false', border: on ? '#14110F' : 'rgba(20,17,15,.25)', bg: on ? '#14110F' : 'transparent', fg: on ? '#EDE3CF' : '#14110F', cursor: dis ? 'not-allowed' : 'pointer', op: dis ? 0.35 : 1, pick: () => !dis && this.setState({ room: r.id }) }; }),
+      cakeOpts: [[true, t.cakeY], [false, t.cakeN]].map(([v, label]) => { const on = s.cake === v; return { label, checked: on ? 'true' : 'false', bg: on ? '#14110F' : 'transparent', fg: on ? '#EDE3CF' : '#14110F', pick: () => this.setState({ cake: v }) }; }),
+      fields: F.map(([k, type, ac]) => { const e = s.touched[k] && er[k] ? er[k] : ''; return { label: t.f[k], type, ac, min: k === 'date' ? Z.dateKey(tm) : '', value: s[k], err: e, inv: e ? 'true' : 'false', border: e ? '#B03024' : 'rgba(20,17,15,.3)', change: ev => this.setState({ [k]: ev.target.value, sent: false }), blur: () => this.setState({ touched: { ...s.touched, [k]: 1 } }) }; }),
+      totalLine: `${Z.fmt(c.total)} RSD`, lines: [{ k: t.game, v: `${s.guests} × ${Z.fmt(Math.round(c.game / s.guests))} RSD` }, { k: t.teams, v: t.rooms(c.teams) }, { k: t.cake, v: s.cake ? '2.900 RSD' : t.no }],
+      submit: e => this.submit(e), busy: s.busy, sent: s.sent, submitLabel: s.busy ? t.busy : t.send
+    };
+  }
+}
+</script>
+</body>
+</html>

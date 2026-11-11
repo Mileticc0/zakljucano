@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<header style="position:fixed;top:0;left:0;right:0;z-index:100;padding-top:env(safe-area-inset-top);background:{{ bg }};border-bottom:1px solid {{ line }};backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background-color 300ms cubic-bezier(0.23,1,0.32,1), border-color 300ms cubic-bezier(0.23,1,0.32,1)">
+  <div style="max-width:1360px;margin:0 auto;height:72px;padding:0 clamp(16px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <a href="index.dc.html" aria-label="ZAKLJUČANO — početna" style="display:flex;align-items:center;gap:10px;color:#EDE3CF">
+      <span aria-hidden="true" style="position:relative;width:22px;height:30px;border-radius:4px;background:#B8893E;display:block"><span style="position:absolute;top:7px;left:7px;width:8px;height:8px;border-radius:50%;background:#14110F"></span><span style="position:absolute;top:13px;left:9px;width:4px;height:9px;background:#14110F"></span></span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.06em;line-height:1">ZAKLJUČANO</span>
+    </a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Glavna navigacija" style="display:flex;gap:clamp(16px,2vw,28px);font-size:15px;white-space:nowrap">
+        <sc-for list="{{ links }}" as="l" hint-placeholder-count="6">
+          <a href="{{ l.href }}" aria-current="{{ l.current }}" style="color:{{ l.color }};border-bottom:1px solid {{ l.under }};padding:4px 0" style-hover="color:#D4AE6A">{{ l.label }}</a>
+        </sc-for>
+      </nav>
+    </sc-if>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button type="button" onClick="{{ openNb }}" aria-label="Beležnica detektiva" title="Beležnica detektiva" style="position:relative;width:44px;height:44px;border:1px solid rgba(184,137,62,.5);border-radius:50%;background:transparent;cursor:pointer" style-hover="border-color:#D4AE6A">
+        <span style="position:absolute;top:11px;left:11px;width:16px;height:16px;border:2px solid #B8893E;border-radius:50%"></span>
+        <span style="position:absolute;top:26px;left:25px;width:9px;height:3px;background:#B8893E;border-radius:2px;transform:rotate(45deg)"></span>
+        <sc-if value="{{ solved }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:2px;right:2px;width:9px;height:9px;border-radius:50%;background:#C0392B"></span></sc-if>
+      </button>
+      <sc-if value="{{ notMobile }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;border:1px solid rgba(237,227,207,.3);border-radius:2px;overflow:hidden" role="group" aria-label="Jezik">
+          <button type="button" onClick="{{ setSr }}" aria-pressed="{{ srP }}" style="width:44px;height:44px;border:none;cursor:pointer;font-size:13px;font-weight:600;background:{{ srBg }};color:{{ srFg }}">SR</button>
+          <button type="button" onClick="{{ setEn }}" aria-pressed="{{ enP }}" style="width:44px;height:44px;border:none;cursor:pointer;font-size:13px;font-weight:600;background:{{ enBg }};color:{{ enFg }}">EN</button>
+        </div>
+        <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;white-space:nowrap;min-height:44px;padding:0 20px;background:#B8893E;color:#14110F;font-weight:600;font-size:15px;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#CFA35A;color:#14110F">{{ bookLabel }}</a>
+      </sc-if>
+      <sc-if value="{{ compact }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ toggleMenu }}" aria-label="Meni" aria-expanded="{{ menuX }}" style="width:44px;height:44px;border:1px solid rgba(237,227,207,.3);border-radius:2px;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px">
+          <span style="width:18px;height:2px;background:#EDE3CF;transform:{{ bA }};transition:transform 250ms cubic-bezier(0.23,1,0.32,1)"></span>
+          <span style="width:18px;height:2px;background:#EDE3CF;transform:{{ bB }};transition:transform 250ms cubic-bezier(0.23,1,0.32,1)"></span>
+        </button>
+      </sc-if>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:90;background:#14110F;padding:calc(96px + env(safe-area-inset-top)) 24px 40px;display:flex;flex-direction:column;gap:4px;overflow:auto;animation:fadeUp 300ms cubic-bezier(0.23,1,0.32,1) both">
+    <sc-for list="{{ allLinks }}" as="l" hint-placeholder-count="9">
+      <a href="{{ l.href }}" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:{{ l.color }}">{{ l.label }}</a>
+    </sc-for>
+    <div style="display:flex;gap:10px;margin-top:24px">
+      <button type="button" onClick="{{ setSr }}" style="width:56px;height:44px;border:1px solid rgba(237,227,207,.3);cursor:pointer;font-weight:600;background:{{ srBg }};color:{{ srFg }}">SR</button>
+      <button type="button" onClick="{{ setEn }}" style="width:56px;height:44px;border:1px solid rgba(237,227,207,.3);cursor:pointer;font-weight:600;background:{{ enBg }};color:{{ enFg }}">EN</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ nbOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeNb }}" style="position:fixed;inset:0;z-index:150;background:rgba(10,8,7,.78);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeUp 250ms cubic-bezier(0.23,1,0.32,1) both">
+    <div onClick="{{ stop }}" role="dialog" aria-modal="true" aria-label="Beležnica detektiva" style="position:relative;width:min(480px,100%);background:repeating-linear-gradient(180deg, transparent 0 31px, rgba(58,51,46,.14) 31px 32px), #EDE3CF;color:#14110F;padding:40px 30px 30px 64px;transform:rotate(-1deg);box-shadow:0 30px 70px rgba(0,0,0,.6)">
+      <div aria-hidden="true" style="position:absolute;top:0;bottom:0;left:44px;width:1px;background:rgba(192,57,43,.45)"></div>
+      <button type="button" onClick="{{ closeNb }}" aria-label="Zatvori" style="position:absolute;top:8px;right:8px;width:44px;height:44px;border:none;background:none;font-size:26px;cursor:pointer;color:#3A332E">×</button>
+      <div style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.14em;color:#C0392B">{{ nbKicker }}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:.95;margin-top:8px">{{ nbTitle }}</div>
+      <p style="margin:14px 0 0;font-family:'Special Elite',monospace;font-size:15px;line-height:1.75;color:#3A332E">{{ nbText }}</p>
+      <sc-if value="{{ notSolved }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:10px;margin-top:22px">
+          <input aria-label="Reč" value="{{ guess }}" onChange="{{ onGuess }}" onKeyDown="{{ onGuessKey }}" maxlength="12" autocomplete="off" placeholder="_ _ _" style="flex:1;min-width:0;height:52px;padding:0 14px;border:none;border-bottom:2px solid #14110F;background:rgba(255,255,255,.35);font-family:'Special Elite',monospace;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:#14110F;outline:none">
+          <button type="button" onClick="{{ check }}" style="height:52px;padding:0 20px;border:none;border-radius:2px;background:#14110F;color:#EDE3CF;font-weight:600;cursor:pointer">{{ checkLabel }}</button>
+        </div>
+        <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><div role="alert" style="margin-top:12px;font-family:'Special Elite',monospace;font-size:14px;color:#C0392B">{{ wrongText }}</div></sc-if>
+      </sc-if>
+      <sc-if value="{{ solved }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:22px">
+          <div style="display:inline-block;padding:6px 18px;border:4px solid #C0392B;color:#C0392B;font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:.14em;line-height:1;transform:rotate(-12deg);mix-blend-mode:multiply">REŠENO</div>
+          <div style="margin-top:16px;font-family:'Special Elite',monospace;font-size:30px;letter-spacing:.2em">TRAG10</div>
+          <p style="margin:8px 0 0;color:#3A332E">{{ solvedText }}</p>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;sobe&quot;,&quot;timbilding&quot;,&quot;rodjendani&quot;,&quot;vauceri&quot;,&quot;rang-lista&quot;,&quot;kontakt&quot;,&quot;faq&quot;,&quot;rezervacija&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const NAV = [
+  ['sobe', 'sobe.dc.html', 'Sobe', 'Rooms'], ['timbilding', 'timbilding.dc.html', 'Timbilding', 'Team building'], ['rodjendani', 'rodjendani.dc.html', 'Rođendani', 'Birthdays'],
+  ['vauceri', 'vauceri.dc.html', 'Vaučeri', 'Vouchers'], ['rang-lista', 'rang-lista.dc.html', 'Rang-lista', 'Leaderboard'], ['kontakt', 'kontakt.dc.html', 'Kontakt', 'Contact']
+];
+const ALL = [['rezervacija', 'rezervacija.dc.html', 'Rezervacija', 'Book'], ...NAV.slice(0, 5), ['faq', 'faq.dc.html', 'FAQ', 'FAQ'], NAV[5]];
+const get = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+class Component extends DCLogic {
+  state = { lang: get('zk_lang') === 'en' ? 'en' : 'sr', w: typeof innerWidth !== 'undefined' ? innerWidth : 1400, scrolled: false, menuOpen: false, nbOpen: false, guess: '', wrong: false, solved: !!get('zk_promo') };
+  componentDidMount() {
+    this.r = () => this.setState({ w: innerWidth, menuOpen: innerWidth < 1140 ? this.state.menuOpen : false });
+    this.s = () => { const v = scrollY > 40; if (v !== this.state.scrolled) this.setState({ scrolled: v }); };
+    this.l = e => this.setState({ lang: e.detail });
+    this.k = e => { if (e.key === 'Escape') this.setState({ menuOpen: false, nbOpen: false }); };
+    addEventListener('resize', this.r); addEventListener('scroll', this.s, { passive: true }); addEventListener('zk-lang', this.l); addEventListener('keydown', this.k);
+    this.s();
+  }
+  componentWillUnmount() { removeEventListener('resize', this.r); removeEventListener('scroll', this.s); removeEventListener('zk-lang', this.l); removeEventListener('keydown', this.k); }
+  setLang(l) { if (window.ZK) window.ZK.setLang(l); else { try { localStorage.setItem('zk_lang', l); } catch (e) {} } this.setState({ lang: l }); }
+  check() {
+    const g = (this.state.guess || '').toUpperCase().replace(/[^A-Z]/g, '');
+    if (g === 'SEF') { try { localStorage.setItem('zk_promo', 'TRAG10'); } catch (e) {} this.setState({ solved: true, wrong: false }); window.ZK && window.ZK.track('puzzle_solved'); }
+    else this.setState({ wrong: true });
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, en = L === 'en', act = this.props.active || '';
+    const map = a => ({ href: a[1], label: en ? a[3] : a[2], current: a[0] === act ? 'page' : 'false', color: a[0] === act ? '#D4AE6A' : '#EDE3CF', under: a[0] === act ? '#B8893E' : 'transparent' });
+    const compact = s.w < 1140;
+    return {
+      bg: (s.scrolled || s.menuOpen) ? 'rgba(20,17,15,.9)' : 'rgba(20,17,15,0)', line: s.scrolled ? 'rgba(184,137,62,.25)' : 'rgba(184,137,62,0)',
+      wide: !compact, compact, notMobile: s.w >= 760, links: NAV.map(map), allLinks: ALL.map(a => ({ ...map(a), color: a[0] === 'rezervacija' ? '#B8893E' : map(a).color })),
+      menuOpen: s.menuOpen, menuX: s.menuOpen ? 'true' : 'false', toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
+      bA: s.menuOpen ? 'translateY(3.5px) rotate(45deg)' : 'none', bB: s.menuOpen ? 'translateY(-3.5px) rotate(-45deg)' : 'none',
+      srBg: !en ? '#EDE3CF' : 'transparent', srFg: !en ? '#14110F' : '#EDE3CF', enBg: en ? '#EDE3CF' : 'transparent', enFg: en ? '#14110F' : '#EDE3CF',
+      srP: !en ? 'true' : 'false', enP: en ? 'true' : 'false', setSr: () => this.setLang('sr'), setEn: () => this.setLang('en'),
+      bookLabel: en ? 'Book' : 'Rezerviši',
+      nbOpen: s.nbOpen, openNb: () => this.setState({ nbOpen: true }), closeNb: () => this.setState({ nbOpen: false }), stop: e => e.stopPropagation(),
+      nbKicker: en ? 'DETECTIVE’S NOTEBOOK' : 'BELEŽNICA DETEKTIVA', nbTitle: en ? 'Three letters are hidden.' : 'Sakrivena su tri slova.',
+      nbText: en ? 'They are on the home page: on the wall in the dark, on the evidence board and by the last door. Put them together — it’s something you crack.' : 'Nalaze se na početnoj strani: na zidu u mraku, na tabli dokaza i kod poslednjih vrata. Složite ih — to je nešto što se obija.',
+      solved: s.solved, notSolved: !s.solved, guess: s.guess, wrong: s.wrong, wrongText: en ? 'Not quite. Look closer.' : 'Nije to. Pogledajte bolje.',
+      onGuess: e => this.setState({ guess: e.target.value, wrong: false }), onGuessKey: e => { if (e.key === 'Enter') this.check(); }, check: () => this.check(),
+      checkLabel: en ? 'Check' : 'Proveri', solvedText: en ? '10% off — applied automatically when you book.' : '10% popusta — automatski se primenjuje u rezervaciji.'
+    };
+  }
+}
+</script>
+</body>
+</html>

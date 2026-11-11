@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ZAKLJUČANO — Escape room u Beogradu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<!-- GA4: zamenite MEASUREMENT_ID pravim ID-jem (G-XXXXXXXXXX) -->
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;try{var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;s.onerror=function(){};document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);}catch(e){}})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px}
+::selection{background:#B8893E;color:#14110F}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+</style>
+</helmet>
+
+<div ref="{{ grainRef }}" aria-hidden="true" style="position:fixed;inset:0;z-index:400;pointer-events:none;opacity:.07;mix-blend-mode:overlay"></div>
+
+<!-- ============ ULAZ: OTKLJUČAJ SAJT ============ -->
+<sc-if value="{{ lockVisible }}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-modal="true" aria-label="Otključaj sajt" style="position:fixed;inset:0;z-index:200;overflow:hidden">
+  <div style="position:absolute;top:0;bottom:0;left:0;width:50%;overflow:hidden;background:#14110F;transform:{{ doorL }};transition:transform 1100ms cubic-bezier(0.77,0,0.175,1)">
+    <img src="slike/katanac-lanac.webp" alt="Mesingani katanac na teškom lancu" style="position:absolute;top:0;left:0;width:100vw;max-width:none;height:100%;object-fit:cover">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 120% 90% at 100% 50%, rgba(20,17,15,.55) 0%, rgba(20,17,15,.92) 75%)"></div>
+    <div style="position:absolute;top:0;bottom:0;right:0;width:1px;background:rgba(184,137,62,.55)"></div>
+  </div>
+  <div style="position:absolute;top:0;bottom:0;right:0;width:50%;overflow:hidden;background:#14110F;transform:{{ doorR }};transition:transform 1100ms cubic-bezier(0.77,0,0.175,1)">
+    <img src="slike/katanac-lanac.webp" alt="" style="position:absolute;top:0;right:0;width:100vw;max-width:none;height:100%;object-fit:cover">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 120% 90% at 0% 50%, rgba(20,17,15,.55) 0%, rgba(20,17,15,.92) 75%)"></div>
+  </div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:24px;opacity:{{ lockOpacity }};transform:{{ lockScale }};transition:opacity 500ms cubic-bezier(0.23,1,0.32,1), transform 700ms cubic-bezier(0.23,1,0.32,1)">
+    <div style="position:relative;max-width:340px;background:#EDE3CF;color:#14110F;padding:20px 24px 18px;transform:rotate(-2deg);box-shadow:0 18px 40px rgba(0,0,0,.55);font-family:'Special Elite',monospace">
+      <div style="position:absolute;top:-12px;left:50%;width:90px;height:24px;margin-left:-45px;background:rgba(237,227,207,.55);transform:rotate(3deg);box-shadow:0 1px 3px rgba(0,0,0,.2)"></div>
+      <div style="font-size:12px;letter-spacing:.14em;color:#C0392B" data-en="EVIDENCE NO. 0 — CODE">DOKAZ BR. 0 — ŠIFRA</div>
+      <div style="margin-top:8px;font-size:17px;line-height:1.45" data-en="Number of rooms · max players · first digit of 60 minutes">Broj soba · max igrača · prva cifra od 60 minuta</div>
+    </div>
+
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center">
+      <div style="width:178px;height:136px;margin-bottom:-44px;border:22px solid #A29C92;border-bottom:none;border-radius:89px 89px 0 0;box-shadow:inset 0 8px 12px rgba(0,0,0,.4), 0 -1px 0 rgba(255,255,255,.18);transform:{{ shackleT }};transition:transform 620ms cubic-bezier(0.34,1.56,0.64,1)"></div>
+      <div style="position:relative;z-index:1;width:290px;max-width:calc(100vw - 40px);padding:16px 22px 20px;border-radius:22px;background:linear-gradient(165deg,#DDBA78 0%,#B8893E 42%,#8A6328 100%);box-shadow:{{ lockBodyShadow }};transition:box-shadow 600ms cubic-bezier(0.23,1,0.32,1);display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.34em;color:#4E3611;text-shadow:0 1px 0 rgba(255,235,190,.45)">ZAKLJUČANO</div>
+        <div style="display:flex;gap:12px">
+          <sc-for list="{{ wheels }}" as="w" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+              <button type="button" aria-label="{{ w.upLabel }}" onClick="{{ w.up }}" style="width:62px;height:40px;border:none;border-radius:6px;background:rgba(60,38,10,.22);color:#3A2808;font-size:12px;cursor:pointer;transition:transform 120ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:rgba(60,38,10,.34)">▲</button>
+              <div ref="{{ w.ref }}" tabindex="0" role="spinbutton" aria-label="{{ w.label }}" aria-valuenow="{{ w.digit }}" aria-valuemin="0" aria-valuemax="9" onWheel="{{ w.onWheel }}" onPointerDown="{{ w.onDown }}" onPointerMove="{{ w.onMove }}" onPointerUp="{{ w.onUp }}" onPointerCancel="{{ w.onUp }}" onKeyDown="{{ w.onKey }}" style="position:relative;width:62px;height:100px;overflow:hidden;border-radius:7px;background:#EAE0CA;box-shadow:inset 0 0 0 2px #6E4E1D, inset 0 14px 16px rgba(0,0,0,.38), inset 0 -14px 16px rgba(0,0,0,.38);perspective:320px;cursor:ns-resize;touch-action:none;outline:none;user-select:none" style-focus="box-shadow:inset 0 0 0 2px #6E4E1D, inset 0 14px 16px rgba(0,0,0,.38), inset 0 -14px 16px rgba(0,0,0,.38), 0 0 0 3px #EDE3CF">
+                {{ w.strip }}
+                <div style="position:absolute;left:0;right:0;top:50%;height:36px;margin-top:-18px;border-top:1px solid rgba(110,78,29,.4);border-bottom:1px solid rgba(110,78,29,.4);pointer-events:none"></div>
+              </div>
+              <button type="button" aria-label="{{ w.downLabel }}" onClick="{{ w.down }}" style="width:62px;height:40px;border:none;border-radius:6px;background:rgba(60,38,10,.22);color:#3A2808;font-size:12px;cursor:pointer;transition:transform 120ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:rgba(60,38,10,.34)">▼</button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-height:56px;text-align:center">
+      <div style="font-family:'Special Elite',monospace;font-size:14px;color:#B9AE99" data-en="Turn the wheels by scrolling, dragging or with the arrow keys">Okrećite točkiće skrolom, prevlačenjem ili strelicama</div>
+      <sc-if value="{{ hint }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Special Elite',monospace;font-size:15px;color:#D4AE6A;animation:fadeUp 500ms cubic-bezier(0.23,1,0.32,1) both">{{ t.lockHint }}</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <button type="button" onClick="{{ skipLock }}" style="position:absolute;top:calc(16px + env(safe-area-inset-top));right:16px;min-height:44px;padding:0 18px;background:rgba(20,17,15,.6);border:1px solid rgba(237,227,207,.35);border-radius:2px;color:#EDE3CF;font-size:14px;letter-spacing:.04em;cursor:pointer;opacity:{{ lockOpacity }};transition:opacity 400ms cubic-bezier(0.23,1,0.32,1), transform 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="border-color:#B8893E;color:#D4AE6A"><span data-en="Skip →">Preskoči →</span></button>
+</div>
+</sc-if>
+
+<!-- ============ HEADER ============ -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:100;padding-top:env(safe-area-inset-top);background:{{ headerBg }};border-bottom:1px solid {{ headerLine }};backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background-color 300ms cubic-bezier(0.23,1,0.32,1), border-color 300ms cubic-bezier(0.23,1,0.32,1)">
+  <div style="max-width:1360px;margin:0 auto;height:72px;padding:0 clamp(16px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <a href="index.dc.html" aria-label="ZAKLJUČANO — početna" style="display:flex;align-items:center;gap:10px;color:#EDE3CF">
+      <span aria-hidden="true" style="position:relative;width:22px;height:30px;border-radius:4px;background:#B8893E;display:block">
+        <span style="position:absolute;top:7px;left:7px;width:8px;height:8px;border-radius:50%;background:#14110F"></span>
+        <span style="position:absolute;top:13px;left:9px;width:4px;height:9px;background:#14110F"></span>
+      </span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.06em;line-height:1">ZAKLJUČANO</span>
+    </a>
+    <sc-if value="{{ navWide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Glavna navigacija" style="display:flex;gap:clamp(16px,2vw,28px);font-size:15px;white-space:nowrap">
+        <a href="sobe.dc.html" style="color:#EDE3CF" style-hover="color:#D4AE6A" data-en="Rooms">Sobe</a>
+        <a href="timbilding.dc.html" style="color:#EDE3CF" style-hover="color:#D4AE6A" data-en="Team building">Timbilding</a>
+        <a href="rodjendani.dc.html" style="color:#EDE3CF" style-hover="color:#D4AE6A" data-en="Birthdays">Rođendani</a>
+        <a href="vauceri.dc.html" style="color:#EDE3CF" style-hover="color:#D4AE6A" data-en="Vouchers">Vaučeri</a>
+        <a href="rang-lista.dc.html" style="color:#EDE3CF" style-hover="color:#D4AE6A" data-en="Leaderboard">Rang-lista</a>
+        <a href="kontakt.dc.html" style="color:#EDE3CF" style-hover="color:#D4AE6A" data-en="Contact">Kontakt</a>
+      </nav>
+    </sc-if>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button type="button" onClick="{{ openNotebook }}" aria-label="Beležnica detektiva — skrivena zagonetka" title="Beležnica detektiva" style="position:relative;width:44px;height:44px;border:1px solid rgba(184,137,62,.5);border-radius:50%;background:transparent;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="border-color:#D4AE6A">
+        <span style="position:absolute;top:11px;left:11px;width:16px;height:16px;border:2px solid #B8893E;border-radius:50%"></span>
+        <span style="position:absolute;top:26px;left:25px;width:9px;height:3px;background:#B8893E;border-radius:2px;transform:rotate(45deg)"></span>
+        <sc-if value="{{ solved }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:2px;right:2px;width:9px;height:9px;border-radius:50%;background:#C0392B"></span></sc-if>
+      </button>
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;border:1px solid rgba(237,227,207,.3);border-radius:2px;overflow:hidden" role="group" aria-label="Jezik">
+          <button type="button" onClick="{{ setSr }}" aria-pressed="{{ srPressed }}" style="width:44px;height:44px;border:none;cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.06em;background:{{ srBg }};color:{{ srFg }}">SR</button>
+          <button type="button" onClick="{{ setEn }}" aria-pressed="{{ enPressed }}" style="width:44px;height:44px;border:none;cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.06em;background:{{ enBg }};color:{{ enFg }}">EN</button>
+        </div>
+        <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;white-space:nowrap;min-height:44px;padding:0 20px;background:#B8893E;color:#14110F;font-weight:600;font-size:15px;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#CFA35A;color:#14110F" data-en="Book">Rezerviši</a>
+      </sc-if>
+      <sc-if value="{{ navCompact }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ toggleMenu }}" aria-label="Meni" aria-expanded="{{ menuExpanded }}" style="width:44px;height:44px;border:1px solid rgba(237,227,207,.3);border-radius:2px;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px">
+          <span style="width:18px;height:2px;background:#EDE3CF;transform:{{ burgerA }};transition:transform 250ms cubic-bezier(0.23,1,0.32,1)"></span>
+          <span style="width:18px;height:2px;background:#EDE3CF;transform:{{ burgerB }};transition:transform 250ms cubic-bezier(0.23,1,0.32,1)"></span>
+        </button>
+      </sc-if>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:90;background:#14110F;padding:calc(96px + env(safe-area-inset-top)) 24px 40px;display:flex;flex-direction:column;gap:6px;overflow:auto;animation:fadeUp 300ms cubic-bezier(0.23,1,0.32,1) both">
+    <a href="sobe.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#EDE3CF" data-en="Rooms">Sobe</a>
+    <a href="rezervacija.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#B8893E" data-en="Book">Rezervacija</a>
+    <a href="timbilding.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#EDE3CF" data-en="Team building">Timbilding</a>
+    <a href="rodjendani.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#EDE3CF" data-en="Birthdays">Rođendani</a>
+    <a href="vauceri.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#EDE3CF" data-en="Gift vouchers">Vaučeri</a>
+    <a href="rang-lista.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#EDE3CF" data-en="Leaderboard">Rang-lista</a>
+    <a href="faq.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#EDE3CF">FAQ</a>
+    <a href="kontakt.dc.html" style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1.1;color:#EDE3CF" data-en="Contact">Kontakt</a>
+    <div style="display:flex;gap:10px;margin-top:24px">
+      <button type="button" onClick="{{ setSr }}" style="width:56px;height:44px;border:1px solid rgba(237,227,207,.3);cursor:pointer;font-weight:600;background:{{ srBg }};color:{{ srFg }}">SR</button>
+      <button type="button" onClick="{{ setEn }}" style="width:56px;height:44px;border:1px solid rgba(237,227,207,.3);cursor:pointer;font-weight:600;background:{{ enBg }};color:{{ enFg }}">EN</button>
+    </div>
+  </div>
+</sc-if>
+
+<main>
+<!-- ============ HERO SA LAMPOM ============ -->
+<section ref="{{ heroRef }}" data-screen-label="Hero" aria-label="Uvod" style="position:relative;height:100svh;min-height:620px;overflow:hidden;background:#0E0C0A">
+  <img src="slike/hero-soba-lampa.webp" alt="Stara radna soba sa lampom, mikroskopom i bočicama na policama" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%">
+  <div aria-hidden="true" style="position:absolute;right:16%;top:20%;font-family:'Special Elite',monospace;font-size:clamp(90px,11vw,160px);line-height:1;color:rgba(237,227,207,.62);transform:rotate(-9deg);text-shadow:0 0 1px rgba(237,227,207,.4);pointer-events:none">S</div>
+  <sc-if value="{{ lampOn }}" hint-placeholder-val="{{ true }}">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(11,9,8,.93);mask-image:radial-gradient(circle 280px at var(--lx,62%) var(--ly,42%), transparent 0%, rgba(0,0,0,.25) 40%, #000 100%);-webkit-mask-image:radial-gradient(circle 280px at var(--lx,62%) var(--ly,42%), transparent 0%, rgba(0,0,0,.25) 40%, #000 100%);pointer-events:none"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(circle 300px at var(--lx,62%) var(--ly,42%), rgba(255,206,140,.13), transparent 70%);mix-blend-mode:screen;pointer-events:none"></div>
+  </sc-if>
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(14,12,10,.92) 0%, rgba(14,12,10,.35) 45%, transparent 70%), linear-gradient(to bottom, rgba(14,12,10,.6), transparent 22%);pointer-events:none"></div>
+
+  <div style="position:absolute;left:0;right:0;bottom:0;padding:0 clamp(20px,4vw,48px) clamp(40px,8vh,88px)">
+    <div style="max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px">
+      <div style="max-width:820px">
+        <div style="overflow:hidden;padding:26px 0 12px;margin:-26px 0 -12px"><div data-hero="1" style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E" data-en="CASE NO. 01 — ESCAPE ROOM IN BELGRADE">SLUČAJ BR. 01 — ESCAPE ROOM U BEOGRADU</div></div>
+        <div style="overflow:hidden;padding:44px 0 18px;margin:-34px 0 -18px"><h1 data-hero="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(84px,15vw,232px);line-height:.84;letter-spacing:.005em;color:#EDE3CF" data-en="You have 60 minutes.">Imate 60 minuta.</h1></div>
+        <div style="overflow:hidden;padding:6px 0 6px;margin:12px 0 -6px"><p data-hero="1" style="margin:0;max-width:520px;font-size:clamp(16px,1.4vw,19px);color:#D9CFBB;text-wrap:pretty" data-en="Four rooms, one door and a clock that won’t stop. Point the light, find the clue and get out before time runs out.">Četiri sobe, jedna vrata i sat koji ne staje. Uperite lampu, pronađite trag i izađite pre nego što vreme istekne.</p></div>
+        <div data-hero="1" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px">
+          <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 28px;background:#B8893E;color:#14110F;font-weight:600;font-size:16px;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#CFA35A;color:#14110F" data-en="Book a slot">Rezerviši termin</a>
+          <a href="#sobe" data-btn="1" style="display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 28px;border:1px solid rgba(237,227,207,.55);color:#EDE3CF;font-weight:500;font-size:16px;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), border-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="border-color:#EDE3CF;color:#EDE3CF" data-en="Choose a room">Izaberi sobu</a>
+        </div>
+      </div>
+      <sc-if value="{{ lampOn }}" hint-placeholder-val="{{ true }}">
+        <div data-hero="1" style="font-family:'Special Elite',monospace;font-size:14px;color:#B9AE99;max-width:260px">{{ lampHint }}</div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLOBODNO DANAS ============ -->
+<section aria-label="Slobodni termini" style="background:#1A1613;border-top:1px solid rgba(184,137,62,.25);border-bottom:1px solid rgba(184,137,62,.25)">
+  <div style="max-width:1360px;margin:0 auto;padding:22px clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px">
+    <div style="display:flex;align-items:center;gap:12px;min-width:180px">
+      <span style="width:9px;height:9px;border-radius:50%;background:#C0392B;box-shadow:0 0 0 4px rgba(192,57,43,.2)"></span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.03em;line-height:1" data-en="Available next">Slobodno danas</span>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+      <sc-for list="{{ slots }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" onClick="{{ s.click }}" data-btn="1" style="display:flex;flex-direction:column;gap:2px;padding:10px 16px;min-height:60px;border:1px solid rgba(184,137,62,.45);border-radius:2px;color:#EDE3CF;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:rgba(184,137,62,.14);color:#EDE3CF">
+          <span style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1">{{ s.time }}</span><span style="font-family:'Special Elite',monospace;font-size:12px;color:#B8893E">{{ s.day }}</span></span>
+          <span style="font-size:13px;color:#B9AE99;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.name }}</span>
+        </a>
+      </sc-for>
+    </div>
+    <a href="rezervacija.dc.html" style="font-size:15px;font-weight:500;color:#B8893E" style-hover="color:#D4AE6A" data-en="All slots →">Svi termini →</a>
+  </div>
+</section>
+
+<!-- ============ DOSIJEI SOBA ============ -->
+<section id="sobe" data-screen-label="Sobe" style="background:radial-gradient(ellipse 80% 45% at 50% 0%, rgba(184,137,62,.11), transparent 70%), #14110F;padding:clamp(80px,12vw,150px) clamp(20px,4vw,48px)">
+  <div style="max-width:1360px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(40px,6vw,72px)">
+      <div>
+        <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E" data-en="ARCHIVE · 4 CASE FILES">ARHIVA · 4 DOSIJEA</div>
+        <div style="overflow:hidden;padding:26px 0 12px;margin:-16px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,120px);line-height:.88" data-en="Pick your case.">Izaberite slučaj.</h2></div>
+      </div>
+      <div style="max-width:380px;display:flex;flex-direction:column;gap:14px">
+        <p style="margin:0;color:#B9AE99;text-wrap:pretty" data-en="Every room is a closed case waiting for your team. Hover over a folder — or tap it — to open the file.">Svaka soba je zatvoren slučaj koji čeka vaš tim. Pređite mišem preko fascikle — ili je dodirnite — da otvorite dosije.</p>
+        <a href="sobe.dc.html" style="font-weight:500;color:#B8893E" style-hover="color:#D4AE6A" data-en="All rooms &amp; filters →">Sve sobe i filteri →</a>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:clamp(24px,3vw,40px)">
+      <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="4">
+        <article onMouseEnter="{{ r.enter }}" onMouseLeave="{{ r.leave }}" style="position:relative;height:520px;perspective:1500px">
+          <div style="position:absolute;top:0;left:20px;height:30px;padding:0 16px;background:#CDB68A;border-radius:6px 6px 0 0;display:flex;align-items:center;font-family:'Special Elite',monospace;font-size:13px;color:#14110F">{{ r.tab }}</div>
+          <div style="position:absolute;top:26px;left:0;right:0;bottom:0;background:#CDB68A;border-radius:2px 8px 8px 8px;box-shadow:0 24px 50px rgba(0,0,0,.5)">
+            <div style="position:absolute;top:14px;left:14px;right:12px;bottom:12px;background:radial-gradient(ellipse at 80% 90%, rgba(150,110,50,.10), transparent 55%), #EDE3CF;color:#14110F;padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 2px 6px rgba(0,0,0,.18)">
+              <div style="position:relative;height:160px;background:#14110F;padding:6px;transform:rotate(-1.4deg);box-shadow:0 6px 14px rgba(0,0,0,.3)">
+                <img src="{{ r.img }}" alt="{{ r.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <div aria-hidden="true" style="position:absolute;top:-16px;left:24px;width:16px;height:50px;border:2.5px solid #8F8B84;border-radius:9px;transform:rotate(6deg)"><div style="position:absolute;top:6px;left:2px;width:7px;height:32px;border:2.5px solid #8F8B84;border-radius:6px"></div></div>
+              </div>
+              <h3 style="margin:2px 0 0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:30px;line-height:.95">{{ r.name }}</h3>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-family:'Special Elite',monospace;font-size:13px;color:#3A332E">
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.difficulty }}</span><span style="display:flex;gap:4px"><sc-for list="{{ r.locks }}" as="l" hint-placeholder-count="5"><span style="position:relative;width:12px;height:16px;opacity:{{ l.op }}"><span style="position:absolute;top:0;left:2px;width:8px;height:8px;border:2px solid #14110F;border-bottom:none;border-radius:5px 5px 0 0"></span><span style="position:absolute;bottom:0;left:0;width:12px;height:9px;background:#14110F;border-radius:1px"></span></span></sc-for></span></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.duration }}</span><span style="color:#14110F">60 MIN</span></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.players }}</span><span style="color:#14110F">{{ r.players }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.escaped }}</span><span style="color:#14110F">{{ r.escLine }}</span></div>
+              </div>
+              <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+                <a href="{{ r.bookHref }}" data-btn="1" style="display:flex;align-items:center;justify-content:center;min-height:48px;background:#14110F;color:#EDE3CF;font-weight:600;font-size:15px;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#3A332E;color:#EDE3CF">{{ t.bookThis }}</a>
+                <a href="{{ r.page }}" style="font-size:14px;font-weight:500;color:#7A5A22;text-align:center" style-hover="color:#14110F">{{ r.fullLine }}</a>
+              </div>
+              <div aria-hidden="true" style="position:absolute;right:14px;top:186px;padding:4px 10px;border:3px solid #C0392B;color:#C0392B;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.12em;transform:rotate(-11deg);opacity:.82;mix-blend-mode:multiply">POVERLJIVO</div>
+            </div>
+          </div>
+          <button type="button" onClick="{{ r.toggle }}" aria-expanded="{{ r.expanded }}" aria-label="{{ r.openLabel }}" style="position:absolute;top:26px;left:0;right:0;bottom:0;padding:26px 24px 24px;border:none;border-radius:2px 8px 8px 8px;text-align:left;cursor:pointer;background:{{ r.coverBg }};color:#14110F;transform-origin:50% 0%;transform:{{ r.coverT }};pointer-events:{{ r.coverPE }};transition:transform 800ms cubic-bezier(0.23,1,0.32,1);box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 10px 26px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:14px">
+            <span style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.1em;color:#3A332E">{{ r.caseLine }}</span>
+              <span style="width:46px;height:46px;border-radius:50%;background:{{ r.light }};display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:#14110F;box-shadow:0 0 24px {{ r.light }}">{{ r.no }}</span>
+            </span>
+            <span style="height:1px;background:rgba(20,17,15,.25)"></span>
+            <span data-type-id="{{ r.id }}" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,4.2vw,56px);line-height:.9">{{ r.typedA }}<span style="visibility:hidden">{{ r.typedB }}</span></span>
+            <span style="font-size:15px;line-height:1.5;color:#3A332E;text-wrap:pretty">{{ r.teaser }}</span>
+            <span style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
+              <span style="font-family:'Special Elite',monospace;font-size:13px;color:#3A332E">{{ r.openLine }}</span>
+              <span style="padding:4px 10px;border:3px solid #C0392B;color:#C0392B;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.12em;transform:rotate(-8deg);opacity:.85;mix-blend-mode:multiply">POVERLJIVO</span>
+            </span>
+          </button>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KVIZ ============ -->
+<section id="kviz" data-screen-label="Kviz" style="background:#EDE3CF;color:#14110F;padding:clamp(80px,11vw,140px) clamp(20px,4vw,48px)">
+  <div style="max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:clamp(32px,5vw,80px);align-items:center">
+    <div data-clip="1" style="position:relative;aspect-ratio:4/5;max-height:680px;overflow:hidden;background:#14110F">
+      <img src="slike/lampa-devojka.webp" alt="Devojka u mraku osvetljava pehar baterijskom lampom" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:55% 50%">
+      <div style="position:absolute;left:20px;bottom:20px;font-family:'Special Elite',monospace;font-size:13px;color:#EDE3CF;background:rgba(20,17,15,.75);padding:6px 10px" data-en="EVIDENCE NO. 14 — THE LIGHT">DOKAZ BR. 14 — LAMPA</div>
+    </div>
+    <div>
+      <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#8A6328" data-en="QUESTIONNAIRE · 3 QUESTIONS">UPITNIK · 3 PITANJA</div>
+      <div style="overflow:hidden;padding:26px 0 12px;margin:-16px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(52px,7vw,104px);line-height:.88" data-en="Which room is yours?">Koja soba je za vas?</h2></div>
+
+      <sc-if value="{{ quizActive }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:36px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+            <span style="font-family:'Special Elite',monospace;font-size:14px;color:#5A4F45">{{ quizProgress }}</span>
+            <div style="display:flex;gap:6px"><sc-for list="{{ quizBars }}" as="b" hint-placeholder-count="3"><span style="width:34px;height:4px;background:#14110F;opacity:{{ b.op }}"></span></sc-for></div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,3.4vw,46px);line-height:1;margin-top:18px">{{ quizQ }}</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">
+            <sc-for list="{{ quizOpts }}" as="o" hint-placeholder-count="3">
+              <button type="button" onClick="{{ o.pick }}" style="display:flex;align-items:center;gap:16px;min-height:60px;padding:0 20px;border:1.5px solid #14110F;border-radius:2px;background:{{ o.bg }};color:{{ o.fg }};font-size:17px;font-weight:500;text-align:left;cursor:pointer;transition:transform 140ms cubic-bezier(0.23,1,0.32,1), background-color 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#14110F;color:#EDE3CF">
+                <span style="font-family:'Special Elite',monospace;font-size:14px;opacity:.7">{{ o.key }}</span><span>{{ o.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ quizCanBack }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ quizBack }}" style="margin-top:16px;min-height:44px;padding:0;border:none;background:none;color:#5A4F45;font-size:15px;cursor:pointer">{{ backLine }}</button>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;align-items:start;animation:fadeUp 500ms cubic-bezier(0.23,1,0.32,1) both">
+          <div style="position:relative;background:#14110F;padding:6px;transform:rotate(-1.5deg);box-shadow:0 12px 28px rgba(0,0,0,.25)">
+            <img src="{{ rec.img }}" alt="{{ rec.alt }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover">
+            <div style="position:absolute;right:-10px;bottom:-12px;padding:4px 10px;border:3px solid #C0392B;color:#C0392B;background:rgba(237,227,207,.85);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.1em;transform:rotate(-9deg)">{{ t.match }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="font-family:'Special Elite',monospace;font-size:13px;color:#8A6328">{{ rec.kicker }}</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:.92">{{ rec.name }}</div>
+            <p style="margin:0;color:#3A332E;text-wrap:pretty">{{ rec.reason }}</p>
+            <div style="font-family:'Special Elite',monospace;font-size:13px;color:#5A4F45;margin-top:4px">{{ freeLine }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ rec.slots }}" as="rs" hint-placeholder-count="2">
+                <a href="{{ rs.href }}" onClick="{{ rs.click }}" data-btn="1" style="display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid #14110F;color:#14110F;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#14110F;color:#EDE3CF"><span style="font-family:'Bebas Neue',sans-serif;font-size:22px">{{ rs.time }}</span><span style="font-size:12px">{{ rs.day }}</span></a>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
+              <a href="{{ rec.href }}" data-btn="1" style="display:inline-flex;align-items:center;min-height:52px;padding:0 24px;background:#14110F;color:#EDE3CF;font-weight:600;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#3A332E;color:#EDE3CF">{{ t.book }}</a>
+              <button type="button" onClick="{{ quizReset }}" style="min-height:52px;padding:0 18px;border:none;background:none;color:#5A4F45;font-size:15px;cursor:pointer">{{ t.again }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KAKO FUNKCIONIŠE ============ -->
+<section id="kako" data-screen-label="Kako funkcioniše" style="position:relative;overflow:hidden;padding:clamp(80px,11vw,140px) clamp(20px,4vw,48px);background:#14110F">
+  <img src="slike/tabla-dokaza.webp" alt="Tabla dokaza sa fotografijama, beleškama i crvenim koncem" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 55%, rgba(20,17,15,.45), rgba(20,17,15,.82))"></div>
+  <div style="position:relative;max-width:1240px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:clamp(48px,6vw,80px)">
+      <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="PROCEDURE · 3 STEPS">PROCEDURA · 3 KORAKA</div>
+      <div style="overflow:hidden;padding:26px 0 12px;margin:-16px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,120px);line-height:.88" data-en="How it works">Kako funkcioniše</h2></div>
+    </div>
+    <div style="position:relative">
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+        <svg aria-hidden="true" viewBox="0 0 100 60" preserveAspectRatio="none" style="position:absolute;left:0;top:0;width:100%;height:60px;overflow:visible;pointer-events:none;z-index:2">
+          <path d="M16.7 22 Q33 50 50 20 Q67 50 83.3 24" fill="none" stroke="#C0392B" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"></path>
+        </svg>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(28px,4vw,56px);padding-top:30px">
+        <div data-note="1" style="position:relative;background:#EDE3CF;color:#14110F;padding:34px 28px 30px;transform:rotate(-2deg);box-shadow:0 20px 40px rgba(0,0,0,.5)">
+          <span aria-hidden="true" style="position:absolute;top:-10px;left:50%;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #E25B4C, #C0392B 55%, #7E2018);box-shadow:0 3px 5px rgba(0,0,0,.45);z-index:3"></span>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:#C0392B">01</div>
+          <h3 style="margin:6px 0 10px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:38px;line-height:.95" data-en="Book">Rezerviši</h3>
+          <p style="margin:0;font-size:16px;color:#3A332E;text-wrap:pretty" data-en="Choose a room and a slot online. We hold your slot for 10 minutes while you finish.">Izaberite sobu i termin online. Termin vam čuvamo 10 minuta dok završavate rezervaciju.</p>
+        </div>
+        <div data-note="1" style="position:relative;background:#EDE3CF;color:#14110F;padding:34px 28px 30px;transform:rotate(1.6deg);box-shadow:0 20px 40px rgba(0,0,0,.5)">
+          <span aria-hidden="true" style="position:absolute;top:-10px;left:50%;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #E25B4C, #C0392B 55%, #7E2018);box-shadow:0 3px 5px rgba(0,0,0,.45);z-index:3"></span>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:#C0392B">02</div>
+          <h3 style="margin:6px 0 10px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:38px;line-height:.95" data-en="Arrive 15 min early">Dođi 15 min ranije</h3>
+          <p style="margin:0;font-size:16px;color:#3A332E;text-wrap:pretty" data-en="Meet your game master, leave your things and hear the rules. Phones stay outside.">Upoznaćete game mastera, ostaviti stvari i čuti pravila. Telefoni ostaju napolju.</p>
+        </div>
+        <div data-note="1" style="position:relative;background:#EDE3CF;color:#14110F;padding:34px 28px 30px;transform:rotate(-1deg);box-shadow:0 20px 40px rgba(0,0,0,.5)">
+          <span aria-hidden="true" style="position:absolute;top:-10px;left:50%;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #E25B4C, #C0392B 55%, #7E2018);box-shadow:0 3px 5px rgba(0,0,0,.45);z-index:3"></span>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:#C0392B">03</div>
+          <h3 style="margin:6px 0 10px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:38px;line-height:.95" data-en="Escape before time runs out">Izađi pre isteka vremena</h3>
+          <p style="margin:0;font-size:16px;color:#3A332E;text-wrap:pretty" data-en="60 minutes, three hints, one door. At the end — a team photo and your time on the leaderboard.">60 minuta, tri nagoveštaja, jedna vrata. Na kraju — fotografija tima i vaše vreme na rang-listi.</p>
+          <div aria-hidden="true" style="position:absolute;right:-18px;bottom:-30px;width:56px;height:56px;background:#E4D7B8;transform:rotate(8deg);box-shadow:0 4px 10px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-family:'Special Elite',monospace;font-size:30px;color:rgba(58,51,46,.55)">E</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:clamp(56px,6vw,80px)">
+      <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;min-height:54px;padding:0 30px;background:#B8893E;color:#14110F;font-weight:600;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#CFA35A;color:#14110F" data-en="Start with step one">Kreni od prvog koraka</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RANG-LISTA ============ -->
+<section id="rang" data-screen-label="Rang-lista" style="background:#14110F;padding:clamp(80px,11vw,140px) clamp(20px,4vw,48px)">
+  <div style="max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),1fr));gap:clamp(32px,6vw,96px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E">{{ monthKicker }}</div>
+      <div style="overflow:hidden;padding:26px 0 12px;margin:-26px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,120px);line-height:.88" data-en="Fastest this month.">Najbrži ovog meseca.</h2></div>
+      <p style="margin:0;max-width:420px;color:#B9AE99;text-wrap:pretty" data-en="Every team that gets out lands on the list with its exact time. Without hints, of course, the time counts double the honor.">Svaki tim koji izađe ulazi na listu sa tačnim vremenom. Ko izađe bez nagoveštaja, ima i duplo više prava da se hvali.</p>
+      <div data-clip="1" style="overflow:hidden;aspect-ratio:16/9;max-width:520px">
+        <img src="slike/dosije-lupa.webp" alt="Mesingana lupa na drvenom stolu" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+      </div>
+    </div>
+    <div>
+      <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+        <sc-for list="{{ top3 }}" as="p" hint-placeholder-count="3">
+          <li style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;padding:26px 0;border-bottom:1px solid rgba(184,137,62,.28)">
+            <span style="width:60px;height:60px;border-radius:50%;background:{{ p.medal }};box-shadow:inset 0 2px 0 rgba(255,240,200,.5), inset 0 -4px 8px rgba(60,38,10,.4), 0 6px 16px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:30px;color:#2A1D08">{{ p.rank }}</span>
+            <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1">{{ p.team }}</span>
+              <span style="font-size:14px;color:#B9AE99">{{ p.room }}</span>
+            </span>
+            <span style="font-family:'Special Elite',monospace;font-size:clamp(28px,3vw,40px);color:#D4AE6A">{{ p.time }}</span>
+          </li>
+        </sc-for>
+      </ol>
+      <a href="rang-lista.dc.html" style="display:inline-block;margin-top:24px;font-weight:500;color:#B8893E" style-hover="color:#D4AE6A" data-en="Full leaderboard by room →">Cela rang-lista po sobama →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIRME I ROĐENDANI ============ -->
+<section data-screen-label="Firme i rođendani" style="background:#14110F;padding:0 clamp(20px,4vw,48px) clamp(80px,11vw,140px)">
+  <div style="max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr));gap:clamp(16px,2vw,28px)">
+    <a href="timbilding.dc.html" data-clip="1" onMouseEnter="{{ hoverTb }}" onMouseLeave="{{ unhover }}" style="position:relative;display:block;min-height:560px;overflow:hidden;color:#EDE3CF;background:#1A1613">
+      <img src="slike/timbilding.webp" alt="Kolege slave u kancelariji posle uspešnog timbildinga" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:{{ tbScale }};transition:transform 1200ms cubic-bezier(0.23,1,0.32,1)">
+      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(20,17,15,.95) 0%, rgba(20,17,15,.5) 45%, rgba(20,17,15,.1) 75%)"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="FOR COMPANIES">ZA FIRME</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5vw,72px);line-height:.9" data-en="Four rooms. One clock. Your whole team.">Četiri sobe. Jedan sat. Ceo tim.</span>
+        <span style="max-width:440px;color:#D9CFBB;text-wrap:pretty" data-en="Up to 24 people across all four rooms at once, with a team competition and an offer within 24h.">Do 24 osobe u sve četiri sobe istovremeno, uz takmičenje timova i ponudu za 24 sata.</span>
+        <span style="margin-top:6px;font-weight:600;color:#D4AE6A" data-en="Request an offer →">Zatraži ponudu →</span>
+      </div>
+    </a>
+    <a href="rodjendani.dc.html" data-clip="1" onMouseEnter="{{ hoverRd }}" onMouseLeave="{{ unhover }}" style="position:relative;display:block;min-height:560px;overflow:hidden;color:#EDE3CF;background:#1A1613">
+      <img src="slike/rodjendan-ekipa.webp" alt="Društvo u kapama za rođendan duva svećice na torti" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:{{ rdScale }};transition:transform 1200ms cubic-bezier(0.23,1,0.32,1)">
+      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(20,17,15,.95) 0%, rgba(20,17,15,.5) 45%, rgba(20,17,15,.1) 75%)"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="FOR BIRTHDAYS">ZA ROĐENDANE</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5vw,72px);line-height:.9" data-en="A birthday behind locked doors.">Rođendan iza zaključanih vrata.</span>
+        <span style="max-width:440px;color:#D9CFBB;text-wrap:pretty" data-en="For kids from 10 and for adults. Cake, decorations and a room just for your crew.">Za decu od 10 godina i za odrasle. Torta, ukrasi i soba samo za vašu ekipu.</span>
+        <span style="margin-top:6px;font-weight:600;color:#D4AE6A" data-en="Party packages →">Paketi za proslave →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ POKLON VAUČER ============ -->
+<section id="vaucer" data-screen-label="Vaučer" style="background:#EDE3CF;color:#14110F;padding:clamp(80px,11vw,140px) clamp(20px,4vw,48px);overflow:hidden">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),1fr));gap:clamp(48px,6vw,96px);align-items:center">
+    <div onMouseEnter="{{ envIn }}" onMouseLeave="{{ envOut }}" onClick="{{ envToggle }}" style="position:relative;width:100%;max-width:500px;aspect-ratio:1.55;margin:clamp(130px,32vw,180px) auto 0;perspective:1200px;cursor:pointer">
+      <div style="position:absolute;left:7%;right:7%;top:8%;height:80%;z-index:2;background:#FBF6EA;box-shadow:0 4px 12px rgba(0,0,0,.18);padding:18px 22px;transform:{{ cardT }};transition:transform 700ms cubic-bezier(0.23,1,0.32,1);display:flex;flex-direction:column;gap:6px">
+        <span style="font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em;color:#C0392B" data-en="GIFT VOUCHER">POKLON VAUČER</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:.95" data-en="60 minutes for two">60 minuta za dvoje</span>
+        <span style="font-family:'Special Elite',monospace;font-size:13px;color:#5A4F45">ZK-•••• -••••</span>
+      </div>
+      <div style="position:absolute;inset:0;z-index:0;background:#B9A77F;box-shadow:0 30px 60px rgba(20,17,15,.35)"></div>
+      <div style="position:absolute;inset:0;z-index:3;background:#DCCCA8;clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%)"></div>
+      <div style="position:absolute;inset:0;z-index:3;background:linear-gradient(160deg,#E4D6B5,#D3C29C);clip-path:polygon(0 100%,50% 48%,100% 100%)"></div>
+      <div style="position:absolute;left:0;right:0;top:0;height:56%;z-index:{{ flapZ }};transform-origin:50% 0%;transform:{{ flapT }};transition:transform 700ms cubic-bezier(0.23,1,0.32,1);background:linear-gradient(180deg,#D0BE96,#C7B38A);clip-path:polygon(0 0,100% 0,50% 100%)"></div>
+      <div style="position:absolute;z-index:4;left:50%;top:56%;width:74px;height:74px;margin:-37px 0 0 -37px;border-radius:50%;background:radial-gradient(circle at 38% 32%, #D9584A, #C0392B 50%, #82241A);box-shadow:0 6px 14px rgba(0,0,0,.35), inset 0 0 0 6px rgba(120,30,20,.35);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:34px;color:#EDE3CF;opacity:{{ sealOp }};transition:opacity 300ms cubic-bezier(0.23,1,0.32,1)">Z</div>
+      <div style="position:absolute;z-index:4;left:8%;bottom:12%;font-family:'Special Elite',monospace;font-size:14px;color:#3A332E;line-height:1.7"><div data-en="To: ______________">Za: ______________</div><div data-en="From: ZAKLJUČANO, Belgrade">Od: ZAKLJUČANO, Beograd</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#8A6328" data-en="SEALED ENVELOPE">ZAPEČAĆENA KOVERTA</div>
+      <div style="overflow:hidden;padding:26px 0 12px;margin:-26px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,112px);line-height:.88" data-en="Gift 60 minutes.">Poklonite 60 minuta.</h2></div>
+      <p style="margin:0;max-width:460px;color:#3A332E;text-wrap:pretty" data-en="Valid for 12 months in any room. Arrives by email right after payment, sealed in an envelope with the recipient’s name and your message.">Važi 12 meseci za bilo koju sobu. Stiže na email odmah posle uplate — u zapečaćenoj koverti sa imenom primaoca i vašom porukom.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:6px">
+        <a href="vauceri.dc.html" data-btn="1" style="display:inline-flex;align-items:center;min-height:54px;padding:0 28px;background:#14110F;color:#EDE3CF;font-weight:600;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#3A332E;color:#EDE3CF" data-en="Buy a voucher">Kupi vaučer</a>
+        <span style="font-family:'Special Elite',monospace;font-size:15px;color:#5A4F45" data-en="from 4,800 RSD">od 4.800 RSD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UTISCI ============ -->
+<section id="utisci" data-screen-label="Utisci" style="background:#1A1613;padding:clamp(80px,11vw,140px) clamp(20px,4vw,48px)">
+  <div style="max-width:1360px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px;margin-bottom:clamp(40px,5vw,64px)">
+      <div>
+        <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E" data-en="WITNESS STATEMENTS">IZJAVE SVEDOKA</div>
+        <div style="overflow:hidden;padding:26px 0 12px;margin:-16px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,120px);line-height:.88" data-en="They made it out.">Izašli su.</h2></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:.8">4,9</span>
+        <span style="display:flex;flex-direction:column;gap:4px">
+          <span style="color:#D4AE6A;font-size:20px;letter-spacing:3px" aria-label="5 od 5 zvezdica">★★★★★</span>
+          <span style="font-size:13px;color:#B9AE99" data-en="Google rating · placeholder for widget">Google ocena · mesto za widget</span>
+        </span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(20px,2.5vw,32px)">
+      <sc-for list="{{ reviews }}" as="v" hint-placeholder-count="3">
+        <figure style="margin:0;display:flex;flex-direction:column;gap:18px;padding:16px 16px 24px;background:#14110F;border:1px solid rgba(184,137,62,.22)">
+          <sc-if value="{{ v.img }}" hint-placeholder-val="{{ true }}">
+            <div data-clip="1" style="aspect-ratio:4/3;overflow:hidden;background:#3A332E"><img src="{{ v.img }}" alt="{{ v.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+          </sc-if>
+          <sc-if value="{{ v.noImg }}" hint-placeholder-val="{{ false }}">
+            <div style="aspect-ratio:4/3;border:1.5px dashed rgba(184,137,62,.5);display:flex;align-items:center;justify-content:center;font-family:'Special Elite',monospace;font-size:14px;color:#B9AE99;text-align:center;padding:20px">{{ t.photoPh }}</div>
+          </sc-if>
+          <div style="padding:0 6px;display:flex;flex-direction:column;gap:14px;flex:1">
+            <span style="font-family:'Special Elite',monospace;font-size:14px;color:#D4AE6A">{{ v.timeLine }}</span>
+            <blockquote style="margin:0;font-size:17px;line-height:1.55;color:#EDE3CF;text-wrap:pretty">„{{ v.quote }}“</blockquote>
+            <figcaption style="margin-top:auto;font-size:14px;color:#B9AE99">{{ v.byline }}</figcaption>
+          </div>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" data-screen-label="FAQ" style="background:#14110F;padding:clamp(80px,11vw,140px) clamp(20px,4vw,48px)">
+  <div style="max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:clamp(40px,6vw,96px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E" data-en="INTERROGATION">SASLUŠANJE</div>
+      <div style="overflow:hidden;padding:26px 0 12px;margin:-26px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,120px);line-height:.88" data-en="Questions before you come in.">Pitanja pre ulaska.</h2></div>
+      <div data-clip="1" style="overflow:hidden;aspect-ratio:3/2;max-width:520px">
+        <img src="slike/pisaca-masina.webp" alt="Stara pisaća mašina na tamnom drvenom stolu" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:80% 50%">
+      </div>
+    </div>
+    <div>
+      <div style="border-top:1px solid rgba(184,137,62,.3)">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+          <div style="border-bottom:1px solid rgba(184,137,62,.3)">
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.expanded }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:76px;padding:18px 0;border:none;background:none;text-align:left;cursor:pointer;font-size:clamp(18px,1.6vw,21px);font-weight:500;color:#EDE3CF" style-hover="color:#D4AE6A">
+              <span>{{ f.q }}</span>
+              <span aria-hidden="true" style="position:relative;flex:none;width:20px;height:20px;transform:{{ f.rot }};transition:transform 300ms cubic-bezier(0.23,1,0.32,1)"><span style="position:absolute;top:9px;left:0;width:20px;height:2px;background:#B8893E"></span><span style="position:absolute;left:9px;top:0;width:2px;height:20px;background:#B8893E"></span></span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0 0 24px;max-width:600px;color:#B9AE99;text-wrap:pretty;animation:fadeUp 350ms cubic-bezier(0.23,1,0.32,1) both">{{ f.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <a href="faq.dc.html" style="display:inline-block;margin-top:24px;font-weight:500;color:#B8893E" style-hover="color:#D4AE6A" data-en="All questions →">Sva pitanja →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZAVRŠNI POZIV ============ -->
+<section ref="{{ ctaRef }}" data-screen-label="Završni poziv" style="position:relative;min-height:92svh;overflow:hidden;background:#0B0908;display:flex;align-items:center;justify-content:center;padding:120px clamp(20px,4vw,48px)">
+  <img src="slike/tamna-vrata.webp" alt="Mračan prolaz kroz koji se nazire osvetljena prostorija" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%">
+  <div aria-hidden="true" style="position:absolute;left:12%;bottom:18%;font-family:'Special Elite',monospace;font-size:clamp(80px,9vw,130px);line-height:1;color:rgba(237,227,207,.6);transform:rotate(7deg);pointer-events:none">F</div>
+  <sc-if value="{{ lampOn }}" hint-placeholder-val="{{ true }}">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(9,7,6,.9);mask-image:radial-gradient(circle 280px at var(--lx,50%) var(--ly,50%), transparent 0%, rgba(0,0,0,.25) 40%, #000 100%);-webkit-mask-image:radial-gradient(circle 280px at var(--lx,50%) var(--ly,50%), transparent 0%, rgba(0,0,0,.25) 40%, #000 100%);pointer-events:none"></div>
+  </sc-if>
+  <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%, rgba(11,9,8,.55), transparent 80%);pointer-events:none"></div>
+  <div style="position:relative;max-width:900px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="LAST CALL">POSLEDNJI POZIV</div>
+    <div style="overflow:hidden;padding:26px 0 12px;margin:-26px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(60px,10vw,160px);line-height:.86;text-wrap:balance">{{ closeLine }}</h2></div>
+    <p style="margin:0;max-width:480px;color:#D9CFBB;text-wrap:pretty">{{ closeSub }}</p>
+    <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;min-height:58px;padding:0 36px;background:#B8893E;color:#14110F;font-weight:600;font-size:17px;border-radius:2px;margin-top:8px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#CFA35A;color:#14110F" data-en="Book">Rezerviši</a>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer style="background:#0F0D0B;border-top:1px solid rgba(184,137,62,.25);padding:72px clamp(20px,4vw,48px) 32px">
+  <div style="max-width:1360px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:300px">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:.06em;line-height:1">ZAKLJUČANO</span>
+        <span style="font-size:15px;color:#B9AE99" data-en="Escape room in Belgrade. Four rooms, 60 minutes, one way out.">Escape room u Beogradu. Četiri sobe, 60 minuta, jedan izlaz.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="ROOMS">SOBE</span>
+        <a href="soba-podrum.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Dr. Vuk’s Basement">Podrum doktora Vuka</a>
+        <a href="soba-sef.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="National Bank Vault">Sef Narodne banke</a>
+        <a href="soba-kabina.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Cabin 7 – Orient Express">Kabina 7 – Orijent ekspres</a>
+        <a href="soba-laboratorija.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Laboratory 0">Laboratorija 0</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="MORE">VIŠE</span>
+        <a href="timbilding.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Team building">Timbilding</a>
+        <a href="rodjendani.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Birthdays">Rođendani</a>
+        <a href="vauceri.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Gift vouchers">Poklon vaučeri</a>
+        <a href="rang-lista.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A" data-en="Leaderboard">Rang-lista</a>
+        <a href="faq.dc.html" style="color:#D9CFBB" style-hover="color:#D4AE6A">FAQ</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E" data-en="CONTACT">KONTAKT</span>
+        <a href="tel:+381601234567" onClick="{{ telClick }}" style="color:#EDE3CF" style-hover="color:#D4AE6A">+381 60 123 4567</a>
+        <a href="https://wa.me/381601234567" target="_blank" rel="noopener" onClick="{{ waClick }}" style="color:#EDE3CF" style-hover="color:#D4AE6A">WhatsApp</a>
+        <span style="color:#B9AE99" data-en="Street and number, Belgrade">Ulica i broj, Beograd</span>
+        <span style="color:#B9AE99" data-en="Every day 12:00–24:00">Svaki dan 12:00–24:00</span>
+        <a href="kontakt.dc.html" style="color:#B8893E" style-hover="color:#D4AE6A" data-en="How to find us →">Kako do nas →</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;margin-top:56px;padding-top:24px;border-top:1px solid rgba(237,227,207,.1);font-size:13px;color:#8F8577">
+      <span>© 2026 ZAKLJUČANO · Beograd</span>
+      <button type="button" onClick="{{ relock }}" style="min-height:44px;padding:0;border:none;background:none;color:#B9AE99;font-size:13px;cursor:pointer;font-family:'Special Elite',monospace" style-hover="color:#D4AE6A"><span data-en="🔒 Lock the site again">Zaključaj sajt ponovo</span></button>
+    </div>
+  </div>
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}"><div style="height:80px"></div></sc-if>
+</footer>
+
+<!-- ============ STICKY TRAKA (TELEFON) ============ -->
+<sc-if value="{{ showSticky }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(20,17,15,.95);border-top:1px solid rgba(184,137,62,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)">
+    <span style="display:flex;flex-direction:column;line-height:1.1"><span style="font-size:12px;color:#B9AE99" data-en="from">od</span><span style="font-family:'Bebas Neue',sans-serif;font-size:26px">1.700 RSD<span style="font-size:16px;color:#B9AE99">/os</span></span></span>
+    <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;min-height:50px;padding:0 26px;background:#B8893E;color:#14110F;font-weight:600;border-radius:2px" data-en="Book">Rezerviši</a>
+  </div>
+</sc-if>
+
+<!-- ============ BELEŽNICA (ZAGONETKA) ============ -->
+<sc-if value="{{ notebookOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeNotebook }}" style="position:fixed;inset:0;z-index:150;background:rgba(10,8,7,.78);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeUp 250ms cubic-bezier(0.23,1,0.32,1) both">
+    <div onClick="{{ stop }}" role="dialog" aria-modal="true" aria-label="Beležnica detektiva" style="position:relative;width:min(500px,100%);max-height:calc(100svh - 40px);overflow:auto;background:repeating-linear-gradient(180deg, transparent 0 31px, rgba(58,51,46,.14) 31px 32px), #EDE3CF;color:#14110F;padding:40px 30px 30px 64px;transform:rotate(-1deg);box-shadow:0 30px 70px rgba(0,0,0,.6)">
+      <div aria-hidden="true" style="position:absolute;top:0;bottom:0;left:44px;width:1px;background:rgba(192,57,43,.45)"></div>
+      <button type="button" onClick="{{ closeNotebook }}" aria-label="Zatvori beležnicu" style="position:absolute;top:8px;right:8px;width:44px;height:44px;border:none;background:none;font-size:26px;line-height:1;cursor:pointer;color:#3A332E">×</button>
+      <div style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.14em;color:#C0392B" data-en="DETECTIVE’S NOTEBOOK">BELEŽNICA DETEKTIVA</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:.95;margin-top:8px" data-en="Three letters are hidden.">Sakrivena su tri slova.</div>
+      <p style="margin:14px 0 0;font-family:'Special Elite',monospace;font-size:15px;line-height:1.75;color:#3A332E" data-en="One on the wall in the dark. One on the evidence board. One by the last door. Put them together — it’s something you crack.">Jedno na zidu u mraku. Jedno na tabli dokaza. Jedno kod poslednjih vrata. Složite ih — to je nešto što se obija.</p>
+      <sc-if value="{{ notSolved }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:10px;margin-top:22px">
+          <label for="zk-guess" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Reč</label>
+          <input id="zk-guess" value="{{ guess }}" onChange="{{ onGuess }}" onKeyDown="{{ onGuessKey }}" maxlength="12" autocomplete="off" placeholder="_ _ _" style="flex:1;min-width:0;height:52px;padding:0 14px;border:none;border-bottom:2px solid #14110F;background:rgba(255,255,255,.35);font-family:'Special Elite',monospace;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:#14110F;outline:none">
+          <button type="button" onClick="{{ checkGuess }}" style="height:52px;padding:0 20px;border:none;border-radius:2px;background:#14110F;color:#EDE3CF;font-weight:600;cursor:pointer"><span data-en="Check">Proveri</span></button>
+        </div>
+        <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" style="margin-top:12px;font-family:'Special Elite',monospace;font-size:14px;color:#C0392B">{{ t.wrong }}</div>
+        </sc-if>
+      </sc-if>
+      <sc-if value="{{ solved }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;margin-top:24px;padding-top:8px">
+          <div style="display:inline-block;padding:6px 18px;border:4px solid #C0392B;color:#C0392B;font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:.14em;line-height:1;mix-blend-mode:multiply;animation:stampIn 600ms cubic-bezier(0.23,1,0.32,1) both">REŠENO</div>
+          <p style="margin:20px 0 0;font-size:16px;color:#3A332E">{{ t.solvedText }}</p>
+          <div style="margin-top:10px;font-family:'Special Elite',monospace;font-size:30px;letter-spacing:.2em">TRAG10</div>
+          <a href="rezervacija.dc.html" data-btn="1" style="display:inline-flex;align-items:center;min-height:50px;padding:0 22px;margin-top:18px;background:#14110F;color:#EDE3CF;font-weight:600;border-radius:2px">{{ t.bookDiscount }}</a>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const IMG = 'slike/';
+const ROOMS = [
+  { id:'podrum', no:'01', img:'podrum-hodnik.webp', diff:4, escape:38, light:'#7CC4A0', glow:'rgba(124,196,160,.55)', page:'soba-podrum.dc.html',
+    sr:{ name:'Podrum doktora Vuka', genre:'Horor', teaser:'Doktor Vuk nije izašao iz podruma od 1974. Večeras ste vi njegovi pacijenti.', alt:'Mračan betonski hodnik podruma sa cevima i jednom sijalicom' },
+    en:{ name:'Dr. Vuk’s Basement', genre:'Horror', teaser:'Dr. Vuk hasn’t left his basement since 1974. Tonight, you are his patients.', alt:'Dark concrete basement corridor with pipes and a single bulb' } },
+  { id:'sef', no:'02', img:'sef-vrata.webp', diff:3, escape:52, light:'#E2B45C', glow:'rgba(226,180,92,.6)', page:'soba-sef.dc.html',
+    sr:{ name:'Sef Narodne banke', genre:'Pljačka', teaser:'Trezor se zaključava u ponoć. Alarm kasni tačno 60 minuta — ni sekundu više.', alt:'Ukrašena mesingana vrata starog bankarskog sefa' },
+    en:{ name:'National Bank Vault', genre:'Heist', teaser:'The vault locks at midnight. The alarm is exactly 60 minutes late — not a second more.', alt:'Ornate brass door of an old bank vault' } },
+  { id:'kabina', no:'03', img:'kabina-hodnik.webp', diff:3, escape:47, light:'#E26A50', glow:'rgba(226,106,80,.55)', page:'soba-kabina.dc.html',
+    sr:{ name:'Kabina 7 – Orijent ekspres', genre:'Misterija', teaser:'Putnik iz kabine 7 nestao je između Niša i Sofije. Voz ne staje dok ne otkrijete zašto.', alt:'Uski hodnik vagona sa drvenim zidovima i crvenim tepihom' },
+    en:{ name:'Cabin 7 – Orient Express', genre:'Mystery', teaser:'The passenger from cabin 7 vanished between Niš and Sofia. The train won’t stop until you find out why.', alt:'Narrow train corridor with wooden walls and a red carpet' } },
+  { id:'lab', no:'04', img:'lab-reaktor.webp', diff:5, escape:24, light:'#62AEEA', glow:'rgba(98,174,234,.55)', page:'soba-laboratorija.dc.html',
+    sr:{ name:'Laboratorija 0', genre:'Sci-fi', teaser:'Reaktor je nestabilan, a protokol za gašenje zaključan. Šifra je negde u laboratoriji.', alt:'Futuristički reaktor koji svetli plavo, ispred njega silueta naučnika' },
+    en:{ name:'Laboratory 0', genre:'Sci-fi', teaser:'The reactor is unstable and the shutdown protocol is locked. The code is somewhere in the lab.', alt:'Futuristic reactor glowing blue with a scientist’s silhouette' } }
+];
+const SLOTS = [
+  { room:'sef', time:'12:00' }, { room:'kabina', time:'13:30' }, { room:'podrum', time:'15:00' }, { room:'lab', time:'16:30' },
+  { room:'sef', time:'18:00' }, { room:'kabina', time:'19:30' }, { room:'podrum', time:'21:00' }, { room:'lab', time:'22:30' }
+];
+const LEADERBOARD = [
+  { team:'Bez nagoveštaja', room:'sef', time:'36:15', date:'2026-11-02' },
+  { team:'Ključari', room:'lab', time:'38:52', date:'2026-11-04' },
+  { team:'Porodica Petrović', room:'kabina', time:'41:09', date:'2026-11-07' },
+  { team:'Noćna smena', room:'podrum', time:'43:30', date:'2026-11-01' },
+  { team:'Tim Lupa', room:'sef', time:'39:48', date:'2026-10-21' },
+  { team:'Dorćolci', room:'kabina', time:'37:02', date:'2026-10-14' }
+];
+const MEDALS = ['linear-gradient(145deg,#ECCB86,#B8893E 55%,#7E5A22)','linear-gradient(145deg,#DCCFB4,#A99A7C 55%,#6E634F)','linear-gradient(145deg,#D9A070,#A8683A 55%,#6B3E1E)'];
+const QUIZ = {
+  sr:[ { q:'Koliko vas je?', o:['Dvoje','3–4 osobe','5–6 osoba'] }, { q:'Volite li strah?', o:['Obožavam ga','Malo jeze je ok','Nikako'] }, { q:'Prvi put igrate?', o:['Da, prvi put','Igrali smo par puta','Mi smo veterani'] } ],
+  en:[ { q:'How many of you?', o:['Two','3–4 people','5–6 people'] }, { q:'Do you like being scared?', o:['Love it','A little is fine','Not at all'] }, { q:'First time playing?', o:['Yes, first time','We’ve played a few','We’re veterans'] } ]
+};
+const REASONS = {
+  sr:{ podrum:'Volite strah — ovo je jedina horor soba. Mrak, zvuci iza zida i doktor koga ne vidite.', sef:'Dobar prvi slučaj: jasna misija, mnogo mehanizama i nimalo straha. Za timove koji tek počinju.', kabina:'Priča na prvom mestu: tragovi, svedoci i sumnjivi putnici. Odlično za manje ekipe koje vole da razmišljaju.', lab:'Najteža soba koju imamo — samo 24% timova izađe. Za veterane koji traže pravi izazov.' },
+  en:{ podrum:'You like fear — this is our only horror room. Darkness, sounds behind the wall and a doctor you never see.', sef:'A good first case: a clear mission, lots of mechanisms and no scares. For new teams.', kabina:'Story first: clues, witnesses and suspicious passengers. Great for smaller teams who like to think.', lab:'Our hardest room — only 24% of teams escape. For veterans looking for a real challenge.' }
+};
+const REVIEWS = [
+  { img:'tim-smeh.webp', time:'52:17', room:'sef', sr:{ q:'Smejali smo se ceo put do kuće. Poslednju šifru smo provalili kad je ostalo još 43 sekunde.', team:'Ekipa iz Zemuna', alt:'Društvo se glasno smeje za stolom' }, en:{ q:'We laughed all the way home. We cracked the last code with 43 seconds left.', team:'The Zemun crew', alt:'Friends laughing loudly at a table' } },
+  { img:'tim-drustvo.webp', time:'49:05', room:'kabina', sr:{ q:'Kabina 7 je najbolja priča koju smo ikad igrali. Atmosfera kao u starom filmu.', team:'Četvorka sa Vračara', alt:'Troje prijatelja pozira u mraku' }, en:{ q:'Cabin 7 is the best story we’ve ever played. Feels like an old film.', team:'The Vračar four', alt:'Three friends posing in the dark' } },
+  { img:'tim-poza.jpg', time:'58:40', room:'podrum', sr:{ q:'Podrum nam je digao pritisak do plafona. Vraćamo se po Laboratoriju.', team:'Noćna smena', alt:'Tri drugarice poziraju u hodniku sa toplim narandžastim svetlom' }, en:{ q:'The basement sent our pulse through the roof. Coming back for the Lab.', team:'Night shift', alt:'Three friends posing in a corridor lit with warm orange light' } }
+];
+const FAQ = {
+  sr:[
+    { q:'Da li je strašno?', a:'Samo Podrum doktora Vuka je horor soba. Sef, Kabina 7 i Laboratorija 0 su napete, ali bez strašnih momenata — slobodno dovedite i one koji se lako uplaše.' },
+    { q:'Koliko ranije treba da dođemo?', a:'Petnaest minuta pre termina. Za to vreme upoznate game mastera, ostavite stvari u ormariću i čujete pravila. Ako kasnite, igra se skraćuje da ne bismo pomerili sledeći tim.' },
+    { q:'Šta ako se zaglavimo?', a:'Game master vas prati sve vreme i na vaš zahtev daje nagoveštaj. Imate tri nagoveštaja bez kazne — posle toga svaki dodaje dva minuta na vaše vreme za rang-listu.' },
+    { q:'Mogu li deca da igraju?', a:'Deca od 10 godina igraju uz odraslu osobu, a od 14 godina mogu sama. Podrum doktora Vuka je od 16 godina.' },
+    { q:'Mogu li da promenim ili otkažem termin?', a:'Da, besplatno do 24 sata pre termina — preko linka iz potvrde rezervacije ili telefonom. Kasnije otkazivanje zadržava depozit.' }
+  ],
+  en:[
+    { q:'Is it scary?', a:'Only Dr. Vuk’s Basement is a horror room. The Vault, Cabin 7 and Laboratory 0 are tense but free of scares — bring the faint-hearted too.' },
+    { q:'How early should we arrive?', a:'Fifteen minutes before your slot. You’ll meet the game master, store your things and hear the rules. If you’re late, the game is shortened so the next team isn’t delayed.' },
+    { q:'What if we get stuck?', a:'Your game master watches the whole time and gives a hint whenever you ask. Three hints are free — after that, each adds two minutes to your leaderboard time.' },
+    { q:'Can kids play?', a:'Kids from 10 play with an adult; from 14 they can play on their own. Dr. Vuk’s Basement is 16+.' },
+    { q:'Can I change or cancel my booking?', a:'Yes, free of charge up to 24 hours before — via the link in your confirmation or by phone. Later cancellations keep the deposit.' }
+  ]
+};
+const T = {
+  sr:{ today:'Danas', tomorrow:'Sutra', file:'DOSIJE', caseLabel:'SLUČAJ', openFile:'Otvori dosije', fullFile:'Ceo dosije', bookThis:'Rezerviši ovu sobu', difficulty:'TEŽINA', duration:'TRAJANJE', players:'IGRAČI', escaped:'IZAŠLO', teams:'timova', question:'Pitanje', of:'od', back:'Nazad', again:'Ponovi kviz', book:'Rezerviši', freeSlots:'Slobodni termini', match:'POKLAPANJE', recommend:'PREPORUKA', escapedIn:'IZAŠLI ZA', photoPh:'Ovde ide fotografija tima', lampHint:'↖ Pomerite miš — lampa otkriva šta piše na zidu.', lampHintTouch:'Dodirnite ekran da pomerite lampu.', lockHint:'Nagoveštaj: prvi točkić je 4 — toliko imamo soba. Igrača može biti najviše šest.', wrong:'Nije to. Pogledajte bolje — lampa pomaže.', solvedText:'Vaš kod za 10% popusta. Sačuvali smo ga — automatski se primenjuje u rezervaciji.', bookDiscount:'Rezerviši sa popustom', closeA:'Vrata se zatvaraju u ', closeTomorrow:'Sutra se vrata otvaraju u ', closeSub:'Poslednji slobodan termin danas. Posle toga se priča nastavlja tek sutra.', closeSubT:'Danas je sve zauzeto. Prvi slobodan termin je sutra — zauzmite ga pre drugih.', month:'NAJBRŽI TIMOVI · ', months:['JANUAR','FEBRUAR','MART','APRIL','MAJ','JUN','JUL','AVGUST','SEPTEMBAR','OKTOBAR','NOVEMBAR','DECEMBAR'], wheel:'Točkić', up:'gore', down:'dole', open:'Otvori dosije sobe' },
+  en:{ today:'Today', tomorrow:'Tomorrow', file:'CASE FILE', caseLabel:'CASE', openFile:'Open the file', fullFile:'Full case file', bookThis:'Book this room', difficulty:'DIFFICULTY', duration:'DURATION', players:'PLAYERS', escaped:'ESCAPED', teams:'of teams', question:'Question', of:'of', back:'Back', again:'Retake quiz', book:'Book', freeSlots:'Available slots', match:'MATCH', recommend:'RECOMMENDED', escapedIn:'ESCAPED IN', photoPh:'Team photo goes here', lampHint:'↖ Move your mouse — the light reveals what’s on the wall.', lampHintTouch:'Touch the screen to move the light.', lockHint:'Hint: the first wheel is 4 — that’s how many rooms we have. Max six players.', wrong:'Not quite. Look closer — the light helps.', solvedText:'Your 10% discount code. We saved it — it applies automatically when you book.', bookDiscount:'Book with discount', closeA:'The doors close at ', closeTomorrow:'The doors open tomorrow at ', closeSub:'The last open slot today. After that, the story continues tomorrow.', closeSubT:'Today is fully booked. The first slot is tomorrow — grab it before someone else does.', month:'FASTEST TEAMS · ', months:['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'], wheel:'Wheel', up:'up', down:'down', open:'Open the room file' }
+};
+const CODE = [4, 6, 6];
+const ls = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }, del(k){ try { localStorage.removeItem(k); } catch(e){} } };
+const mod10 = v => ((v % 10) + 10) % 10;
+const toMin = s => { const [h,m] = s.split(':').map(Number); return h*60+m; };
+
+class Component extends DCLogic {
+  reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  coarse = typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches;
+  heroRef = React.createRef(); ctaRef = React.createRef(); grainRef = React.createRef();
+  wheelRefs = [React.createRef(), React.createRef(), React.createRef()];
+  state = {
+    lockPhase: (ls.get('zk_unlocked') === '1' || this.reduced) ? 'gone' : 'locked',
+    wheels:[0,0,0], hint:false, lang: ls.get('zk_lang') === 'en' ? 'en' : 'sr', solved: !!ls.get('zk_promo'),
+    open:{}, typed:{}, quizStep:0, answers:[], faqOpen:0, notebookOpen:false, guess:'', wrong:false,
+    menuOpen:false, scrolled:false, isMobile: typeof innerWidth !== 'undefined' && innerWidth < 760, compact: typeof innerWidth !== 'undefined' && innerWidth < 1140,
+    now: Date.now(), envOpen:false, hoverCard:null
+  };
+
+  track(name, params = {}) {
+    try { if (window.gtag) window.gtag('event', name, params); } catch(e) {}
+    try { console.info('[track]', name, params); } catch(e) {}
+  }
+
+  componentDidMount() {
+    this.lockStart = Date.now();
+    if (this.state.lockPhase === 'locked') { document.documentElement.style.overflow = 'hidden'; this.bumpIdle(); }
+    if (this.grainRef.current) { try { const c = document.createElement('canvas'); c.width = c.height = 160; const x = c.getContext('2d'), im = x.createImageData(160,160); for (let i = 0; i < im.data.length; i += 4) { const v = Math.random()*255|0; im.data[i]=im.data[i+1]=im.data[i+2]=v; im.data[i+3]=255; } x.putImageData(im,0,0); this.grainRef.current.style.backgroundImage = 'url(' + c.toDataURL() + ')'; } catch(e) {} }
+    this.onResize = () => { const m = innerWidth < 760, c = innerWidth < 1140; if (m !== this.state.isMobile || c !== this.state.compact) this.setState({ isMobile:m, compact:c, menuOpen: c ? this.state.menuOpen : false }); };
+    this.onScroll = () => { const s = scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled:s }); };
+    this.onKey = e => { if (e.key === 'Escape') this.setState({ notebookOpen:false, menuOpen:false, open:{} }); };
+    this.onAnchor = e => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+      const el = document.querySelector(a.getAttribute('href')); if (!el) return;
+      e.preventDefault(); this.setState({ menuOpen:false });
+      if (this.lenis) this.lenis.scrollTo(el, { offset:-72 }); else window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 72, behavior: this.reduced ? 'auto' : 'smooth' });
+    };
+    addEventListener('resize', this.onResize); addEventListener('scroll', this.onScroll, { passive:true });
+    addEventListener('keydown', this.onKey); document.addEventListener('click', this.onAnchor);
+    this.clock = setInterval(() => this.setState({ now: Date.now() }), 60000);
+    if (this.state.lang === 'en') this.applyLang();
+    if (!this.reduced) this.startLamp();
+    this.observeTypes();
+    let tries = 0;
+    const wait = () => { if (window.gsap && window.ScrollTrigger) this.initMotion(); else if (tries++ < 60) this.waitT = setTimeout(wait, 100); };
+    wait();
+  }
+  componentDidUpdate(_, prev) { if (prev.lang !== this.state.lang) this.applyLang(); }
+  componentWillUnmount() {
+    removeEventListener('resize', this.onResize); removeEventListener('scroll', this.onScroll);
+    removeEventListener('keydown', this.onKey); document.removeEventListener('click', this.onAnchor);
+    removeEventListener('pointermove', this.onMove); removeEventListener('touchstart', this.onTouch);
+    cancelAnimationFrame(this.raf); clearInterval(this.clock); clearTimeout(this.idleT); clearTimeout(this.waitT);
+    (this.typeTimers || []).forEach(clearInterval); if (this.io) this.io.disconnect();
+    if (this.lenis) this.lenis.destroy(); if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(s => s.kill());
+    document.documentElement.style.overflow = '';
+  }
+
+  applyLang() {
+    const en = this.state.lang === 'en';
+    document.documentElement.lang = en ? 'en' : 'sr';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      if (el.dataset.sr == null) el.dataset.sr = el.textContent;
+      el.textContent = en ? el.dataset.en : el.dataset.sr;
+    });
+  }
+  setLang(l) { ls.set('zk_lang', l); this.setState({ lang:l }); }
+
+  // ---------- Motion (GSAP + ScrollTrigger + Lenis) ----------
+  initMotion() {
+    const g = window.gsap, ST = window.ScrollTrigger; g.registerPlugin(ST);
+    if (this.reduced) return;
+    if (window.Lenis) {
+      this.lenis = new window.Lenis({ lerp:0.11 });
+      this.lenis.on('scroll', ST.update);
+      g.ticker.add(t => this.lenis && this.lenis.raf(t * 1000)); g.ticker.lagSmoothing(0);
+      if (this.state.lockPhase !== 'gone') this.lenis.stop();
+    }
+    const ease = 'expo.out';
+    document.querySelectorAll('[data-up]').forEach(el => g.from(el, { yPercent:105, duration:1.1, ease, scrollTrigger:{ trigger:el, start:'top 90%' } }));
+    document.querySelectorAll('[data-clip]').forEach(el => g.fromTo(el, { clipPath:'inset(0% 0% 100% 0%)' }, { clipPath:'inset(0% 0% 0% 0%)', duration:1.4, ease, scrollTrigger:{ trigger:el, start:'top 88%' } }));
+    const notes = document.querySelectorAll('[data-note]');
+    if (notes.length) g.from(notes, { y:60, opacity:0, duration:1, ease, stagger:0.14, scrollTrigger:{ trigger:notes[0], start:'top 85%' } });
+    if (this.state.lockPhase === 'gone') this.heroIntro();
+    else g.set('[data-hero]', { yPercent:110, opacity:0 });
+  }
+  heroIntro() {
+    if (!window.gsap || this.reduced) return;
+    window.gsap.fromTo('[data-hero]', { yPercent:110, opacity:0 }, { yPercent:0, opacity:1, duration:1.2, ease:'expo.out', stagger:0.09, delay:0.1 });
+  }
+
+  // ---------- Lampa ----------
+  startLamp() {
+    this.lt = { x: innerWidth*0.62, y: innerHeight*0.42 }; this.lc = { ...this.lt };
+    this.onMove = e => { this.lt.x = e.clientX; this.lt.y = e.clientY; this.lastTouch = Date.now(); };
+    this.onTouch = e => { const t = e.touches[0]; if (t) this.onMove(t); };
+    addEventListener('pointermove', this.onMove, { passive:true }); addEventListener('touchstart', this.onTouch, { passive:true });
+    const loop = ts => {
+      if (this.coarse && Date.now() - (this.lastTouch || 0) > 2500) {
+        const t = ts / 1000; this.lt.x = innerWidth*(0.5 + 0.3*Math.sin(t*0.45)); this.lt.y = innerHeight*(0.42 + 0.18*Math.sin(t*0.62 + 1));
+      }
+      this.lc.x += (this.lt.x - this.lc.x) * 0.12; this.lc.y += (this.lt.y - this.lc.y) * 0.12;
+      [this.heroRef, this.ctaRef].forEach(r => {
+        const el = r.current; if (!el) return; const b = el.getBoundingClientRect();
+        if (b.bottom < 0 || b.top > innerHeight) return;
+        el.style.setProperty('--lx', (this.lc.x - b.left) + 'px'); el.style.setProperty('--ly', (this.lc.y - b.top) + 'px');
+      });
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  // ---------- Pisaća mašina za dosijee ----------
+  observeTypes() {
+    if (this.reduced || !('IntersectionObserver' in window)) { const all = {}; ROOMS.forEach(r => all[r.id] = 999); this.setState({ typed:all }); return; }
+    this.typeTimers = [];
+    this.io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return; const id = en.target.getAttribute('data-type-id'); this.io.unobserve(en.target); this.typeRoom(id);
+    }), { threshold:0.4 });
+    const tryObs = (n = 0) => { const els = document.querySelectorAll('[data-type-id]'); if (els.length) els.forEach(el => this.io.observe(el)); else if (n < 40) setTimeout(() => tryObs(n + 1), 100); };
+    tryObs();
+  }
+  typeRoom(id) {
+    const len = ROOMS.find(r => r.id === id)[this.state.lang].name.length; let n = 0;
+    const tm = setInterval(() => { n++; this.setState(s => ({ typed:{ ...s.typed, [id]: n >= len ? 999 : n } })); if (n >= len) clearInterval(tm); }, 55);
+    this.typeTimers.push(tm);
+  }
+
+  // ---------- Brava ----------
+  click() {
+    try {
+      const C = window.AudioContext || window.webkitAudioContext; if (!C) return;
+      const ctx = this.actx || (this.actx = new C()); const n = Math.floor(ctx.sampleRate * 0.022);
+      const buf = ctx.createBuffer(1, n, ctx.sampleRate); const d = buf.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = (Math.random()*2 - 1) * Math.pow(1 - i/n, 5);
+      const src = ctx.createBufferSource(); src.buffer = buf; const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 2000;
+      const gn = ctx.createGain(); gn.gain.value = 0.22; src.connect(f); f.connect(gn); gn.connect(ctx.destination); src.start();
+    } catch(e) {}
+  }
+  bumpIdle() { clearTimeout(this.idleT); this.idleT = setTimeout(() => { if (this.state.lockPhase === 'locked') this.setState({ hint:true }); }, 20000); }
+  turn(i, dir) {
+    if (this.state.lockPhase !== 'locked') return;
+    this.click(); this.bumpIdle();
+    this.setState(s => { const w = s.wheels.slice(); w[i] += dir; return { wheels:w }; }, () => {
+      const d = this.state.wheels.map(mod10);
+      if (d.every((v, k) => v === CODE[k])) this.unlock();
+    });
+  }
+  unlock() {
+    this.track('site_unlocked', { seconds: Math.round((Date.now() - this.lockStart) / 1000) });
+    ls.set('zk_unlocked', '1'); clearTimeout(this.idleT);
+    setTimeout(() => this.click(), 120);
+    this.setState({ lockPhase:'opening' });
+    setTimeout(() => this.setState({ lockPhase:'doors' }), 750);
+    setTimeout(() => { this.setState({ lockPhase:'gone' }); this.afterUnlock(); }, 1850);
+  }
+  skipLock() {
+    this.track('lock_skipped', { seconds: Math.round((Date.now() - this.lockStart) / 1000) });
+    ls.set('zk_unlocked', '1'); clearTimeout(this.idleT);
+    this.setState({ lockPhase:'doors' });
+    setTimeout(() => { this.setState({ lockPhase:'gone' }); this.afterUnlock(); }, 1100);
+  }
+  afterUnlock() {
+    document.documentElement.style.overflow = '';
+    if (this.lenis) this.lenis.start();
+    this.heroIntro(); if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  }
+  relock() {
+    ls.del('zk_unlocked'); window.scrollTo(0, 0);
+    document.documentElement.style.overflow = 'hidden'; if (this.lenis) { this.lenis.scrollTo(0, { immediate:true }); this.lenis.stop(); }
+    this.lockStart = Date.now(); this.bumpIdle();
+    this.setState({ lockPhase:'locked', wheels:[0,0,0], hint:false });
+  }
+  wheelStrip(i) {
+    const h = React.createElement, pos = this.state.wheels[i], H = 36, items = [];
+    for (let n = pos - 2; n <= pos + 2; n++) {
+      const off = n - pos;
+      items.push(h('div', { key:n, 'aria-hidden':'true', style:{
+        position:'absolute', left:0, right:0, top:'50%', height:H, marginTop:-H/2, display:'flex', alignItems:'center', justifyContent:'center',
+        fontFamily:"'Bebas Neue',sans-serif", fontSize:44, lineHeight:1, color: off === 0 ? '#14110F' : '#5A4F45',
+        transform:`translateY(${off * H * 0.92}px) rotateX(${-off * 36}deg)`, opacity: off === 0 ? 1 : Math.max(0, 1 - Math.abs(off) * 0.5),
+        transition:'transform 340ms cubic-bezier(0.34,1.56,0.64,1), opacity 220ms cubic-bezier(0.23,1,0.32,1)' } }, mod10(n)));
+    }
+    return h('div', { style:{ position:'absolute', inset:0, transformStyle:'preserve-3d' } }, items);
+  }
+
+  // ---------- Kviz ----------
+  recommend(a) {
+    if (a[1] === 0) return 'podrum';
+    if (a[2] === 2) return 'lab';
+    if (a[2] === 0 && a[1] === 2) return 'sef';
+    if (a[0] === 0) return 'kabina';
+    return a[2] === 0 ? 'sef' : 'kabina';
+  }
+  answer(i) {
+    const s = this.state, answers = s.answers.slice(0, s.quizStep); answers[s.quizStep] = i;
+    const step = s.quizStep + 1;
+    this.setState({ answers, quizStep:step });
+    if (step === 3) this.track('quiz_completed', { room: this.recommend(answers) });
+  }
+
+  // ---------- Termini ----------
+  nextSlots(roomId) {
+    const d = new Date(this.state.now), m = d.getHours()*60 + d.getMinutes();
+    const pool = roomId ? SLOTS.filter(s => s.room === roomId) : SLOTS;
+    const today = pool.filter(s => toMin(s.time) > m + 15).map(s => ({ ...s, tomorrow:false }));
+    const out = today.slice(0, 4);
+    for (const s of pool) { if (out.length >= 4) break; out.push({ ...s, tomorrow:true }); }
+    return out;
+  }
+  slotVM(x, t, L) {
+    const r = ROOMS.find(q => q.id === x.room);
+    return { time:x.time, day: x.tomorrow ? t.tomorrow : t.today, name:r[L].name,
+      href:`rezervacija.dc.html?soba=${x.room}&termin=${encodeURIComponent(x.time)}&dan=${x.tomorrow ? 'sutra' : 'danas'}`,
+      click: () => this.track('slot_clicked', { room:x.room, time:x.time, day: x.tomorrow ? 'sutra' : 'danas' }) };
+  }
+
+  // ---------- Zagonetka ----------
+  checkGuess() {
+    const g = (this.state.guess || '').toUpperCase().replace(/[^A-ZŠĐČĆŽ]/g, '');
+    if (g === 'SEF') { ls.set('zk_promo', 'TRAG10'); this.setState({ solved:true, wrong:false }); this.track('puzzle_solved'); }
+    else this.setState({ wrong:true });
+  }
+
+  renderVals() {
+    const s = this.state, L = s.lang, t = T[L];
+    const phase = s.lockPhase, lifted = phase !== 'locked', doors = phase === 'doors';
+    const wheels = [0,1,2].map(i => ({
+      strip: this.wheelStrip(i), digit: mod10(s.wheels[i]), ref: this.wheelRefs[i],
+      label:`${t.wheel} ${i + 1}`, upLabel:`${t.wheel} ${i + 1} ${t.up}`, downLabel:`${t.wheel} ${i + 1} ${t.down}`,
+      up: () => this.turn(i, 1), down: () => this.turn(i, -1),
+      onWheel: e => { this.wacc = (this.wacc || 0) + e.deltaY; if (Math.abs(this.wacc) >= 40) { this.turn(i, this.wacc > 0 ? 1 : -1); this.wacc = 0; } },
+      onDown: e => { this.drag = { i, y:e.clientY }; try { e.currentTarget.setPointerCapture(e.pointerId); } catch(_){} },
+      onMove: e => { if (!this.drag || this.drag.i !== i) return; const dy = e.clientY - this.drag.y; if (Math.abs(dy) >= 28) { this.turn(i, dy < 0 ? 1 : -1); this.drag.y = e.clientY; } },
+      onUp: () => { this.drag = null; },
+      onKey: e => {
+        if (e.key === 'ArrowUp') { e.preventDefault(); this.turn(i, 1); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); this.turn(i, -1); }
+        else if (e.key === 'ArrowRight' && i < 2) { e.preventDefault(); this.wheelRefs[i + 1].current && this.wheelRefs[i + 1].current.focus(); }
+        else if (e.key === 'ArrowLeft' && i > 0) { e.preventDefault(); this.wheelRefs[i - 1].current && this.wheelRefs[i - 1].current.focus(); }
+        else if (/^[0-9]$/.test(e.key)) { const cur = mod10(s.wheels[i]), tgt = +e.key; let dlt = tgt - cur; if (dlt > 5) dlt -= 10; if (dlt < -5) dlt += 10; if (dlt) { this.click(); this.bumpIdle(); this.setState(st => { const w = st.wheels.slice(); w[i] += dlt; return { wheels:w }; }, () => { if (this.state.wheels.map(mod10).every((v,k) => v === CODE[k])) this.unlock(); }); } }
+      }
+    }));
+
+    const rooms = ROOMS.map(r => {
+      const o = !!s.open[r.id], d = r[L], n = s.typed[r.id] || 0;
+      return { id:r.id, no:r.no, name:d.name, genre:d.genre, teaser:d.teaser, alt:d.alt, img:IMG + r.img, escape:r.escape, light:r.light,
+        typedA:d.name.slice(0, n), typedB:d.name.slice(n),
+        coverBg:`radial-gradient(130% 50% at 50% 0%, ${r.glow} 0%, transparent 60%), linear-gradient(180deg,#D8C49A,#CBB487)`,
+        locks:[1,2,3,4,5].map(k => ({ op: k <= r.diff ? 1 : 0.2 })),
+        coverT: o ? 'rotateX(-82deg)' : 'rotateX(0deg)', coverPE: o ? 'none' : 'auto', expanded: o ? 'true' : 'false',
+        openLabel:`${t.open}: ${d.name}`, tab:`${t.file} ${r.no}`, players:{podrum:'2–6',sef:'2–6',kabina:'2–5',lab:'3–6'}[r.id], caseLine:`${t.caseLabel}: ${d.genre}`, escLine:`${r.escape}% ${t.teams}`, fullLine:`${t.fullFile} →`, openLine:`${t.openFile} ↓`, bookHref:`rezervacija.dc.html?soba=${r.id}`, page:r.page,
+        enter: () => { if (!this.coarse) this.openRoom(r.id, true); },
+        leave: () => { if (!this.coarse) this.openRoom(r.id, false); },
+        toggle: () => this.openRoom(r.id, this.coarse ? !this.state.open[r.id] : true)
+      };
+    });
+
+    const Q = QUIZ[L], qi = s.quizStep, done = qi >= 3;
+    let rec = {};
+    if (done) {
+      const id = this.recommend(s.answers), r = ROOMS.find(q => q.id === id);
+      rec = { kicker:`${t.recommend} · ${r[L].genre}`, img:IMG + r.img, alt:r[L].alt, name:r[L].name, genre:r[L].genre, reason:REASONS[L][id], href:`rezervacija.dc.html?soba=${id}`,
+        slots: this.nextSlots(id).slice(0, 3).map(x => this.slotVM(x, t, L)) };
+    }
+
+    const now = new Date(s.now), ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    let pool = LEADERBOARD.filter(p => p.date.startsWith(ym)); if (pool.length < 3) pool = LEADERBOARD.slice();
+    const top3 = pool.slice().sort((a, b) => toMin(a.time) - toMin(b.time)).slice(0, 3).map((p, i) => ({
+      rank:i + 1, team:p.team, time:p.time, medal:MEDALS[i], room:ROOMS.find(r => r.id === p.room)[L].name }));
+
+    const m = now.getHours()*60 + now.getMinutes(), left = SLOTS.filter(x => toMin(x.time) > m + 15);
+    const closeLine = left.length ? t.closeA + left[left.length - 1].time + '.' : t.closeTomorrow + SLOTS[0].time + '.';
+
+    const hc = s.hoverCard;
+    return {
+      t, grainRef:this.grainRef, heroRef:this.heroRef, ctaRef:this.ctaRef,
+      lockVisible: phase !== 'gone', doorL: doors ? 'translateX(-101%)' : 'translateX(0)', doorR: doors ? 'translateX(101%)' : 'translateX(0)',
+      lockOpacity: doors ? 0 : 1, lockScale: doors ? 'scale(.94)' : 'scale(1)', shackleT: lifted ? 'translateY(-42px)' : 'translateY(0)',
+      lockBodyShadow: `inset 0 2px 0 rgba(255,240,200,.5), inset 0 -6px 14px rgba(60,38,10,.45), 0 30px 60px rgba(0,0,0,.6), 0 0 ${lifted ? 80 : 0}px rgba(212,174,106,${lifted ? .55 : 0})`,
+      wheels, hint:s.hint, skipLock: () => this.skipLock(), relock: () => this.relock(),
+      lampOn: !this.reduced, lampHint: this.coarse ? t.lampHintTouch : t.lampHint,
+      isMobile:s.isMobile, desktop:!s.isMobile, navWide:!s.compact, navCompact:s.compact, showSticky: s.isMobile && phase === 'gone' && !s.menuOpen,
+      headerBg: (s.scrolled || s.menuOpen) ? 'rgba(20,17,15,.88)' : 'rgba(20,17,15,0)', headerLine: s.scrolled ? 'rgba(184,137,62,.25)' : 'rgba(184,137,62,0)',
+      menuOpen:s.menuOpen, menuExpanded: s.menuOpen ? 'true' : 'false', toggleMenu: () => this.setState({ menuOpen:!s.menuOpen }),
+      burgerA: s.menuOpen ? 'translateY(3.5px) rotate(45deg)' : 'none', burgerB: s.menuOpen ? 'translateY(-3.5px) rotate(-45deg)' : 'none',
+      srBg: L === 'sr' ? '#EDE3CF' : 'transparent', srFg: L === 'sr' ? '#14110F' : '#EDE3CF', enBg: L === 'en' ? '#EDE3CF' : 'transparent', enFg: L === 'en' ? '#14110F' : '#EDE3CF',
+      srPressed: L === 'sr' ? 'true' : 'false', enPressed: L === 'en' ? 'true' : 'false',
+      setSr: () => this.setLang('sr'), setEn: () => this.setLang('en'),
+      slots: this.nextSlots().map(x => this.slotVM(x, t, L)),
+      rooms,
+      quizActive:!done, quizDone:done, quizQ: done ? '' : Q[qi].q, quizProgress:`${t.question} ${Math.min(qi + 1, 3)} ${t.of} 3`,
+      quizBars:[0,1,2].map(k => ({ op: k <= qi ? 1 : 0.18 })), quizCanBack: qi > 0 && !done,
+      quizOpts: done ? [] : Q[qi].o.map((label, i) => { const sel = s.answers[qi] === i; return { label, key:String.fromCharCode(65 + i), bg: sel ? '#14110F' : 'transparent', fg: sel ? '#EDE3CF' : '#14110F', pick: () => this.answer(i) }; }),
+      backLine:`← ${t.back}`, freeLine:`${t.freeSlots}:`, quizBack: () => this.setState({ quizStep: Math.max(0, qi - 1) }), quizReset: () => this.setState({ quizStep:0, answers:[] }), rec,
+      monthKicker: t.month + t.months[now.getMonth()] + ' ' + now.getFullYear(), top3,
+      tbScale: hc === 'tb' ? 'scale(1.05)' : 'scale(1)', rdScale: hc === 'rd' ? 'scale(1.05)' : 'scale(1)',
+      hoverTb: () => { if (!this.coarse) this.setState({ hoverCard:'tb' }); }, hoverRd: () => { if (!this.coarse) this.setState({ hoverCard:'rd' }); }, unhover: () => this.setState({ hoverCard:null }),
+      flapT: s.envOpen ? 'rotateX(-170deg)' : 'rotateX(0deg)', cardT: s.envOpen ? 'translateY(-74%) rotate(-1.5deg)' : 'translateY(0)', flapZ: s.envOpen ? 1 : 3, sealOp: s.envOpen ? 0 : 1,
+      envIn: () => { if (!this.coarse) this.setState({ envOpen:true }); }, envOut: () => { if (!this.coarse) this.setState({ envOpen:false }); }, envToggle: () => { if (this.coarse) this.setState({ envOpen:!s.envOpen }); },
+      reviews: REVIEWS.map(v => ({ img: v.img ? IMG + v.img : '', noImg: !v.img, alt:v[L].alt, quote:v[L].q, team:v[L].team, time:v.time, timeLine:`${t.escapedIn} ${v.time}`, byline:`${v[L].team} · ${ROOMS.find(r => r.id === v.room)[L].name}`, room:ROOMS.find(r => r.id === v.room)[L].name })),
+      faqs: FAQ[L].map((f, i) => { const o = s.faqOpen === i; return { q:f.q, a:f.a, open:o, expanded: o ? 'true' : 'false', rot: o ? 'rotate(45deg)' : 'rotate(0deg)', toggle: () => this.setState({ faqOpen: o ? -1 : i }) }; }),
+      closeLine, closeSub: left.length ? t.closeSub : t.closeSubT,
+      telClick: () => this.track('phone_click'), waClick: () => this.track('whatsapp_click'),
+      notebookOpen:s.notebookOpen, openNotebook: () => this.setState({ notebookOpen:true }), closeNotebook: () => this.setState({ notebookOpen:false }),
+      stop: e => e.stopPropagation(), solved:s.solved, notSolved:!s.solved, guess:s.guess, wrong:s.wrong,
+      onGuess: e => this.setState({ guess:e.target.value, wrong:false }), onGuessKey: e => { if (e.key === 'Enter') this.checkGuess(); }, checkGuess: () => this.checkGuess()
+    };
+  }
+  openRoom(id, v) {
+    if (!!this.state.open[id] === v) return;
+    if (v) { this.opened = this.opened || {}; if (!this.opened[id]) { this.opened[id] = 1; this.track('dossier_opened', { room:id }); } }
+    this.setState(s => ({ open:{ ...s.open, [id]:v } }));
+  }
+}
+</script>
+</body>
+</html>

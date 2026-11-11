@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAQ — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" active="faq" hint-size="100%,0px"></dc-import>
+<main>
+<section data-screen-label="FAQ hero" style="position:relative;min-height:58svh;display:flex;align-items:flex-end;overflow:hidden;background:#0B0908;color:#EDE3CF;padding:150px clamp(20px,4vw,48px) clamp(48px,6vw,72px)">
+  <img src="slike/dosije-masina-lampa.webp" alt="Pisaća mašina, knjige i sijalica na stolu" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.95), rgba(11,9,8,.45) 60%, rgba(11,9,8,.6))"></div>
+  <div style="position:relative;max-width:1360px;margin:0 auto;width:100%">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="INTERROGATION">SASLUŠANJE</div>
+    <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86" data-en="Questions before you come in.">Pitanja pre ulaska.</h1></div>
+  </div>
+</section>
+<section data-screen-label="FAQ lista" style="background:#14110F;color:#EDE3CF;padding:clamp(56px,7vw,96px) clamp(16px,4vw,48px) clamp(80px,10vw,130px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,80px);align-items:flex-start">
+    <nav aria-label="Kategorije" style="flex:0 1 260px;position:sticky;top:100px;display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4"><button type="button" onClick="{{ c.pick }}" aria-pressed="{{ c.pressed }}" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 16px;border:1px solid {{ c.border }};border-radius:2px;background:{{ c.bg }};color:{{ c.fg }};font-size:16px;text-align:left;cursor:pointer"><span>{{ c.label }}</span><span style="font-family:'Special Elite',monospace;font-size:13px">{{ c.n }}</span></button></sc-for>
+      <div data-clip="1" style="margin-top:20px;overflow:hidden;aspect-ratio:3/4"><img src="slike/kljucevi.webp" alt="Svežanj starih ključeva na drvenoj podlozi" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+    </nav>
+    <div style="flex:1 1 520px;min-width:0">
+      <div style="border-top:1px solid rgba(184,137,62,.3)">
+        <sc-for list="{{ items }}" as="f" hint-placeholder-count="6">
+          <div style="border-bottom:1px solid rgba(184,137,62,.3)">
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.expanded }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:76px;padding:18px 0;border:none;background:none;text-align:left;cursor:pointer;font-size:clamp(18px,1.6vw,21px);font-weight:500;color:#EDE3CF" style-hover="color:#D4AE6A">
+              <span>{{ f.q }}</span>
+              <span aria-hidden="true" style="position:relative;flex:none;width:20px;height:20px;transform:{{ f.rot }};transition:transform 300ms cubic-bezier(0.23,1,0.32,1)"><span style="position:absolute;top:9px;left:0;width:20px;height:2px;background:#B8893E"></span><span style="position:absolute;left:9px;top:0;width:2px;height:20px;background:#B8893E"></span></span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 24px;max-width:640px;color:#B9AE99;text-wrap:pretty;animation:fadeUp 350ms cubic-bezier(0.23,1,0.32,1) both">{{ f.a }}</p></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:48px;padding:28px;background:#EDE3CF;color:#14110F;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px">
+        <span style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:.95" data-en="Didn’t find your answer?">Niste našli odgovor?</span><span style="color:#3A332E" data-en="Call or message us — we reply within an hour during opening hours.">Pozovite ili pišite — odgovaramo u roku od sat vremena dok radimo.</span></span>
+        <span style="display:flex;flex-wrap:wrap;gap:10px"><a href="tel:+381601234567" onClick="{{ tel }}" data-btn="1" style="display:inline-flex;align-items:center;min-height:50px;padding:0 20px;background:#14110F;color:#EDE3CF;font-weight:600;border-radius:2px">+381 60 123 4567</a><a href="https://wa.me/381601234567" target="_blank" rel="noopener" onClick="{{ wa }}" data-btn="1" style="display:inline-flex;align-items:center;min-height:50px;padding:0 20px;border:1.5px solid #14110F;color:#14110F;border-radius:2px">WhatsApp</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<dc-import name="Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const FAQ = {
+  sr: [
+    ['igra', 'Igra', [['Da li je strašno?', 'Samo Podrum doktora Vuka je horor soba. Ostale tri su napete, ali bez strašnih momenata.'], ['Šta ako se zaglavimo?', 'Game master vas prati sve vreme. Tri nagoveštaja su bez kazne, svaki sledeći dodaje dva minuta na vreme za rang-listu.'], ['Moramo li da budemo pametni?', 'Ne. Zagonetke traže posmatranje i saradnju, ne znanje. Najbolji timovi su oni koji pričaju jedni s drugima.'], ['Da li moramo fizički da se naprežemo?', 'Ne. Nema penjanja ni trčanja. Sve sobe su prilagođene i osobama slabije pokretljivosti, osim Podruma (stepenice).']]],
+    ['dolazak', 'Dolazak', [['Koliko ranije treba da dođemo?', 'Petnaest minuta pre termina — za upoznavanje, ormariće i pravila.'], ['Šta ako kasnimo?', 'Igra se skraćuje za vreme kašnjenja da ne bismo pomerili sledeći tim. Ako kasnite više od 20 minuta, javite se telefonom.'], ['Ima li parkinga?', 'Javni parking je na 100 metara, a gradski prevoz staje na 3 minuta hoda. Detalji su na stranici Kontakt.']]],
+    ['rez', 'Rezervacija i plaćanje', [['Koliko košta?', 'Cena zavisi od broja igrača: 2 igrača 2.400, 3 → 2.100, 4 → 1.900, 5 → 1.800, 6 → 1.700 RSD po osobi.'], ['Kako mogu da platim?', 'Online karticom, Apple Pay ili Google Pay. Možete platiti i depozit od 20%, a ostatak na licu mesta gotovinom ili karticom.'], ['Mogu li da promenim ili otkažem termin?', 'Besplatno do 24 sata pre termina, preko stranice Upravljanje rezervacijom ili telefonom.'], ['Kako koristim vaučer ili kod?', 'U koraku 3 rezervacije unesite kod — popust se odmah obračunava u nalogu za misiju.']]],
+    ['grupe', 'Grupe i deca', [['Mogu li deca da igraju?', 'Deca od 10 godina uz odraslu osobu, od 14 sama. Podrum doktora Vuka je od 16 godina.'], ['Šta ako nas je više od 6?', 'Podelićemo vas u timove i pustiti u više soba istovremeno — do 24 osobe odjednom. Za firme pogledajte Timbilding.'], ['Da li igrate na engleskom?', 'Da, sve sobe su dostupne na engleskom. Označite to u koraku 3 rezervacije.']]]
+  ],
+  en: [
+    ['igra', 'The game', [['Is it scary?', 'Only Dr. Vuk’s Basement is a horror room. The other three are tense but free of scares.'], ['What if we get stuck?', 'Your game master watches the whole time. Three hints are free; each extra hint adds two minutes to your leaderboard time.'], ['Do we have to be smart?', 'No. Puzzles need observation and teamwork, not knowledge. The best teams are the ones that talk.'], ['Is it physically demanding?', 'No climbing or running. All rooms are accessible for people with limited mobility, except the Basement (stairs).']]],
+    ['dolazak', 'Arrival', [['How early should we arrive?', 'Fifteen minutes early — for introductions, lockers and rules.'], ['What if we’re late?', 'The game is shortened by the delay so the next team isn’t pushed back. If you’re more than 20 minutes late, call us.'], ['Is there parking?', 'Public parking is 100 m away and public transport stops a 3-minute walk away. Details on the Contact page.']]],
+    ['rez', 'Booking & payment', [['How much does it cost?', 'Price depends on team size: 2 players 2,400, 3 → 2,100, 4 → 1,900, 5 → 1,800, 6 → 1,700 RSD per person.'], ['How can I pay?', 'Online by card, Apple Pay or Google Pay. You can also pay a 20% deposit and the rest on site.'], ['Can I change or cancel?', 'Free of charge up to 24 hours before, via Manage booking or by phone.'], ['How do I use a voucher or code?', 'Enter it in step 3 of booking — the discount applies instantly.']]],
+    ['grupe', 'Groups & kids', [['Can kids play?', 'Kids from 10 with an adult, from 14 on their own. Dr. Vuk’s Basement is 16+.'], ['What if we’re more than 6?', 'We split you into teams across several rooms — up to 24 people at once. Companies, see Team building.'], ['Do you run games in English?', 'Yes, all rooms are available in English. Tick it in step 3 of booking.']]]
+  ]
+};
+class Component extends DCLogic {
+  state = { lang: 'sr', cat: 'all', open: '0-0' };
+  componentDidMount() { const go = () => { if (!window.ZK) return setTimeout(go, 40); this.setState({ lang: ZK.lang() }); ZK.motion(); }; go(); this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l); }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); }
+  renderVals() {
+    const s = this.state, L = s.lang, D = FAQ[L], en = L === 'en', tr = (n, p) => window.ZK && ZK.track(n, p);
+    const pill = on => ({ bg: on ? '#B8893E' : 'transparent', fg: on ? '#14110F' : '#EDE3CF', border: on ? '#B8893E' : 'rgba(237,227,207,.2)', pressed: on ? 'true' : 'false' });
+    const total = D.reduce((x, c) => x + c[2].length, 0), items = [];
+    D.forEach((c, ci) => { if (s.cat !== 'all' && s.cat !== c[0]) return; c[2].forEach(([q, a], qi) => { const id = `${ci}-${qi}`, o = s.open === id; items.push({ q, a, open: o, expanded: o ? 'true' : 'false', rot: o ? 'rotate(45deg)' : 'rotate(0deg)', toggle: () => { this.setState({ open: o ? '' : id }); if (!o) tr('faq_open', { q }); } }); }); });
+    return {
+      cats: [{ id: 'all', label: en ? 'All questions' : 'Sva pitanja', n: total }, ...D.map(c => ({ id: c[0], label: c[1], n: c[2].length }))].map(c => ({ ...c, ...pill(s.cat === c.id), pick: () => this.setState({ cat: c.id }) })),
+      items, tel: () => tr('phone_click', { source: 'faq' }), wa: () => tr('whatsapp_click', { source: 'faq' })
+    };
+  }
+}
+</script>
+</body>
+</html>

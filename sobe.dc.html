@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sobe — ZAKLJUČANO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<script>(function(){var ID='MEASUREMENT_ID';window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};if(!/^G-[A-Z0-9]+$/.test(ID))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',ID);})();</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="zk.js"></script>
+<style>
+html,body{margin:0;padding:0;overflow-x:clip;background:#14110F;color:#EDE3CF;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+a{color:#B8893E;text-decoration:none}
+a:hover{color:#D4AE6A}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+button:active,a[data-btn]:active{transform:scale(.97)}
+input,select,textarea{font-size:16px;font-family:inherit}
+::selection{background:#B8893E;color:#14110F}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes stampIn{0%{opacity:0;transform:scale(2.2) rotate(-12deg)}60%{opacity:1;transform:scale(.94) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<dc-import name="Header" active="sobe" hint-size="100%,0px"></dc-import>
+<main>
+<section data-screen-label="Sobe hero" style="position:relative;min-height:70svh;display:flex;align-items:flex-end;overflow:hidden;background:#0B0908;color:#EDE3CF;padding:150px clamp(20px,4vw,48px) clamp(48px,7vw,88px)">
+  <img src="slike/dosije-kabinet.webp" alt="Mračan hodnik obložen drvetom sa upaljenim lampama" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.95), rgba(11,9,8,.5) 55%, rgba(11,9,8,.75))"></div>
+  <div style="position:relative;max-width:1360px;margin:0 auto;width:100%">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="ARCHIVE · 4 CASE FILES">ARHIVA · 4 DOSIJEA</div>
+    <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(72px,12vw,180px);line-height:.86" data-en="The rooms.">Sobe.</h1></div>
+    <p style="margin:16px 0 0;max-width:540px;font-size:18px;color:#D9CFBB;text-wrap:pretty" data-en="Four closed cases, each with its own light and its own pulse. Filter by difficulty and team size — or let the quiz below choose.">Četiri zatvorena slučaja, svaki sa svojim svetlom i svojim pulsom. Filtrirajte po težini i broju igrača — ili pustite kviz ispod da izabere.</p>
+  </div>
+</section>
+
+<section data-screen-label="Filter" style="background:#1A1613;border-bottom:1px solid rgba(184,137,62,.25);padding:20px clamp(20px,4vw,48px)">
+  <div style="max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px 40px;align-items:center">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+      <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E;min-width:70px" data-en="DIFFICULTY">TEŽINA</span>
+      <sc-for list="{{ diffOpts }}" as="o" hint-placeholder-count="3">
+        <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.pressed }}" style="min-height:44px;padding:0 18px;border:1px solid {{ o.border }};border-radius:2px;background:{{ o.bg }};color:{{ o.fg }};font-size:15px;font-weight:500;cursor:pointer">{{ o.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+      <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.12em;color:#B8893E;min-width:70px" data-en="PLAYERS">IGRAČI</span>
+      <sc-for list="{{ playerOpts }}" as="o" hint-placeholder-count="6">
+        <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.pressed }}" style="min-width:48px;min-height:44px;padding:0 14px;border:1px solid {{ o.border }};border-radius:2px;background:{{ o.bg }};color:{{ o.fg }};font-size:15px;font-weight:500;cursor:pointer">{{ o.label }}</button>
+      </sc-for>
+    </div>
+    <span style="margin-left:auto;font-family:'Special Elite',monospace;font-size:14px;color:#B9AE99">{{ countLine }}</span>
+  </div>
+</section>
+
+<section id="sobe" data-screen-label="Dosijei" style="background:radial-gradient(ellipse 80% 45% at 50% 0%, rgba(184,137,62,.10), transparent 70%), #14110F;color:#EDE3CF;padding:clamp(56px,7vw,96px) clamp(20px,4vw,48px) clamp(80px,10vw,130px)">
+  <div style="max-width:1360px;margin:0 auto">
+    <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:520px;margin:0 auto;text-align:center;padding:60px 0;display:flex;flex-direction:column;align-items:center;gap:16px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:.95" data-en="No case matches.">Nijedan slučaj ne odgovara.</div>
+        <p style="margin:0;color:#B9AE99" data-en="Try another difficulty or team size.">Probajte drugu težinu ili broj igrača.</p>
+        <button type="button" onClick="{{ resetFilters }}" style="min-height:48px;padding:0 22px;border:1px solid #B8893E;background:none;color:#D4AE6A;border-radius:2px;cursor:pointer" data-en="Clear filters">Poništi filtere</button>
+      </div>
+    </sc-if>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(290px,100%),1fr));gap:clamp(24px,3vw,40px)">
+      <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="4">
+        <article onMouseEnter="{{ r.enter }}" onMouseLeave="{{ r.leave }}" style="position:relative;height:540px;perspective:1500px;animation:fadeUp 400ms cubic-bezier(0.23,1,0.32,1) both">
+          <div style="position:absolute;top:0;left:20px;height:30px;padding:0 16px;background:#CDB68A;border-radius:6px 6px 0 0;display:flex;align-items:center;font-family:'Special Elite',monospace;font-size:13px;color:#14110F">{{ r.tab }}</div>
+          <div style="position:absolute;top:26px;left:0;right:0;bottom:0;background:#CDB68A;border-radius:2px 8px 8px 8px;box-shadow:0 24px 50px rgba(0,0,0,.5)">
+            <div style="position:absolute;top:14px;left:14px;right:12px;bottom:12px;background:radial-gradient(ellipse at 80% 90%, rgba(150,110,50,.10), transparent 55%), #EDE3CF;color:#14110F;padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 2px 6px rgba(0,0,0,.18)">
+              <div style="position:relative;height:160px;background:#14110F;padding:6px;transform:rotate(-1.4deg);box-shadow:0 6px 14px rgba(0,0,0,.3)">
+                <img src="{{ r.img }}" alt="{{ r.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <div aria-hidden="true" style="position:absolute;top:-16px;left:24px;width:16px;height:50px;border:2.5px solid #8F8B84;border-radius:9px;transform:rotate(6deg)"><div style="position:absolute;top:6px;left:2px;width:7px;height:32px;border:2.5px solid #8F8B84;border-radius:6px"></div></div>
+              </div>
+              <h2 style="margin:2px 0 0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:30px;line-height:.95">{{ r.name }}</h2>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-family:'Special Elite',monospace;font-size:13px;color:#3A332E">
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.difficulty }}</span><span style="display:flex;gap:4px"><sc-for list="{{ r.locks }}" as="l" hint-placeholder-count="5"><span style="position:relative;width:12px;height:16px;opacity:{{ l.op }}"><span style="position:absolute;top:0;left:2px;width:8px;height:8px;border:2px solid #14110F;border-bottom:none;border-radius:5px 5px 0 0"></span><span style="position:absolute;bottom:0;left:0;width:12px;height:9px;background:#14110F;border-radius:1px"></span></span></sc-for></span></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.duration }}</span><span style="color:#14110F">60 MIN</span></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.players }}</span><span style="color:#14110F">{{ r.players }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><span>{{ t.escaped }}</span><span style="color:#14110F">{{ r.escLine }}</span></div>
+              </div>
+              <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+                <a href="{{ r.bookHref }}" data-btn="1" style="display:flex;align-items:center;justify-content:center;min-height:48px;background:#14110F;color:#EDE3CF;font-weight:600;font-size:15px;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#3A332E;color:#EDE3CF">{{ t.bookThis }}</a>
+                <a href="{{ r.page }}" style="font-size:14px;font-weight:500;color:#7A5A22;text-align:center;min-height:24px" style-hover="color:#14110F">{{ r.fullLine }}</a>
+              </div>
+              <div aria-hidden="true" style="position:absolute;right:14px;top:186px;padding:4px 10px;border:3px solid #C0392B;color:#C0392B;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.12em;transform:rotate(-11deg);opacity:.82;mix-blend-mode:multiply">POVERLJIVO</div>
+            </div>
+          </div>
+          <button type="button" onClick="{{ r.toggle }}" aria-expanded="{{ r.expanded }}" aria-label="{{ r.openLabel }}" style="position:absolute;top:26px;left:0;right:0;bottom:0;padding:26px 24px 24px;border:none;border-radius:2px 8px 8px 8px;text-align:left;cursor:pointer;background:{{ r.coverBg }};color:#14110F;transform-origin:50% 0%;transform:{{ r.coverT }};pointer-events:{{ r.coverPE }};transition:transform 800ms cubic-bezier(0.23,1,0.32,1);box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 10px 26px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:14px">
+            <span style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <span style="font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.1em;color:#3A332E">{{ r.caseLine }}</span>
+              <span style="width:46px;height:46px;border-radius:50%;background:{{ r.light }};display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:#14110F;box-shadow:0 0 24px {{ r.light }}">{{ r.no }}</span>
+            </span>
+            <span style="height:1px;background:rgba(20,17,15,.25)"></span>
+            <span data-type-id="{{ r.id }}" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,4.2vw,56px);line-height:.9">{{ r.typedA }}<span style="visibility:hidden">{{ r.typedB }}</span></span>
+            <span style="font-size:15px;line-height:1.5;color:#3A332E;text-wrap:pretty">{{ r.teaser }}</span>
+            <span style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
+              <span style="font-family:'Special Elite',monospace;font-size:13px;color:#3A332E">{{ r.openLine }}</span>
+              <span style="padding:4px 10px;border:3px solid #C0392B;color:#C0392B;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.12em;transform:rotate(-8deg);opacity:.85;mix-blend-mode:multiply">POVERLJIVO</span>
+            </span>
+          </button>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="kviz" data-screen-label="Kviz" style="background:#EDE3CF;color:#14110F;padding:clamp(80px,10vw,130px) clamp(20px,4vw,48px)">
+  <div style="max-width:860px;margin:0 auto">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#8A6328" data-en="QUESTIONNAIRE · 3 QUESTIONS">UPITNIK · 3 PITANJA</div>
+    <div style="overflow:hidden;padding:26px 0 12px;margin:-16px 0 -12px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(52px,7vw,100px);line-height:.88" data-en="Still undecided?">Još se dvoumite?</h2></div>
+    <sc-if value="{{ quizActive }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:32px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <span style="font-family:'Special Elite',monospace;font-size:14px;color:#5A4F45">{{ quizProgress }}</span>
+          <div style="display:flex;gap:6px"><sc-for list="{{ quizBars }}" as="b" hint-placeholder-count="3"><span style="width:34px;height:4px;background:#14110F;opacity:{{ b.op }}"></span></sc-for></div>
+        </div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,3.4vw,46px);line-height:1;margin-top:18px">{{ quizQ }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:22px">
+          <sc-for list="{{ quizOpts }}" as="o" hint-placeholder-count="3">
+            <button type="button" onClick="{{ o.pick }}" style="display:flex;align-items:center;gap:14px;min-height:60px;padding:0 20px;border:1.5px solid #14110F;border-radius:2px;background:{{ o.bg }};color:{{ o.fg }};font-size:17px;font-weight:500;text-align:left;cursor:pointer" style-hover="background:#14110F;color:#EDE3CF"><span style="font-family:'Special Elite',monospace;font-size:14px;opacity:.7">{{ o.key }}</span><span>{{ o.label }}</span></button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;align-items:center;animation:fadeUp 500ms cubic-bezier(0.23,1,0.32,1) both">
+        <div style="background:#14110F;padding:6px;transform:rotate(-1.5deg);box-shadow:0 12px 28px rgba(0,0,0,.25)"><img src="{{ rec.img }}" alt="{{ rec.alt }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover"></div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-family:'Special Elite',monospace;font-size:13px;color:#8A6328">{{ rec.kicker }}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:.92">{{ rec.name }}</div>
+          <p style="margin:0;color:#3A332E">{{ rec.reason }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ rec.slots }}" as="rs" hint-placeholder-count="3">
+              <a href="{{ rs.href }}" data-btn="1" style="display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid #14110F;color:#14110F;border-radius:2px" style-hover="background:#14110F;color:#EDE3CF"><span style="font-family:'Bebas Neue',sans-serif;font-size:22px">{{ rs.time }}</span><span style="font-size:12px">{{ rs.day }}</span></a>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">
+            <a href="{{ rec.href }}" data-btn="1" style="display:inline-flex;align-items:center;min-height:52px;padding:0 24px;background:#14110F;color:#EDE3CF;font-weight:600;border-radius:2px" style-hover="background:#3A332E;color:#EDE3CF">{{ t.book }}</a>
+            <button type="button" onClick="{{ quizReset }}" style="min-height:52px;padding:0 18px;border:none;background:none;color:#5A4F45;cursor:pointer">{{ t.again }}</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</section>
+</main>
+<dc-import name="Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TX = {
+  sr: { difficulty: 'TEŽINA', duration: 'TRAJANJE', players: 'IGRAČI', escaped: 'IZAŠLO', teams: 'timova', bookThis: 'Rezerviši ovu sobu', fullFile: 'Ceo dosije →', openFile: 'Otvori dosije ↓', file: 'DOSIJE', caseL: 'SLUČAJ', open: 'Otvori dosije', all: 'Sve', easy: 'Lakše', hard: 'Teže', anyP: 'Svi', count: n => `${n} od 4 dosijea`, question: 'Pitanje', of: 'od', book: 'Rezerviši', again: 'Ponovi kviz', rec: 'PREPORUKA', today: 'Danas', tomorrow: 'Sutra',
+    quiz: [{ q: 'Koliko vas je?', o: ['Dvoje', '3–4 osobe', '5–6 osoba'] }, { q: 'Volite li strah?', o: ['Obožavam ga', 'Malo jeze je ok', 'Nikako'] }, { q: 'Prvi put igrate?', o: ['Da, prvi put', 'Igrali smo par puta', 'Mi smo veterani'] }],
+    reasons: { podrum: 'Volite strah — ovo je jedina horor soba.', sef: 'Dobar prvi slučaj: jasna misija i nimalo straha.', kabina: 'Priča na prvom mestu. Dobra za manje ekipe.', lab: 'Najteža soba — za veterane koji traže izazov.' } },
+  en: { difficulty: 'DIFFICULTY', duration: 'DURATION', players: 'PLAYERS', escaped: 'ESCAPED', teams: 'of teams', bookThis: 'Book this room', fullFile: 'Full case file →', openFile: 'Open the file ↓', file: 'CASE FILE', caseL: 'CASE', open: 'Open the file', all: 'All', easy: 'Easier', hard: 'Harder', anyP: 'Any', count: n => `${n} of 4 case files`, question: 'Question', of: 'of', book: 'Book', again: 'Retake quiz', rec: 'RECOMMENDED', today: 'Today', tomorrow: 'Tomorrow',
+    quiz: [{ q: 'How many of you?', o: ['Two', '3–4 people', '5–6 people'] }, { q: 'Do you like being scared?', o: ['Love it', 'A little is fine', 'Not at all'] }, { q: 'First time playing?', o: ['Yes, first time', 'We’ve played a few', 'We’re veterans'] }],
+    reasons: { podrum: 'You like fear — our only horror room.', sef: 'A good first case: clear mission, no scares.', kabina: 'Story first. Good for smaller teams.', lab: 'Our hardest room — for veterans seeking a challenge.' } }
+};
+const pill = on => ({ bg: on ? '#B8893E' : 'transparent', fg: on ? '#14110F' : '#EDE3CF', border: on ? '#B8893E' : 'rgba(237,227,207,.3)', pressed: on ? 'true' : 'false' });
+class Component extends DCLogic {
+  state = { z: !!window.ZK, lang: 'sr', diff: 'all', players: 0, open: {}, typed: {}, step: 0, answers: [] };
+  componentDidMount() {
+    const go = () => { if (!window.ZK) return setTimeout(go, 40); this.coarse = ZK.coarse(); this.setState({ z: true, lang: ZK.lang() }); ZK.motion(); this.observe(); };
+    go(); this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l);
+  }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); this.io && this.io.disconnect(); }
+  observe() {
+    if (ZK.reduced() || !('IntersectionObserver' in window)) { const a = {}; ZK.ROOMS.forEach(r => a[r.id] = 999); return this.setState({ typed: a }); }
+    this.io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const id = e.target.getAttribute('data-type-id'); this.io.unobserve(e.target); this.type(id); }), { threshold: 0.4 });
+    const tr = (n = 0) => { const els = document.querySelectorAll('[data-type-id]'); if (els.length) els.forEach(el => this.io.observe(el)); else if (n < 40) setTimeout(() => tr(n + 1), 100); }; tr();
+  }
+  type(id) { const len = ZK.room(id)[this.state.lang].name.length; let n = 0; const tm = setInterval(() => { n++; this.setState(s => ({ typed: { ...s.typed, [id]: n >= len ? 999 : n } })); if (n >= len) clearInterval(tm); }, 55); }
+  openRoom(id, v) { if (!!this.state.open[id] === v) return; if (v) ZK.track('dossier_opened', { room: id, page: 'sobe' }); this.setState(s => ({ open: { ...s.open, [id]: v } })); }
+  recommend(a) { if (a[1] === 0) return 'podrum'; if (a[2] === 2) return 'lab'; if (a[2] === 0 && a[1] === 2) return 'sef'; if (a[0] === 0) return 'kabina'; return a[2] === 0 ? 'sef' : 'kabina'; }
+  renderVals() {
+    const s = this.state, L = s.lang, t = TX[L], Z = window.ZK;
+    if (!Z) return { t };
+    const list = Z.ROOMS.filter(r => (s.diff === 'all' || (s.diff === 'easy' ? r.diff <= 3 : r.diff >= 4)) && (!s.players || (s.players >= r.min && s.players <= r.max)));
+    const rooms = list.map(r => { const o = !!s.open[r.id], d = r[L], n = s.typed[r.id] || 0; return {
+      id: r.id, no: r.no, tab: `${t.file} ${r.no}`, name: d.name, teaser: d.teaser, alt: d.alt, img: Z.IMG + r.img, light: r.light, page: r.page,
+      caseLine: `${t.caseL}: ${d.genre}`, players: `${r.min}–${r.max}`, escLine: `${r.escape}% ${t.teams}`, fullLine: t.fullFile, openLine: t.openFile,
+      typedA: d.name.slice(0, n), typedB: d.name.slice(n), coverBg: `radial-gradient(130% 50% at 50% 0%, ${r.glow} 0%, transparent 60%), linear-gradient(180deg,#D8C49A,#CBB487)`,
+      locks: [1, 2, 3, 4, 5].map(k => ({ op: k <= r.diff ? 1 : 0.2 })), coverT: o ? 'rotateX(-82deg)' : 'rotateX(0deg)', coverPE: o ? 'none' : 'auto', expanded: o ? 'true' : 'false',
+      openLabel: `${t.open}: ${d.name}`, bookHref: `rezervacija.dc.html?soba=${r.id}`,
+      enter: () => { if (!this.coarse) this.openRoom(r.id, true); }, leave: () => { if (!this.coarse) this.openRoom(r.id, false); }, toggle: () => this.openRoom(r.id, this.coarse ? !s.open[r.id] : true) }; });
+    const Q = t.quiz, qi = s.step, done = qi >= 3; let rec = {};
+    if (done) {
+      const id = this.recommend(s.answers), r = Z.room(id), out = [], d0 = new Date();
+      for (let k = 0; k < 3 && out.length < 3; k++) { const dt = new Date(d0); dt.setDate(dt.getDate() + k); const dk = Z.dateKey(dt); Z.slotsFor(id, dk).filter(x => x.free).forEach(x => { if (out.length < 3) out.push({ time: x.time, day: k === 0 ? t.today : k === 1 ? t.tomorrow : Z.fmtDate(dk, L), href: `rezervacija.dc.html?soba=${id}&datum=${dk}&termin=${encodeURIComponent(x.time)}` }); }); }
+      rec = { img: Z.IMG + r.img, alt: r[L].alt, name: r[L].name, kicker: `${t.rec} · ${r[L].genre.toUpperCase()}`, reason: t.reasons[id], href: `rezervacija.dc.html?soba=${id}`, slots: out };
+    }
+    return {
+      t, rooms, empty: rooms.length === 0, countLine: t.count(rooms.length),
+      diffOpts: [['all', t.all], ['easy', t.easy], ['hard', t.hard]].map(([k, label]) => ({ label, ...pill(s.diff === k), pick: () => { this.setState({ diff: k }); Z.track('rooms_filter', { difficulty: k }); } })),
+      playerOpts: [0, 2, 3, 4, 5, 6].map(n => ({ label: n ? String(n) : t.anyP, ...pill(s.players === n), pick: () => { this.setState({ players: n }); Z.track('rooms_filter', { players: n }); } })),
+      resetFilters: () => this.setState({ diff: 'all', players: 0 }),
+      quizActive: !done, quizDone: done, quizQ: done ? '' : Q[qi].q, quizProgress: `${t.question} ${Math.min(qi + 1, 3)} ${t.of} 3`, quizBars: [0, 1, 2].map(k => ({ op: k <= qi ? 1 : 0.18 })),
+      quizOpts: done ? [] : Q[qi].o.map((label, i) => ({ label, key: String.fromCharCode(65 + i), bg: 'transparent', fg: '#14110F', pick: () => { const a = s.answers.slice(0, qi); a[qi] = i; this.setState({ answers: a, step: qi + 1 }); if (qi + 1 === 3) Z.track('quiz_completed', { room: this.recommend(a), page: 'sobe' }); } })),
+      quizReset: () => this.setState({ step: 0, answers: [] }), rec
+    };
+  }
+}
+</script>
+</body>
+</html>

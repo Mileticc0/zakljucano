@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<section ref="{{ heroRef }}" data-screen-label="Dosije hero" style="position:relative;height:100svh;min-height:640px;overflow:hidden;background:#0B0908;color:#EDE3CF">
+  <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><img src="{{ heroImg }}" alt="{{ alt }}" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+  <sc-if value="{{ lampOn }}" hint-placeholder-val="{{ true }}">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(9,8,7,.9);mask-image:radial-gradient(circle 300px at var(--lx,60%) var(--ly,45%), transparent 0%, rgba(0,0,0,.25) 40%, #000 100%);-webkit-mask-image:radial-gradient(circle 300px at var(--lx,60%) var(--ly,45%), transparent 0%, rgba(0,0,0,.25) 40%, #000 100%);pointer-events:none"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(circle 320px at var(--lx,60%) var(--ly,45%), {{ tint }}, transparent 70%);mix-blend-mode:screen;pointer-events:none"></div>
+  </sc-if>
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.94) 0%, rgba(11,9,8,.4) 45%, transparent 70%), linear-gradient(to bottom, rgba(11,9,8,.6), transparent 22%);pointer-events:none"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;padding:0 clamp(20px,4vw,48px) clamp(40px,8vh,80px)">
+    <div style="max-width:1360px;margin:0 auto;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <span style="width:46px;height:46px;border-radius:50%;background:{{ light }};box-shadow:0 0 30px {{ light }};display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:#14110F">{{ no }}</span>
+        <span style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A">{{ kicker }}</span>
+      </div>
+      <div style="overflow:hidden;padding:40px 0 16px;margin:-40px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,176px);line-height:.86;max-width:1100px;text-wrap:balance">{{ name }}</h1></div>
+      <p style="margin:0;max-width:560px;font-size:clamp(16px,1.4vw,19px);color:#D9CFBB;text-wrap:pretty">{{ teaser }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 28px;font-family:'Special Elite',monospace;font-size:14px;color:#D9CFBB">
+        <span style="display:flex;align-items:center;gap:8px">{{ t.difficulty }} <span style="display:flex;gap:4px"><sc-for list="{{ locks }}" as="l" hint-placeholder-count="5"><span style="position:relative;width:12px;height:16px;opacity:{{ l.op }}"><span style="position:absolute;top:0;left:2px;width:8px;height:8px;border:2px solid #EDE3CF;border-bottom:none;border-radius:5px 5px 0 0"></span><span style="position:absolute;bottom:0;left:0;width:12px;height:9px;background:#EDE3CF;border-radius:1px"></span></span></sc-for></span></span>
+        <span>{{ durLine }}</span><span>{{ playersLine }}</span><span>{{ escLine }}</span><span>{{ ageLine }}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">
+        <a href="{{ bookHref }}" data-btn="1" style="display:inline-flex;align-items:center;min-height:54px;padding:0 28px;background:#B8893E;color:#14110F;font-weight:600;border-radius:2px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#CFA35A;color:#14110F">{{ t.bookThis }}</a>
+        <a href="#termini" data-btn="1" onClick="{{ toSlots }}" style="display:inline-flex;align-items:center;min-height:54px;padding:0 28px;border:1px solid rgba(237,227,207,.55);color:#EDE3CF;border-radius:2px" style-hover="border-color:#EDE3CF;color:#EDE3CF">{{ t.seeSlots }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Spis predmeta" style="background:radial-gradient(ellipse 70% 50% at 30% 0%, {{ tint }}, transparent 70%), #14110F;color:#EDE3CF;padding:clamp(80px,11vw,140px) clamp(20px,4vw,48px)">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr));gap:clamp(40px,6vw,88px);align-items:start">
+    <div style="position:relative;background:radial-gradient(ellipse at 85% 95%, rgba(150,110,50,.12), transparent 55%), #EDE3CF;color:#14110F;padding:clamp(28px,4vw,48px);transform:rotate(-1deg);box-shadow:0 30px 60px rgba(0,0,0,.5)">
+      <div style="display:flex;justify-content:space-between;gap:16px;font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.1em;color:#5A4F45;border-bottom:1px solid rgba(20,17,15,.25);padding-bottom:12px"><span>{{ fileLine }}</span><span>{{ t.classified }}</span></div>
+      <h2 style="margin:22px 0 18px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(40px,4vw,56px);line-height:.92">{{ t.caseRecord }}</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;font-family:'Special Elite',monospace;font-size:16px;line-height:1.75;color:#2A2420">
+        <sc-for list="{{ story }}" as="p" hint-placeholder-count="3"><p style="margin:0;text-wrap:pretty">{{ p.text }}</p></sc-for>
+      </div>
+      <div aria-hidden="true" style="position:absolute;right:24px;bottom:22px;padding:4px 12px;border:3px solid #C0392B;color:#C0392B;font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.14em;transform:rotate(-10deg);opacity:.8;mix-blend-mode:multiply">POVERLJIVO</div>
+      <div style="height:40px"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:32px">
+      <div style="position:relative;background:#0B0908;padding:8px;transform:rotate(1.8deg);box-shadow:0 20px 40px rgba(0,0,0,.5)">
+        <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><img src="{{ photo }}" alt="{{ photoAlt }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover"></sc-if>
+        <div aria-hidden="true" style="position:absolute;top:-18px;left:30px;width:16px;height:52px;border:2.5px solid #8F8B84;border-radius:9px;transform:rotate(6deg)"><div style="position:absolute;top:6px;left:2px;width:7px;height:34px;border:2.5px solid #8F8B84;border-radius:6px"></div></div>
+      </div>
+      <div>
+        <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:{{ light }}">{{ t.facts }}</div>
+        <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column">
+          <sc-for list="{{ facts }}" as="f" hint-placeholder-count="4">
+            <li style="display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(184,137,62,.25);font-size:17px"><span style="font-family:'Special Elite',monospace;font-size:13px;color:#B8893E">{{ f.n }}</span><span>{{ f.text }}</span></li>
+          </sc-for>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Dokazi" style="background:#14110F;color:#EDE3CF;padding:0 clamp(20px,4vw,48px) clamp(80px,11vw,140px)">
+  <div style="max-width:1360px;margin:0 auto">
+    <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E">{{ t.evidence }}</div>
+    <div style="overflow:hidden;padding:26px 0 12px;margin:-16px 0 28px"><h2 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(52px,7vw,104px);line-height:.88">{{ t.inside }}</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(16px,2vw,24px)">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="3">
+        <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+          <div data-clip="1" style="overflow:hidden;aspect-ratio:4/3;background:#3A332E"><img src="{{ g.src }}" alt="{{ g.cap }}" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+          <figcaption style="display:flex;gap:12px;font-family:'Special Elite',monospace;font-size:14px;color:#B9AE99"><span style="color:#D4AE6A">{{ g.no }}</span><span>{{ g.cap }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="termini" data-screen-label="Termini" style="background:#1A1613;color:#EDE3CF;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px);border-top:1px solid rgba(184,137,62,.2)">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
+      <div>
+        <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#B8893E">{{ t.next7 }}</div>
+        <h2 style="margin:10px 0 0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9">{{ t.pickSlot }}</h2>
+      </div>
+      <span style="font-family:'Special Elite',monospace;font-size:14px;color:#D4AE6A">{{ freeLine }}</span>
+    </div>
+    <div style="display:flex;gap:8px;overflow-x:auto;margin-top:32px;padding-bottom:6px">
+      <sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+        <button type="button" onClick="{{ d.pick }}" aria-pressed="{{ d.pressed }}" style="flex:none;min-width:88px;min-height:64px;padding:8px 12px;border:1px solid {{ d.border }};border-radius:2px;background:{{ d.bg }};color:{{ d.fg }};cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+          <span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em">{{ d.dow }}</span><span style="font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1">{{ d.num }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:20px">
+      <sc-for list="{{ times }}" as="s" hint-placeholder-count="8">
+        <sc-if value="{{ s.free }}" hint-placeholder-val="{{ true }}">
+          <a href="{{ s.href }}" onClick="{{ s.click }}" data-btn="1" style="display:flex;align-items:center;justify-content:center;min-height:58px;border:1px solid rgba(184,137,62,.55);border-radius:2px;color:#EDE3CF;font-family:'Bebas Neue',sans-serif;font-size:28px;transition:transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms cubic-bezier(0.23,1,0.32,1)" style-hover="background:#B8893E;color:#14110F">{{ s.time }}</a>
+        </sc-if>
+        <sc-if value="{{ s.taken }}" hint-placeholder-val="{{ false }}">
+          <span aria-label="{{ s.takenLabel }}" style="display:flex;align-items:center;justify-content:center;min-height:58px;border:1px solid rgba(237,227,207,.1);border-radius:2px;color:#6E655A;font-family:'Bebas Neue',sans-serif;font-size:28px;text-decoration:line-through;text-decoration-color:#C0392B">{{ s.time }}</span>
+        </sc-if>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Druge sobe" style="background:#14110F;color:#EDE3CF;padding:clamp(80px,10vw,130px) clamp(20px,4vw,48px)">
+  <div style="max-width:1360px;margin:0 auto">
+    <h2 style="margin:0 0 32px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(44px,5vw,72px);line-height:.9">{{ t.otherCases }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(16px,2vw,24px)">
+      <sc-for list="{{ others }}" as="o" hint-placeholder-count="3">
+        <a href="{{ o.page }}" style="position:relative;display:block;min-height:340px;overflow:hidden;color:#EDE3CF;background:#1A1613">
+          <img src="{{ o.img }}" alt="{{ o.alt }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(20,17,15,.95), rgba(20,17,15,.1) 70%)"></div>
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:24px;display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:'Special Elite',monospace;font-size:13px;color:{{ o.light }}">{{ o.kicker }}</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:.92">{{ o.name }}</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;room&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;podrum&quot;,&quot;sef&quot;,&quot;kabina&quot;,&quot;lab&quot;],&quot;default&quot;:&quot;podrum&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const TX = {
+  sr: { difficulty: 'TEŽINA', bookThis: 'Rezerviši ovu sobu', seeSlots: 'Slobodni termini', classified: 'STROGO POVERLJIVO', caseRecord: 'Spis predmeta', facts: 'ČINJENICE', evidence: 'DOKAZNI MATERIJAL', inside: 'Šta vas čeka unutra', next7: 'SLEDEĆIH 7 DANA', pickSlot: 'Izaberite termin', otherCases: 'Ostali slučajevi', file: 'DOSIJE', taken: 'zauzeto', free: n => `${n} slobodnih termina`, freeOne: 'još 1 slobodan termin', none: 'Ovaj dan je popunjen' },
+  en: { difficulty: 'DIFFICULTY', bookThis: 'Book this room', seeSlots: 'Available slots', classified: 'TOP SECRET', caseRecord: 'Case record', facts: 'FACTS', evidence: 'EVIDENCE', inside: 'What waits inside', next7: 'NEXT 7 DAYS', pickSlot: 'Pick a slot', otherCases: 'Other cases', file: 'CASE FILE', taken: 'booked', free: n => `${n} slots available`, freeOne: '1 slot left', none: 'This day is fully booked' }
+};
+class Component extends DCLogic {
+  heroRef = React.createRef();
+  state = { z: !!window.ZK, lang: 'sr', day: 0 };
+  componentDidMount() {
+    const go = () => { if (!window.ZK) return setTimeout(go, 40); const Z = window.ZK; this.setState({ z: true, lang: Z.lang() }); this.stopLamp = Z.lamp(() => [this.heroRef.current]); Z.motion(); };
+    go();
+    this.l = e => this.setState({ lang: e.detail }); addEventListener('zk-lang', this.l);
+  }
+  componentWillUnmount() { removeEventListener('zk-lang', this.l); this.stopLamp && this.stopLamp(); }
+  renderVals() {
+    const Z = window.ZK, t = TX[this.state.lang], L = this.state.lang;
+    if (!Z) return { t, heroRef: this.heroRef, lampOn: true };
+    const r = Z.room(this.props.room), d = r[L], I = Z.IMG;
+    const days = [...Array(7)].map((_, i) => { const dt = new Date(); dt.setDate(dt.getDate() + i); return dt; });
+    const dk = Z.dateKey(days[this.state.day]);
+    const slots = Z.slotsFor(r.id, dk), nFree = slots.filter(s => s.free).length;
+    return {
+      t, ready: true, heroRef: this.heroRef, lampOn: !Z.reduced(), heroImg: I + r.img, alt: d.alt, tint: r.tint, light: r.light, no: r.no,
+      kicker: `${t.file} ${r.no} · ${d.genre.toUpperCase()}`, name: d.name, teaser: d.teaser,
+      locks: [1, 2, 3, 4, 5].map(k => ({ op: k <= r.diff ? 1 : 0.22 })),
+      durLine: L === 'en' ? '60 MIN' : '60 MIN', playersLine: `${r.min}–${r.max} ${L === 'en' ? 'PLAYERS' : 'IGRAČA'}`,
+      escLine: `${r.escape}% ${L === 'en' ? 'ESCAPE' : 'IZAĐE'}`, ageLine: `${r.age}+`,
+      bookHref: `rezervacija.dc.html?soba=${r.id}`, toSlots: () => Z.track('room_slots_click', { room: r.id }),
+      fileLine: `${t.file} ${r.no} / 2026`, story: d.story.map(text => ({ text })),
+      photo: I + r.gallery[0], photoAlt: d.caps[0],
+      facts: d.facts.map((text, i) => ({ text, n: String(i + 1).padStart(2, '0') })),
+      gallery: r.gallery.map((g, i) => ({ src: I + g, cap: d.caps[i], no: `#${String(i + 1).padStart(2, '0')}` })),
+      days: days.map((dt, i) => { const on = i === this.state.day; return { dow: Z.DAYS[L][dt.getDay()], num: dt.getDate(), pressed: on ? 'true' : 'false', bg: on ? '#B8893E' : 'transparent', fg: on ? '#14110F' : '#EDE3CF', border: on ? '#B8893E' : 'rgba(237,227,207,.25)', pick: () => this.setState({ day: i }) }; }),
+      times: slots.map(s => ({ time: s.time, free: s.free, taken: !s.free, takenLabel: `${s.time} — ${t.taken}`, href: `rezervacija.dc.html?soba=${r.id}&datum=${dk}&termin=${encodeURIComponent(s.time)}`, click: () => Z.track('slot_clicked', { room: r.id, time: s.time, date: dk, source: 'room' }) })),
+      freeLine: nFree === 0 ? t.none : nFree === 1 ? t.freeOne : t.free(nFree),
+      others: Z.ROOMS.filter(o => o.id !== r.id).map(o => ({ page: o.page, img: I + o.img, alt: o[L].alt, name: o[L].name, light: o.light, kicker: `${t.file} ${o.no} · ${o[L].genre.toUpperCase()}` }))
+    };
+  }
+}
+</script>
+</body>
+</html>
