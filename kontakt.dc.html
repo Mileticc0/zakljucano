@@ -42,7 +42,7 @@ input,select,textarea{font-size:16px;font-family:inherit}
   <div style="position:relative;max-width:1360px;margin:0 auto;width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
     <div>
       <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="CONTACT · BELGRADE">KONTAKT · BEOGRAD</div>
-      <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86" data-en="Find the door.">Pronađite vrata.</h1></div>
+      <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86" data-en="Find the door">Pronađite vrata</h1></div>
     </div>
     <span style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid {{ openColor }};color:{{ openColor }};font-family:'Special Elite',monospace;font-size:15px"><span style="width:9px;height:9px;border-radius:50%;background:{{ openColor }}"></span>{{ openLabel }}</span>
   </div>
@@ -70,7 +70,7 @@ input,select,textarea{font-size:16px;font-family:inherit}
       </div>
     </div>
     <form onSubmit="{{ submit }}" novalidate="" style="flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:14px;background:#EDE3CF;color:#14110F;padding:clamp(22px,3vw,36px);box-shadow:0 24px 50px rgba(0,0,0,.4)">
-      <h2 style="margin:0 0 6px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:44px;line-height:.95" data-en="Write to us.">Pišite nam.</h2>
+      <h2 style="margin:0 0 6px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:44px;line-height:.95" data-en="Write to us">Pišite nam</h2>
       <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500" data-en="Topic">Tema</span>
         <select value="{{ topic }}" onChange="{{ onTopic }}" style="height:54px;padding:0 12px;border:1px solid rgba(20,17,15,.3);border-radius:2px;background:#FBF6EA;color:#14110F"><sc-for list="{{ topics }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select></label>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px">

@@ -41,14 +41,14 @@ input,select,textarea{font-size:16px;font-family:inherit}
   <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,9,8,.96), rgba(11,9,8,.45) 55%, rgba(11,9,8,.6))"></div>
   <div style="position:relative;max-width:1360px;margin:0 auto;width:100%">
     <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#D4AE6A" data-en="BIRTHDAYS · FROM AGE 10">ROĐENDANI · OD 10 GODINA</div>
-    <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86;max-width:1100px" data-en="A birthday behind locked doors.">Rođendan iza zaključanih vrata.</h1></div>
+    <div style="overflow:hidden;padding:40px 0 16px;margin:-28px 0 -16px"><h1 data-up="1" style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.86;max-width:1100px" data-en="A birthday behind locked doors">Rođendan iza zaključanih vrata</h1></div>
     <p style="margin:16px 0 0;max-width:540px;font-size:18px;color:#D9CFBB" data-en="60 minutes in the room, then cake and celebration in our lounge. You bring the guests — we bring the mystery.">60 minuta u sobi, pa torta i slavlje u našem salonu. Vi dovodite goste — mi donosimo misteriju.</p>
   </div>
 </section>
 
 <section data-screen-label="Paketi" style="background:#14110F;color:#EDE3CF;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
   <div style="max-width:1240px;margin:0 auto">
-    <h2 style="margin:0 0 36px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9" data-en="Three packages.">Tri paketa.</h2>
+    <h2 style="margin:0 0 36px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9" data-en="Three packages">Tri paketa</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(20px,2.5vw,32px)">
       <sc-for list="{{ packs }}" as="p" hint-placeholder-count="3">
         <article style="display:flex;flex-direction:column;gap:14px;padding:28px;background:#1A1613;border:1px solid {{ p.border }}">
@@ -70,7 +70,7 @@ input,select,textarea{font-size:16px;font-family:inherit}
 <section id="proslava" data-screen-label="Forma za proslavu" style="background:#EDE3CF;color:#14110F;padding:clamp(72px,9vw,120px) clamp(16px,4vw,48px);margin-top:clamp(72px,9vw,120px)">
   <div style="max-width:1240px;margin:0 auto">
     <div style="font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.16em;color:#8A6328" data-en="PARTY REQUEST">ZAHTEV ZA PROSLAVU</div>
-    <h2 style="margin:10px 0 36px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9" data-en="Plan the party.">Isplanirajte proslavu.</h2>
+    <h2 style="margin:10px 0 36px;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.9" data-en="Plan the party">Isplanirajte proslavu</h2>
     <div style="display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:flex-start">
       <form onSubmit="{{ submit }}" novalidate="" style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:18px">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px">
@@ -102,7 +102,7 @@ input,select,textarea{font-size:16px;font-family:inherit}
         <span style="font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em;color:#B8893E" data-en="ESTIMATED PRICE · LIVE">OKVIRNA CENA · UŽIVO</span>
         <span style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.9;color:#D4AE6A">{{ totalLine }}</span>
         <sc-for list="{{ lines }}" as="l" hint-placeholder-count="4"><div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed rgba(237,227,207,.15);padding-bottom:10px;font-size:15px"><span style="color:#B9AE99">{{ l.k }}</span><span style="text-align:right">{{ l.v }}</span></div></sc-for>
-        <span style="font-size:13px;color:#8F8577" data-en="Decorations and 30 minutes in the lounge are included.">Ukrasi i 30 minuta u salonu su uključeni.</span>
+        <span style="font-size:13px;color:#8F8577" data-en="Decorations and 30 minutes in the lounge are included">Ukrasi i 30 minuta u salonu su uključeni</span>
       </aside>
     </div>
   </div>
